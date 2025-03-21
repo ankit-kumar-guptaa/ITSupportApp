@@ -3,7 +3,7 @@
     <!-- Hero Section with Auto-Slide -->
     <section class="hero">
         <div class="slides">
-            <div class="slide active" style="background-image: url('/ITSupportApp/assets/images/hero1.jpg');">
+            <div class="slide active" style="background-image: url('https://www.gosky.co.th/th/wp-content/uploads/2019/07/it-solutions-banner.jpg');">
                 <div class="hero-text" data-aos="fade-down">
                     <h1>Fast IT Solutions</h1>
                     <p>Resolve your tech issues with a single click!</p>

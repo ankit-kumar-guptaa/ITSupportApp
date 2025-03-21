@@ -1,6 +1,4 @@
 <?php
-session_start();
-require_once '../controllers/AuthController.php';
-$auth = new AuthController(null);
-$auth->logout();
-?>
+// Redirect to AuthController for logout
+header("Location: /controllers/AuthController.php?action=logout");
+exit;
