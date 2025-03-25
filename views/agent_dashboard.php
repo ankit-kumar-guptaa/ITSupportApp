@@ -1,136 +1,231 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'agent') {
-    header("Location: /views/login.php");
+    header("Location: /views/agent_login.php?error=Please login as an agent!");
     exit;
 }
 require '../config/db.php';
 
-// Fetch agent details using email from users table
-$stmt = $pdo->prepare("SELECT email FROM users WHERE id = ? AND role = 'agent'");
+// Fetch agent details
+$stmt = $pdo->prepare("SELECT id, name, email, phone_number, address, status FROM agents WHERE id = ?");
 $stmt->execute([$_SESSION['user_id']]);
-$user = $stmt->fetch();
+$agentData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-if (!$user) {
-    // If user not found, redirect to login
-    header("Location: /views/login.php?error=Agent not found");
+if (!$agentData) {
+    session_unset();
+    session_destroy();
+    header("Location: /views/agent_login.php?error=Agent not found");
     exit;
 }
 
-$agent_email = $user['email'];
-
-// Fetch agent details from agents table using email
-$stmt = $pdo->prepare("SELECT * FROM agents WHERE email = ?");
-$stmt->execute([$agent_email]);
-$agent = $stmt->fetch();
-
-// Fetch agent ID for assigned issues
-$agent_id = $agent ? $agent['id'] : null;
-
-if (!$agent_id) {
-    // If agent not found in agents table, show error
-    $issues = [];
-} else {
-    // Fetch assigned issues with user details
-    $stmt = $pdo->prepare("SELECT i.*, u.name as user_name, u.email as user_email, u.phone_number as user_phone, u.address as user_address FROM issues i JOIN users u ON i.user_id = u.id WHERE i.agent_id = ?");
-    $stmt->execute([$agent_id]);
-    $issues = $stmt->fetchAll();
+// Check if agent is approved
+if ($agentData['status'] !== 'approved') {
+    session_unset();
+    session_destroy();
+    header("Location: /views/agent_login.php?error=Your account is not approved yet. Please wait for admin approval.");
+    exit;
 }
+
+// Fetch assigned issues
+$stmt = $pdo->prepare("SELECT i.*, u.name as user_name, u.phone_number as user_phone, u.address as user_address 
+                       FROM issues i 
+                       JOIN users u ON i.user_id = u.id 
+                       WHERE i.agent_id = ?");
+$stmt->execute([$_SESSION['user_id']]);
+$assigned_issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch issue history
+$stmt = $pdo->prepare("SELECT i.*, u.name as user_name 
+                       FROM issues i 
+                       JOIN users u ON i.user_id = u.id 
+                       WHERE i.agent_id = ? AND i.status = 'resolved'");
+$stmt->execute([$_SESSION['user_id']]);
+$issue_history = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Fetch messages from admin
+$stmt = $pdo->prepare("SELECT * FROM messages WHERE recipient_id = ? AND recipient_role = 'agent'");
+$stmt->execute([$_SESSION['user_id']]);
+$messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php include 'header.php'; ?>
 <main>
     <section class="dashboard-section">
         <div class="dashboard-box" data-aos="fade-up">
-            <h2>Welcome, Agent!</h2>
-            <h3>Assigned Issues</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>User Email</th>
-                        <th>User Phone</th>
-                        <th>User Address</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php if (empty($issues)): ?>
-                        <tr>
-                            <td colspan="9">No issues assigned to you yet.</td>
-                        </tr>
-                    <?php else: ?>
-                        <?php foreach ($issues as $issue): ?>
-                            <tr>
-                                <td><?php echo $issue['id']; ?></td>
-                                <td>
-                                    <?php
-                                    if ($issue['show_user_details']) {
-                                        echo htmlspecialchars($issue['user_name']);
-                                    } else {
-                                        echo '-';
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    if ($issue['show_user_details']) {
-                                        echo htmlspecialchars($issue['user_email']);
-                                    } else {
-                                        echo '-';
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    if ($issue['show_user_details']) {
-                                        echo htmlspecialchars($issue['user_phone']);
-                                    } else {
-                                        echo '-';
-                                    }
-                                    ?>
-                                </td>
-                                <td>
-                                    <?php
-                                    if ($issue['show_user_details']) {
-                                        echo htmlspecialchars($issue['user_address']);
-                                    } else {
-                                        echo '-';
-                                    }
-                                    ?>
-                                </td>
-                                <td><?php echo htmlspecialchars($issue['description']); ?></td>
-                                <td><?php echo $issue['category']; ?></td>
-                                <td><?php echo $issue['status']; ?></td>
-                                <td>
-                                    <form action="/controllers/AgentController.php?action=update_status" method="POST">
-                                        <input type="hidden" name="issue_id" value="<?php echo $issue['id']; ?>">
-                                        <select name="status">
-                                            <option value="Pending" <?php echo $issue['status'] === 'Pending' ? 'selected' : ''; ?>>Pending</option>
-                                            <option value="In Progress" <?php echo $issue['status'] === 'In Progress' ? 'selected' : ''; ?>>In Progress</option>
-                                            <option value="Resolved" <?php echo $issue['status'] === 'Resolved' ? 'selected' : ''; ?>>Resolved</option>
-                                        </select>
-                                        <button type="submit" class="cta-btn">Update</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        <?php endforeach; ?>
-                    <?php endif; ?>
-                </tbody>
-            </table>
-            <!-- Extra Functionality: View Profile -->
-            <h3>Your Profile</h3>
-            <?php if ($agent): ?>
-                <p>Name: <?php echo htmlspecialchars($agent['name']); ?></p>
-                <p>Specialization: <?php echo htmlspecialchars($agent['specialization']); ?></p>
-            <?php else: ?>
-                <p>Profile details not found.</p>
+            <h2>Welcome, <?php echo htmlspecialchars($agentData['name']); ?>!</h2>
+
+            <?php if (isset($_GET['success'])): ?>
+                <p style="color: green;"><?php echo htmlspecialchars($_GET['success']); ?></p>
             <?php endif; ?>
+            <?php if (isset($_GET['error'])): ?>
+                <p style="color: red;"><?php echo htmlspecialchars($_GET['error']); ?></p>
+            <?php endif; ?>
+
+            <!-- Tabs Navigation -->
+            <div class="tab">
+                <button class="tablinks active" onclick="openTab(event, 'profile')">Profile</button>
+                <button class="tablinks" onclick="openTab(event, 'issues')">Assigned Issues</button>
+                <button class="tablinks" onclick="openTab(event, 'history')">Issue History</button>
+                <button class="tablinks" onclick="openTab(event, 'messages')">Messages</button>
+            </div>
+
+            <!-- Tab Content: Profile -->
+            <div id="profile" class="tab-content active">
+                <h3>Your Profile</h3>
+                <p><strong>Name:</strong> <?php echo htmlspecialchars($agentData['name']); ?></p>
+                <p><strong>Email:</strong> <?php echo htmlspecialchars($agentData['email']); ?></p>
+                <p><strong>Phone Number:</strong> <?php echo htmlspecialchars($agentData['phone_number']); ?></p>
+                <p><strong>Address:</strong> <?php echo htmlspecialchars($agentData['address'] ?? 'Not provided'); ?></p>
+                <p><strong>Status:</strong> <?php echo htmlspecialchars($agentData['status']); ?></p>
+            </div>
+
+
+               <!-- Tab Content: Assigned Issues -->
+               <div id="issues" class="tab-content">
+                <h3>Assigned Issues</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User Name</th>
+                            <th>User Phone</th>
+                            <th>User Address</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($assigned_issues)): ?>
+                            <tr>
+                                <td colspan="8">No issues assigned yet.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($assigned_issues as $issue): ?>
+                                <tr>
+                                    <td><?php echo $issue['id']; ?></td>
+                                    <td><?php echo htmlspecialchars($issue['user_name']); ?></td>
+                                    <td><?php echo htmlspecialchars($issue['user_phone']); ?></td>
+                                    <td><?php echo htmlspecialchars($issue['user_address']); ?></td>
+                                    <td><?php echo htmlspecialchars($issue['description']); ?></td>
+                                    <td><?php echo $issue['category']; ?></td>
+                                    <td><?php echo $issue['status']; ?></td>
+                                    <td>
+                                        <form action="/controllers/AgentController.php?action=update_issue_status"
+                                            method="POST">
+                                            <input type="hidden" name="issue_id" value="<?php echo $issue['id']; ?>">
+                                            <select name="status">
+                                                <option value="in_progress">In Progress</option>
+                                                <option value="resolved">Resolved</option>
+                                                <option value="escalated">Escalated</option>
+                                            </select>
+                                            <textarea name="note" placeholder="Add a note (e.g., resolution details)"
+                                                required></textarea>
+                                            <button type="submit" class="cta-btn">Update</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tab Content: Issue History -->
+            <div id="history" class="tab-content">
+                <h3>Issue History</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>User Name</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Created At</th>
+                            <th>Resolved At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($issue_history)): ?>
+                            <tr>
+                                <td colspan="7">No resolved issues yet.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($issue_history as $issue): ?>
+                                <tr>
+                                    <td><?php echo $issue['id']; ?></td>
+                                    <td><?php echo htmlspecialchars($issue['user_name']); ?></td>
+                                    <td><?php echo htmlspecialchars($issue['description']); ?></td>
+                                    <td><?php echo $issue['category']; ?></td>
+                                    <td><?php echo $issue['status']; ?></td>
+                                    <td><?php echo $issue['created_at']; ?></td>
+                                    <td><?php echo $issue['updated_at']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Tab Content: Messages -->
+            <div id="messages" class="tab-content">
+                <h3>Messages</h3>
+                <h4>Messages from Admin</h4>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Message</th>
+                            <th>Sent At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($messages)): ?>
+                            <tr>
+                                <td colspan="2">No messages from admin.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($messages as $message): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($message['message']); ?></td>
+                                    <td><?php echo $message['created_at']; ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+
+                <h4>Send Message to Admin</h4>
+                <form action="/controllers/AgentController.php?action=send_message" method="POST">
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Enter your message"></textarea>
+                    </div>
+                    <button type="submit" class="cta-btn">Send</button>
+                </form>
+            </div>
+            <!-- Rest of the dashboard code remains the same -->
+            <!-- ... -->
         </div>
     </section>
 </main>
+
+<script>
+function openTab(evt, tabName) {
+    var tabcontent = document.getElementsByClassName("tab-content");
+    for (var i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].classList.remove("active");
+    }
+
+    var tablinks = document.getElementsByClassName("tablinks");
+    for (var i = 0; i < tablinks.length; i++) {
+        tablinks[i].classList.remove("active");
+    }
+
+    document.getElementById(tabName).classList.add("active");
+    evt.currentTarget.classList.add("active");
+}
+</script>
+
 <?php include 'footer.php'; ?>

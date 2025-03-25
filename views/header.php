@@ -66,34 +66,60 @@ if (isset($_SESSION['user_id'])) {
     </style>
 </head>
 <body>
-    <header>
-        <div class="logo">
-            <img src="/assets/logo.svg" alt="Logo" style=" vertical-align: middle;">
-            <!-- <span>IT Support Hub</span> -->
-        </div>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/views/report_issue.php">Report Issue</a></li>
-                <li><a href="/faq">FAQ</a></li>
-                <li><a href="/contact">Contact</a></li>
-                <?php if (isset($_SESSION['user_id'])): ?>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle"><?php echo $user_name; ?> ▼</a>
-                        <ul class="dropdown-menu">
+<?php
+// Ensure session is started
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+// Set user name for dropdown if logged in
+$user_name = isset($_SESSION['name']) ? htmlspecialchars($_SESSION['name']) : 'Profile';
+?>
+
+<header>
+    <div class="logo">
+        <img src="/assets/logo.svg" alt="Logo" style="vertical-align: middle;">
+        <!-- <span>IT Support Hub</span> -->
+    </div>
+    <nav>
+        <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/views/report_issue.php">Report Issue</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/contact">Contact</a></li>
+
+            <?php if (isset($_SESSION['user_id'])): ?>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle"><?php echo $user_name; ?> ▼</a>
+                    <ul class="dropdown-menu">
+                        <?php if ($_SESSION['role'] === 'user'): ?>
+                            <!-- User-specific menu -->
                             <li><a href="/views/user_dashboard.php">Dashboard</a></li>
                             <li><a href="/views/report_issue.php">Report Issue</a></li>
                             <li><a href="/views/reported_issues.php">Your Reported Issues</a></li>
                             <li><a href="/views/logout.php">Logout</a></li>
-                        </ul>
-                    </li>
-                <?php else: ?>
-                    <li><a href="/views/login.php">Login/Signup</a></li>
-                <?php endif; ?>
-            </ul>
-        </nav>
-    </header>
-
+                        <?php elseif ($_SESSION['role'] === 'agent'): ?>
+                            <!-- Agent-specific menu -->
+                            <li><a href="/views/agent_dashboard.php">Dashboard</a></li>
+                            <li><a href="/views/agent_dashboard.php#issues">Assigned Issues</a></li>
+                            <li><a href="/views/agent_dashboard.php#history">Issue History</a></li>
+                            <li><a href="/views/logout.php">Logout</a></li>
+                        <?php elseif ($_SESSION['role'] === 'admin'): ?>
+                            <!-- Admin-specific menu -->
+                            <li><a href="/views/admin_dashboard.php">Dashboard</a></li>
+                            <li><a href="/views/admin_dashboard.php#agents">Manage Agents</a></li>
+                            <li><a href="/views/logout.php">Logout</a></li>
+                        <?php endif; ?>
+                    </ul>
+                </li>
+            <?php else: ?>
+                <!-- Show separate login links for user and agent -->
+                <li><a href="/views/login.php">User Login/Signup</a></li>
+                <li><a href="/views/agent_login.php">Agent Login</a></li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+</header>
 
     <style>
         :root {

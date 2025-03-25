@@ -65,12 +65,12 @@ $issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <div id="update" class="tab-content">
                 <!-- Update Email -->
                 <h3>Update Email</h3>
-                <form action="/controllers/UserController.php?action=update_email" method="POST">
+                <form action="/controllers/UserController.php?action=update_email_request" method="POST">
                     <div class="form-group">
                         <label for="email">New Email</label>
                         <input type="email" id="email" name="email" required placeholder="Enter new email" value="<?php echo htmlspecialchars($userData['email'] ?? ''); ?>">
                     </div>
-                    <button type="submit" class="cta-btn">Update</button>
+                    <button type="submit" class="cta-btn">Send OTP</button>
                 </form>
 
                 <!-- Update Phone Number -->

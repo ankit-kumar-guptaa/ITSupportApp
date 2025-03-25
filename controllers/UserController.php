@@ -4,6 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 require '../config/db.php';
+require '../config/email.php'; // Assuming this contains the sendEmail function
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
@@ -50,30 +51,84 @@ if ($action === 'update_address') {
     }
 }
 
-if ($action === 'update_email') {
+if ($action === 'update_email_request') {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $new_email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
 
         // Validate email
-        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        if (!filter_var($new_email, FILTER_VALIDATE_EMAIL)) {
             header("Location: /views/user_dashboard.php?error=Invalid email format!");
             exit;
         }
 
         // Check if email already exists
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ? AND id != ?");
-        $stmt->execute([$email, $_SESSION['user_id']]);
+        $stmt->execute([$new_email, $_SESSION['user_id']]);
         if ($stmt->rowCount() > 0) {
             header("Location: /views/user_dashboard.php?error=Email already exists!");
             exit;
         }
 
-        // Update email
-        $stmt = $pdo->prepare("UPDATE users SET email = ? WHERE id = ?");
-        $stmt->execute([$email, $_SESSION['user_id']]);
+        // Fetch current email
+        $stmt = $pdo->prepare("SELECT email FROM users WHERE id = ?");
+        $stmt->execute([$_SESSION['user_id']]);
+        $current_email = $stmt->fetch()['email'];
 
-        header("Location: /views/user_dashboard.php?success=Email updated successfully!");
-        exit;
+        // Generate OTP
+        $otp = rand(100000, 999999);
+        $expires_at = date('Y-m-d H:i:s', strtotime('+30 minutes'));
+
+        // Save OTP to database
+        $stmt = $pdo->prepare("INSERT INTO otps (email, otp, expires_at, action) VALUES (?, ?, ?, 'email_update')");
+        $stmt->execute([$current_email, $otp, $expires_at]);
+
+        // Send OTP via email
+        $subject = "OTP for Email Update - IT Support Hub";
+        $body = "Dear {$userData['name']},<br><br>Your OTP for email update is: <b>$otp</b>. It is valid for 30 minutes.<br><br>Thank you,<br>IT Support Hub Team";
+        if (sendEmail($current_email, $subject, $body)) {
+            // Store new email in session temporarily
+            $_SESSION['pending_email_update'] = [
+                'new_email' => $new_email,
+                'current_email' => $current_email
+            ];
+            header("Location: /views/verify_email_otp.php");
+            exit;
+        } else {
+            header("Location: /views/user_dashboard.php?error=Failed to send OTP. Please try again.");
+            exit;
+        }
+    }
+}
+
+if ($action === 'verify_email_otp') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $otp = trim($_POST['otp']);
+        $current_email = $_SESSION['pending_email_update']['current_email'];
+        $new_email = $_SESSION['pending_email_update']['new_email'];
+
+        // Check OTP
+        $stmt = $pdo->prepare("SELECT * FROM otps WHERE email = ? AND otp = ? AND expires_at > NOW() AND action = 'email_update'");
+        $stmt->execute([$current_email, $otp]);
+        $otp_record = $stmt->fetch();
+
+        if ($otp_record) {
+            // OTP verified, update the email
+            $stmt = $pdo->prepare("UPDATE users SET email = ? WHERE id = ?");
+            $stmt->execute([$new_email, $_SESSION['user_id']]);
+
+            // Delete OTP
+            $stmt = $pdo->prepare("DELETE FROM otps WHERE email = ? AND action = 'email_update'");
+            $stmt->execute([$current_email]);
+
+            // Clear session
+            unset($_SESSION['pending_email_update']);
+
+            header("Location: /views/user_dashboard.php?success=Email updated successfully!");
+            exit;
+        } else {
+            header("Location: /views/verify_email_otp.php?error=Invalid or expired OTP!");
+            exit;
+        }
     }
 }
 

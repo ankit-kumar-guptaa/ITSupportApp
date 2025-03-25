@@ -1,41 +1,39 @@
 <?php
 session_start();
 require '../config/db.php';
-require '../config/email.php';
 
 $action = isset($_GET['action']) ? $_GET['action'] : '';
 
-if ($action === 'register') {
+if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'agent') {
+    header("Location: /views/login.php");
+    exit;
+}
+
+if ($action === 'update_issue_status') {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
-        $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
-        $phone_number = filter_input(INPUT_POST, 'phone_number', FILTER_SANITIZE_STRING);
-        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-        $specialization = $_POST['specialization'];
+        $issue_id = $_POST['issue_id'];
+        $status = $_POST['status'];
+        $note = filter_input(INPUT_POST, 'note', FILTER_SANITIZE_STRING);
 
-        // Validate phone number
-        if (!preg_match('/^[0-9]{10}$/', $phone_number)) {
-            echo "Invalid phone number! Please enter a 10-digit number.";
-            exit;
-        }
+        // Update issue status and note
+        $stmt = $pdo->prepare("UPDATE issues SET status = ?, resolution_note = ?, updated_at = NOW() WHERE id = ? AND agent_id = ?");
+        $stmt->execute([$status, $note, $issue_id, $_SESSION['user_id']]);
 
-        // Check if email already exists
-        $stmt = $pdo->prepare("SELECT * FROM agents WHERE email = ?");
-        $stmt->execute([$email]);
-        if ($stmt->rowCount() > 0) {
-            echo "Email already exists!";
-            exit;
-        }
+        header("Location: /views/agent_dashboard.php?success=Issue status updated successfully!");
+        exit;
+    }
+}
 
-        // Register agent
-        $stmt = $pdo->prepare("INSERT INTO agents (name, email, phone_number, password, specialization) VALUES (?, ?, ?, ?, ?)");
-        $stmt->execute([$name, $email, $phone_number, $password, $specialization]);
+if ($action === 'send_message') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING);
 
-        // Also add to users table with role 'agent'
-        $stmt = $pdo->prepare("INSERT INTO users (name, email, phone_number, password, role, is_verified) VALUES (?, ?, ?, ?, 'agent', 1)");
-        $stmt->execute([$name, $email, $phone_number, $password]);
+        // Save message to database
+        $stmt = $pdo->prepare("INSERT INTO messages (sender_id, sender_role, recipient_id, recipient_role, message, created_at) 
+                               VALUES (?, 'agent', 1, 'admin', ?, NOW())");
+        $stmt->execute([$_SESSION['user_id'], $message]);
 
-        header("Location: /views/login.php?success=Agent registration successful! Please login.");
+        header("Location: /views/agent_dashboard.php?success=Message sent to admin successfully!");
         exit;
     }
 }
