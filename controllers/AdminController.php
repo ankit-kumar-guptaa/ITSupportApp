@@ -110,3 +110,31 @@ if ($action === 'delete_agent') {
         exit;
     }
 }
+
+if ($action === 'toggle_agent_details') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $issue_id = $_POST['issue_id'];
+        $show_agent_details = isset($_POST['show_agent_details']) ? 1 : 0;
+
+        // Update show_agent_details in issues table
+        $stmt = $pdo->prepare("UPDATE issues SET show_agent_details = ? WHERE id = ?");
+        $stmt->execute([$show_agent_details, $issue_id]);
+
+        header("Location: /admin/dashboard.php");
+        exit;
+    }
+}
+
+if ($action === 'toggle_user_details') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $issue_id = $_POST['issue_id'];
+        $show_user_details = isset($_POST['show_user_details']) ? 1 : 0;
+
+        // Update show_user_details in issues table
+        $stmt = $pdo->prepare("UPDATE issues SET show_user_details = ? WHERE id = ?");
+        $stmt->execute([$show_user_details, $issue_id]);
+
+        header("Location: /admin/dashboard.php");
+        exit;
+    }
+}

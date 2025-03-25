@@ -17,49 +17,60 @@ $all_agents = $pdo->query("SELECT * FROM agents")->fetchAll();
     <section class="dashboard-section">
         <div class="dashboard-box" data-aos="fade-up">
             <h2>Admin Dashboard</h2>
-
-            <!-- All Issues -->
             <h3>All Issues</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>User</th>
-                        <th>Description</th>
-                        <th>Category</th>
-                        <th>Status</th>
-                        <th>Agent</th>
-                        <th>Assign Agent</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($issues as $issue): ?>
-                        <tr>
-                            <td><?php echo $issue['id']; ?></td>
-                            <td><?php echo htmlspecialchars($issue['user_name']); ?></td>
-                            <td><?php echo htmlspecialchars($issue['description']); ?></td>
-                            <td><?php echo $issue['category']; ?></td>
-                            <td><?php echo $issue['status']; ?></td>
-                            <td><?php echo $issue['agent_name'] ?: 'Not Assigned'; ?></td>
-                            <td>
-                                <form action="/controllers/AdminController.php?action=assign_agent" method="POST">
-                                    <input type="hidden" name="issue_id" value="<?php echo $issue['id']; ?>">
-                                    <select name="agent_id">
-                                        <option value="">Select Agent</option>
-                                        <?php foreach ($agents as $agent): ?>
-                                            <option value="<?php echo $agent['id']; ?>" <?php echo $issue['agent_id'] == $agent['id'] ? 'selected' : ''; ?>>
-                                                <?php echo htmlspecialchars($agent['name']) . " (" . $agent['specialization'] . ")"; ?>
-                                            </option>
-                                        <?php endforeach; ?>
-                                    </select>
-                                    <button type="submit" class="cta-btn">Assign</button>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>User</th>
+            <th>Description</th>
+            <th>Category</th>
+            <th>Status</th>
+            <th>Agent</th>
+            <th>Assign Agent</th>
+            <th>Show Agent Details to User</th>
+            <th>Show User Details to Agent</th>
+        </tr>
+    </thead>
+    <tbody>
+        <?php foreach ($issues as $issue): ?>
+            <tr>
+                <td><?php echo $issue['id']; ?></td>
+                <td><?php echo htmlspecialchars($issue['user_name']); ?></td>
+                <td><?php echo htmlspecialchars($issue['description']); ?></td>
+                <td><?php echo $issue['category']; ?></td>
+                <td><?php echo $issue['status']; ?></td>
+                <td><?php echo $issue['agent_name'] ?: 'Not Assigned'; ?></td>
+                <td>
+                    <form action="/controllers/AdminController.php?action=assign_agent" method="POST">
+                        <input type="hidden" name="issue_id" value="<?php echo $issue['id']; ?>">
+                        <select name="agent_id">
+                            <option value="">Select Agent</option>
+                            <?php foreach ($agents as $agent): ?>
+                                <option value="<?php echo $agent['id']; ?>" <?php echo $issue['agent_id'] == $agent['id'] ? 'selected' : ''; ?>>
+                                    <?php echo htmlspecialchars($agent['name']) . " (" . $agent['specialization'] . ")"; ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                        <button type="submit" class="cta-btn">Assign</button>
+                    </form>
+                </td>
+                <td>
+                    <form action="/controllers/AdminController.php?action=toggle_agent_details" method="POST">
+                        <input type="hidden" name="issue_id" value="<?php echo $issue['id']; ?>">
+                        <input type="checkbox" name="show_agent_details" <?php echo $issue['show_agent_details'] ? 'checked' : ''; ?> onchange="this.form.submit()">
+                    </form>
+                </td>
+                <td>
+                    <form action="/controllers/AdminController.php?action=toggle_user_details" method="POST">
+                        <input type="hidden" name="issue_id" value="<?php echo $issue['id']; ?>">
+                        <input type="checkbox" name="show_user_details" <?php echo $issue['show_user_details'] ? 'checked' : ''; ?> onchange="this.form.submit()">
+                    </form>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </tbody>
+</table>
             <!-- All Users -->
             <h3>All Users</h3>
             <table>

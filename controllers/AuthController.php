@@ -16,7 +16,15 @@ if ($action === 'signup') {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
         $email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+        $phone_number = filter_input(INPUT_POST, 'phone_number', FILTER_SANITIZE_STRING);
+        $address = filter_input(INPUT_POST, 'address', FILTER_SANITIZE_STRING);
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+
+        // Validate phone number
+        if (!preg_match('/^[0-9]{10}$/', $phone_number)) {
+            echo "Invalid phone number! Please enter a 10-digit number.";
+            exit;
+        }
 
         // Check if email already exists
         $stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
@@ -48,6 +56,8 @@ if ($action === 'signup') {
             $_SESSION['pending_user'] = [
                 'name' => $name,
                 'email' => $email,
+                'phone_number' => $phone_number,
+                'address' => $address,
                 'password' => $password
             ];
             header("Location: /views/verify_otp.php?email=$email");
@@ -83,8 +93,8 @@ if ($action === 'verify_otp') {
         if ($otp_record) {
             // OTP verified, register the user
             $user = $_SESSION['pending_user'];
-            $stmt = $pdo->prepare("INSERT INTO users (name, email, password, is_verified) VALUES (?, ?, ?, 1)");
-            $stmt->execute([$user['name'], $user['email'], $user['password']]);
+            $stmt = $pdo->prepare("INSERT INTO users (name, email, phone_number, address, password, is_verified) VALUES (?, ?, ?, ?, ?, 1)");
+            $stmt->execute([$user['name'], $user['email'], $user['phone_number'], $user['address'], $user['password']]);
 
             // Delete OTP
             $stmt = $pdo->prepare("DELETE FROM otps WHERE email = ?");

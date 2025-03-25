@@ -1,0 +1,255 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fa;
+    color: #333;
+}
+
+/* Main container for dashboard */
+.dashboard-section {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 20px;
+}
+
+/* Dashboard box */
+.dashboard-box {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+}
+
+/* Welcome heading */
+.dashboard-box h2 {
+    font-size: 28px;
+    color: #4b0082;
+    margin-bottom: 10px;
+}
+
+.dashboard-box h2::after {
+    content: '';
+    display: block;
+    width: 50px;
+    height: 3px;
+    background-color: #00cc00;
+    margin-top: 5px;
+}
+
+/* Success and error messages */
+.dashboard-box p[style*="color: green"] {
+    background-color: #e6ffe6;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.dashboard-box p[style*="color: red"] {
+    background-color: #ffe6e6;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+/* Tabs Navigation */
+.tab {
+    display: flex;
+    border-bottom: 2px solid #ddd;
+    margin-bottom: 20px;
+}
+
+.tab button {
+    background-color: #f4f7fa;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 12px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #666;
+    transition: all 0.3s ease;
+    border-radius: 5px 5px 0 0;
+    margin-right: 5px;
+}
+
+.tab button:hover {
+    background-color: #e0e0e0;
+    color: #333;
+}
+
+.tab button.active {
+    background-color: #fff;
+    color: #4b0082;
+    border-bottom: 2px solid #4b0082;
+}
+
+/* Tab Content */
+.tab-content {
+    display: none;
+    padding: 20px;
+    background-color: #fafafa;
+    border-radius: 0 0 10px 10px;
+    border: 1px solid #ddd;
+    border-top: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* User Details Section */
+.tab-content h3 {
+    font-size: 20px;
+    color: #4b0082;
+    margin-bottom: 15px;
+}
+
+.tab-content p {
+    font-size: 16px;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+.tab-content p strong {
+    color: #333;
+}
+
+/* Forms Styling */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #555;
+    margin-bottom: 5px;
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: #4b0082;
+    outline: none;
+}
+
+.form-group textarea {
+    resize: vertical;
+    min-height: 100px;
+}
+
+/* Buttons */
+.cta-btn {
+    background-color: #00cc00;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.cta-btn:hover {
+    background-color: #00b300;
+}
+
+.cta-btn[style*="background-color: red"] {
+    background-color: #ff3333;
+}
+
+.cta-btn[style*="background-color: red"]:hover {
+    background-color: #e60000;
+}
+
+/* Reported Issues Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th,
+table td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table th {
+    background-color: #4b0082;
+    color: #fff;
+    font-weight: 600;
+}
+
+table td {
+    background-color: #fff;
+}
+
+table tr:hover td {
+    background-color: #f9f9f9;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .dashboard-section {
+        padding: 10px;
+    }
+
+    .dashboard-box {
+        padding: 15px;
+    }
+
+    .tab {
+        flex-wrap: wrap;
+    }
+
+    .tab button {
+        flex: 1 1 100%;
+        margin-right: 0;
+        margin-bottom: 5px;
+        border-radius: 5px;
+    }
+
+    table th,
+    table td {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .dashboard-box h2 {
+        font-size: 24px;
+    }
+
+    .tab-content h3 {
+        font-size: 18px;
+    }
+
+    .form-group input,
+    .form-group textarea {
+        font-size: 14px;
+    }
+
+    .cta-btn {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}

@@ -31,12 +31,11 @@ if (!$agent_id) {
     // If agent not found in agents table, show error
     $issues = [];
 } else {
-    // Fetch assigned issues using agent_id
-    $stmt = $pdo->prepare("SELECT i.*, u.name as user_name FROM issues i JOIN users u ON i.user_id = u.id WHERE i.agent_id = ?");
+    // Fetch assigned issues with user details
+    $stmt = $pdo->prepare("SELECT i.*, u.name as user_name, u.email as user_email, u.phone_number as user_phone, u.address as user_address FROM issues i JOIN users u ON i.user_id = u.id WHERE i.agent_id = ?");
     $stmt->execute([$agent_id]);
     $issues = $stmt->fetchAll();
 }
-
 ?>
 
 <?php include 'header.php'; ?>
@@ -50,6 +49,9 @@ if (!$agent_id) {
                     <tr>
                         <th>ID</th>
                         <th>User</th>
+                        <th>User Email</th>
+                        <th>User Phone</th>
+                        <th>User Address</th>
                         <th>Description</th>
                         <th>Category</th>
                         <th>Status</th>
@@ -59,13 +61,48 @@ if (!$agent_id) {
                 <tbody>
                     <?php if (empty($issues)): ?>
                         <tr>
-                            <td colspan="6">No issues assigned to you yet.</td>
+                            <td colspan="9">No issues assigned to you yet.</td>
                         </tr>
                     <?php else: ?>
                         <?php foreach ($issues as $issue): ?>
                             <tr>
                                 <td><?php echo $issue['id']; ?></td>
-                                <td><?php echo htmlspecialchars($issue['user_name']); ?></td>
+                                <td>
+                                    <?php
+                                    if ($issue['show_user_details']) {
+                                        echo htmlspecialchars($issue['user_name']);
+                                    } else {
+                                        echo '-';
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($issue['show_user_details']) {
+                                        echo htmlspecialchars($issue['user_email']);
+                                    } else {
+                                        echo '-';
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($issue['show_user_details']) {
+                                        echo htmlspecialchars($issue['user_phone']);
+                                    } else {
+                                        echo '-';
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php
+                                    if ($issue['show_user_details']) {
+                                        echo htmlspecialchars($issue['user_address']);
+                                    } else {
+                                        echo '-';
+                                    }
+                                    ?>
+                                </td>
                                 <td><?php echo htmlspecialchars($issue['description']); ?></td>
                                 <td><?php echo $issue['category']; ?></td>
                                 <td><?php echo $issue['status']; ?></td>

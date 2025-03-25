@@ -10,19 +10,24 @@ if ($action === 'report') {
         $user_id = $_SESSION['user_id'];
         $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
         $category = $_POST['category'];
+        $gadget_type = $_POST['gadget_type'];
 
         // Handle file upload
         $file_path = null;
         if (isset($_FILES['file']) && $_FILES['file']['error'] === UPLOAD_ERR_OK) {
             $upload_dir = '../uploads/';
+            if (!is_dir($upload_dir)) {
+                mkdir($upload_dir, 0777, true);
+            }
             $file_name = time() . '_' . basename($_FILES['file']['name']);
             $file_path = $upload_dir . $file_name;
             move_uploaded_file($_FILES['file']['tmp_name'], $file_path);
+            $file_path = '/uploads/' . $file_name;
         }
 
         // Save issue to database
-        $stmt = $pdo->prepare("INSERT INTO issues (user_id, description, category) VALUES (?, ?, ?)");
-        $stmt->execute([$user_id, $description, $category]);
+        $stmt = $pdo->prepare("INSERT INTO issues (user_id, description, category, gadget_type, attached_file) VALUES (?, ?, ?, ?, ?)");
+        $stmt->execute([$user_id, $description, $category, $gadget_type, $file_path]);
 
         // Send confirmation email
         $stmt = $pdo->prepare("SELECT email FROM users WHERE id = ?");
