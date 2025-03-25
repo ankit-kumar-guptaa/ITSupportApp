@@ -2,7 +2,8 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
-require_once '../config/db.php';
+// Use absolute path to include db.php
+require_once $_SERVER['DOCUMENT_ROOT'] . '/config/db.php';
 
 // Fetch user name if logged in
 $user_name = '';

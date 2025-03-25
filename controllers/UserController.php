@@ -182,3 +182,31 @@ if ($action === 'delete_account') {
         exit;
     }
 }
+
+if ($action === 'submit_feedback') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $issue_id = $_POST['issue_id'];
+        $rating = $_POST['rating'];
+        $comments = filter_input(INPUT_POST, 'comments', FILTER_SANITIZE_STRING);
+
+        // Validate inputs
+        if (!in_array($rating, [1, 2, 3, 4, 5])) {
+            header("Location: /views/user_dashboard.php?error=Invalid rating!");
+            exit;
+        }
+
+        // Save feedback
+        $stmt = $pdo->prepare("INSERT INTO feedback (issue_id, user_id, rating, comments, created_at) 
+                               VALUES (?, ?, ?, ?, NOW())");
+        $stmt->execute([$issue_id, $_SESSION['user_id'], $rating, $comments]);
+
+        // Log the action
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $stmt = $pdo->prepare("INSERT INTO activity_logs (user_id, role, action, ip_address, created_at) 
+                               VALUES (?, ?, ?, ?, NOW())");
+        $stmt->execute([$_SESSION['user_id'], 'user', 'Submitted feedback for issue ID ' . $issue_id, $ip_address]);
+
+        header("Location: /views/user_dashboard.php?success=Feedback submitted successfully!");
+        exit;
+    }
+}

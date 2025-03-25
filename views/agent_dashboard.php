@@ -25,6 +25,20 @@ if ($agentData['status'] !== 'approved') {
     header("Location: /views/agent_login.php?error=Your account is not approved yet. Please wait for admin approval.");
     exit;
 }
+// AgentController.php (Snippet for sending message)
+if ($action === 'send_message') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING);
+
+        // Save message to database
+        $stmt = $pdo->prepare("INSERT INTO messages (sender_id, sender_role, recipient_id, recipient_role, message, created_at) 
+                               VALUES (?, 'agent', 1, 'admin', ?, NOW())");
+        $stmt->execute([$_SESSION['user_id'], $message]);
+
+        header("Location: /views/agent_dashboard.php?success=Message sent to admin successfully!");
+        exit;
+    }
+}
 
 // Fetch assigned issues
 $stmt = $pdo->prepare("SELECT i.*, u.name as user_name, u.phone_number as user_phone, u.address as user_address 
@@ -75,13 +89,14 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <p><strong>Name:</strong> <?php echo htmlspecialchars($agentData['name']); ?></p>
                 <p><strong>Email:</strong> <?php echo htmlspecialchars($agentData['email']); ?></p>
                 <p><strong>Phone Number:</strong> <?php echo htmlspecialchars($agentData['phone_number']); ?></p>
-                <p><strong>Address:</strong> <?php echo htmlspecialchars($agentData['address'] ?? 'Not provided'); ?></p>
+                <p><strong>Address:</strong> <?php echo htmlspecialchars($agentData['address'] ?? 'Not provided'); ?>
+                </p>
                 <p><strong>Status:</strong> <?php echo htmlspecialchars($agentData['status']); ?></p>
             </div>
 
 
-               <!-- Tab Content: Assigned Issues -->
-               <div id="issues" class="tab-content">
+            <!-- Tab Content: Assigned Issues -->
+            <div id="issues" class="tab-content">
                 <h3>Assigned Issues</h3>
                 <table>
                     <thead>
@@ -170,8 +185,11 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </div>
 
             <!-- Tab Content: Messages -->
+            <!-- Tab Content: Messages -->
             <div id="messages" class="tab-content">
                 <h3>Messages</h3>
+
+                <!-- Messages from Admin -->
                 <h4>Messages from Admin</h4>
                 <table>
                     <thead>
@@ -189,6 +207,37 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php foreach ($messages as $message): ?>
                                 <tr>
                                     <td><?php echo htmlspecialchars($message['message']); ?></td>
+                                    <td><?php echo htmlspecialchars($message['created_at']); ?></td>
+                                </tr>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
+                    </tbody>
+                </table>
+
+                <!-- Message History (Sent Messages) -->
+                <h4>Sent Messages</h4>
+                <?php
+                // Fetch sent messages by agent
+                $stmt = $pdo->prepare("SELECT m.* FROM messages m WHERE m.sender_id = ? AND m.sender_role = 'agent'");
+                $stmt->execute([$_SESSION['user_id']]);
+                $sent_messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                ?>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Message</th>
+                            <th>Sent At</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php if (empty($sent_messages)): ?>
+                            <tr>
+                                <td colspan="2">No sent messages.</td>
+                            </tr>
+                        <?php else: ?>
+                            <?php foreach ($sent_messages as $message): ?>
+                                <tr>
+                                    <td><?php echo htmlspecialchars($message['message']); ?></td>
                                     <td><?php echo $message['created_at']; ?></td>
                                 </tr>
                             <?php endforeach; ?>
@@ -196,6 +245,7 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </tbody>
                 </table>
 
+                <!-- Send Message to Admin -->
                 <h4>Send Message to Admin</h4>
                 <form action="/controllers/AgentController.php?action=send_message" method="POST">
                     <div class="form-group">
@@ -205,27 +255,25 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     <button type="submit" class="cta-btn">Send</button>
                 </form>
             </div>
-            <!-- Rest of the dashboard code remains the same -->
-            <!-- ... -->
         </div>
     </section>
 </main>
 
 <script>
-function openTab(evt, tabName) {
-    var tabcontent = document.getElementsByClassName("tab-content");
-    for (var i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].classList.remove("active");
-    }
+    function openTab(evt, tabName) {
+        var tabcontent = document.getElementsByClassName("tab-content");
+        for (var i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].classList.remove("active");
+        }
 
-    var tablinks = document.getElementsByClassName("tablinks");
-    for (var i = 0; i < tablinks.length; i++) {
-        tablinks[i].classList.remove("active");
-    }
+        var tablinks = document.getElementsByClassName("tablinks");
+        for (var i = 0; i < tablinks.length; i++) {
+            tablinks[i].classList.remove("active");
+        }
 
-    document.getElementById(tabName).classList.add("active");
-    evt.currentTarget.classList.add("active");
-}
+        document.getElementById(tabName).classList.add("active");
+        evt.currentTarget.classList.add("active");
+    }
 </script>
 
 <?php include 'footer.php'; ?>

@@ -150,6 +150,8 @@ $issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <a href="/views/report_issue.php" class="cta-btn">Report New Issue</a>
             </div>
 
+            
+
             <!-- Tab Content: Settings -->
             <div id="settings" class="tab-content">
                 <!-- Change Password -->

@@ -37,3 +37,62 @@ if ($action === 'send_message') {
         exit;
     }
 }
+
+
+if ($action === 'send_message') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING);
+
+        // Fetch admin ID (assuming there's at least one admin)
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE role = 'admin' LIMIT 1");
+        $stmt->execute();
+        $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$admin) {
+            header("Location: /views/agent_dashboard.php?error=No admin found!");
+            exit;
+        }
+
+        $admin_id = $admin['id'];
+
+        // Save message to database
+        $stmt = $pdo->prepare("INSERT INTO messages (sender_id, sender_role, recipient_id, recipient_role, message, created_at) 
+                               VALUES (?, 'agent', ?, 'admin', ?, NOW())");
+        $stmt->execute([$_SESSION['user_id'], $admin_id, $message]);
+
+        header("Location: /views/agent_dashboard.php?success=Message sent to admin successfully!");
+        exit;
+    }
+}
+
+if ($action === 'send_message') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $message = filter_input(INPUT_POST, 'message', FILTER_SANITIZE_STRING);
+
+        // Fetch admin ID
+        $stmt = $pdo->prepare("SELECT id FROM users WHERE role = 'admin' LIMIT 1");
+        $stmt->execute();
+        $admin = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$admin) {
+            header("Location: /views/agent_dashboard.php?error=No admin found!");
+            exit;
+        }
+
+        $admin_id = $admin['id'];
+
+        // Save message to database
+        $stmt = $pdo->prepare("INSERT INTO messages (sender_id, sender_role, recipient_id, recipient_role, message, created_at) 
+                               VALUES (?, 'agent', ?, 'admin', ?, NOW())");
+        $stmt->execute([$_SESSION['user_id'], $admin_id, $message]);
+
+        // Log the action
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $stmt = $pdo->prepare("INSERT INTO activity_logs (user_id, role, action, ip_address, created_at) 
+                               VALUES (?, ?, ?, ?, NOW())");
+        $stmt->execute([$_SESSION['user_id'], 'agent', 'Sent message to admin', $ip_address]);
+
+        header("Location: /views/agent_dashboard.php?success=Message sent to admin successfully!");
+        exit;
+    }
+}
