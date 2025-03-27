@@ -98,14 +98,47 @@ if ($action === 'reject_agent') {
 // Assign Issue to Agent
 if ($action === 'assign_issue') {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $issue_id = $_POST['issue_id'];
-        $agent_id = $_POST['agent_id'];
+        $issue_id = isset($_POST['issue_id']) ? (int)$_POST['issue_id'] : 0;
+        $agent_id = isset($_POST['agent_id']) ? (int)$_POST['agent_id'] : 0;
 
-        // Update issue with agent_id
-        $stmt = $pdo->prepare("UPDATE issues SET agent_id = ?, status = 'in_progress' WHERE id = ?");
+        // Validate inputs
+        if ($issue_id <= 0 || $agent_id <= 0) {
+            header("Location: /views/admin_dashboard.php?error=Invalid issue or agent selected!");
+            exit;
+        }
+
+        // Check if issue exists
+        $stmt = $pdo->prepare("SELECT * FROM issues WHERE id = ?");
+        $stmt->execute([$issue_id]);
+        $issue = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$issue) {
+            header("Location: /views/admin_dashboard.php?error=Issue not found!");
+            exit;
+        }
+
+        // Check if agent exists and is approved
+        $stmt = $pdo->prepare("SELECT * FROM agents WHERE id = ? AND status = 'approved'");
+        $stmt->execute([$agent_id]);
+        $agent = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (!$agent) {
+            header("Location: /views/admin_dashboard.php?error=Agent not found or not approved!");
+            exit;
+        }
+
+        // Update issue with agent_id and set status to in_progress
+        $stmt = $pdo->prepare("UPDATE issues SET agent_id = ?, status = 'in_progress', updated_at = NOW() WHERE id = ?");
         $stmt->execute([$agent_id, $issue_id]);
 
-        header("Location: /views/admin_dashboard.php?success=Issue assigned successfully!");
+        // Log the action in activity logs (if you have activity logs table)
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $stmt = $pdo->prepare("INSERT INTO activity_logs (user_id, role, action, ip_address, created_at) 
+                               VALUES (?, ?, ?, ?, NOW())");
+        $stmt->execute([$_SESSION['user_id'], 'admin', "Assigned issue ID $issue_id to agent ID $agent_id", $ip_address]);
+
+        // Redirect with success message
+        header("Location: /views/admin_dashboard.php?success=Agent assigned successfully!");
         exit;
     }
 }

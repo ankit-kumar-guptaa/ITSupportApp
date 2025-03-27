@@ -75,7 +75,45 @@ unset($_SESSION['filtered_issues']);
 unset($_SESSION['filtered_messages']);
 unset($_SESSION['filtered_activity_logs']);
 unset($_SESSION['filtered_feedbacks']);
+
+
+
+if (isset($_GET['success'])) {
+    $success_message = htmlspecialchars($_GET['success']);
+    echo "
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Success!',
+                text: '$success_message',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#4b0082'
+            });
+        });
+    </script>
+    ";
+}
+
+if (isset($_GET['error'])) {
+    $error_message = htmlspecialchars($_GET['error']);
+    echo "
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Error!',
+                text: '$error_message',
+                confirmButtonText: 'OK',
+                confirmButtonColor: '#ff0000'
+            });
+        });
+    </script>
+    ";
+}
 ?>
+
+
 
 <?php include '../views/header.php'; ?>
 <main>
