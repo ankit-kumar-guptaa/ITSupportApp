@@ -25,9 +25,17 @@ $stmt->execute([$_SESSION['user_id']]);
 $total_issues = $stmt->fetch()['total'];
 
 // Fetch reported issues with agent details
-$stmt = $pdo->prepare("SELECT i.*, a.name as agent_name, a.phone_number as agent_phone FROM issues i LEFT JOIN agents a ON i.agent_id = a.id WHERE i.user_id = ?");
+// $stmt = $pdo->prepare("SELECT i.*, a.name as agent_name, a.phone_number as agent_phone FROM issues i LEFT JOIN agents a ON i.agent_id = a.id WHERE i.user_id = ?");
+// $stmt->execute([$_SESSION['user_id']]);
+// $issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+
+$stmt = $pdo->prepare("SELECT i.*, a.name as agent_name, a.phone_number as agent_phone 
+                       FROM issues i 
+                       LEFT JOIN agents a ON i.agent_id = a.id 
+                       WHERE i.user_id = ?");
 $stmt->execute([$_SESSION['user_id']]);
-$issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
+$reported_issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php include 'header.php'; ?>
@@ -42,7 +50,13 @@ $issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
             <?php if (isset($_GET['error'])): ?>
                 <p style="color: red;"><?php echo htmlspecialchars($_GET['error']); ?></p>
             <?php endif; ?>
-
+            
+            <!-- Add Report Issue Button Above Tabs -->
+<div style="margin-bottom: 20px;">
+    <a href="/views/report_issue.php" class="cta-btn" style="background-color: #4CAF50; padding: 10px 20px; border-radius: 5px; text-decoration: none; color: white;">
+        Report New Issue
+    </a>
+</div
             <!-- Tabs Navigation -->
             <div class="tab">
                 <button class="tablinks active" onclick="openTab(event, 'details')">Your Details</button>
@@ -94,61 +108,85 @@ $issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </form>
             </div>
 
-            <!-- Tab Content: Reported Issues -->
-            <div id="issues" class="tab-content">
-                <h3>Your Reported Issues</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>Description</th>
-                            <th>Category</th>
-                            <th>Status</th>
-                            <th>Agent</th>
-                            <th>Agent Phone</th>
-                            <th>Created At</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php if (empty($issues)): ?>
-                            <tr>
-                                <td colspan="7">No issues reported yet.</td>
-                            </tr>
-                        <?php else: ?>
-                            <?php foreach ($issues as $issue): ?>
-                                <tr>
-                                    <td><?php echo $issue['id']; ?></td>
-                                    <td><?php echo htmlspecialchars($issue['description']); ?></td>
-                                    <td><?php echo $issue['category']; ?></td>
-                                    <td><?php echo $issue['status']; ?></td>
-                                    <td>
-                                        <?php
-                                        if ($issue['show_agent_details'] && $issue['agent_name']) {
-                                            echo htmlspecialchars($issue['agent_name']);
-                                        } else {
-                                            echo 'Not Assigned';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td>
-                                        <?php
-                                        if ($issue['show_agent_details'] && $issue['agent_phone']) {
-                                            echo htmlspecialchars($issue['agent_phone']);
-                                        } else {
-                                            echo '-';
-                                        }
-                                        ?>
-                                    </td>
-                                    <td><?php echo $issue['created_at']; ?></td>
-                                </tr>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
-                    </tbody>
-                </table>
-                <!-- Quick Links -->
-                <h3>Quick Links</h3>
-                <a href="/views/report_issue.php" class="cta-btn">Report New Issue</a>
-            </div>
+           <!-- Tab Content: Reported Issues -->
+<div id="issues" class="tab-content">
+    <h3>Your Reported Issues</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Category</th>
+                <th>Status</th>
+                <th>Agent</th>
+                <th>Created At</th>
+                <th>Feedback</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php if (empty($reported_issues)): ?>
+                <tr>
+                    <td colspan="7">No issues reported yet.</td>
+                </tr>
+            <?php else: ?>
+                <?php foreach ($reported_issues as $issue): ?>
+                    <tr>
+                        <td><?php echo $issue['id']; ?></td>
+                        <td><?php echo htmlspecialchars($issue['description']); ?></td>
+                        <td><?php echo htmlspecialchars($issue['category']); ?></td>
+                        <td><?php echo htmlspecialchars($issue['status']); ?></td>
+                     
+                        <td>
+    <?php 
+    if ($issue['agent_name']) {
+        echo htmlspecialchars($issue['agent_name']) . "<br>Phone: " . htmlspecialchars($issue['agent_phone'] ?? 'Not provided');
+    } else {
+        echo "Not Assigned";
+    }
+    ?>
+</td>
+                        <td><?php echo $issue['created_at']; ?></td>
+                        <td>
+                            <?php if ($issue['status'] == 'resolved'): ?>
+                                <?php
+                                // Check if feedback already submitted
+                                $stmt = $pdo->prepare("SELECT * FROM feedback WHERE issue_id = ? AND user_id = ?");
+                                $stmt->execute([$issue['id'], $_SESSION['user_id']]);
+                                $feedback = $stmt->fetch(PDO::FETCH_ASSOC);
+                                ?>
+                                <?php if ($feedback): ?>
+                                    <p>Rating: <?php echo $feedback['rating']; ?>/5<br>Comments: <?php echo htmlspecialchars($feedback['comments']); ?></p>
+                                <?php else: ?>
+                                    <form action="/controllers/UserController.php?action=submit_feedback" method="POST">
+                                        <input type="hidden" name="issue_id" value="<?php echo $issue['id']; ?>">
+                                        <div class="form-group">
+                                            <label for="rating_<?php echo $issue['id']; ?>">Rating (1-5):</label>
+                                            <select name="rating" id="rating_<?php echo $issue['id']; ?>" required>
+                                                <option value="">Select Rating</option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="comments_<?php echo $issue['id']; ?>">Comments:</label>
+                                            <textarea name="comments" id="comments_<?php echo $issue['id']; ?>" placeholder="Your comments" required></textarea>
+                                        </div>
+                                        <button type="submit" class="cta-btn">Submit Feedback</button>
+                                    </form>
+                                <?php endif; ?>
+                            <?php else: ?>
+                                <p>Feedback available after resolution.</p>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </tbody>
+    </table>
+</div>
 
             
 

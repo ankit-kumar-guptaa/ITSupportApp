@@ -210,3 +210,37 @@ if ($action === 'submit_feedback') {
         exit;
     }
 }
+
+if ($action === 'report_issue') {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $description = filter_input(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+        $category = filter_input(INPUT_POST, 'category', FILTER_SANITIZE_STRING);
+
+        // Validate inputs
+        if (empty($description) || empty($category)) {
+            header("Location: /views/report_issue.php?error=All fields are required!");
+            exit;
+        }
+
+        // Valid categories
+        $valid_categories = ['Technical', 'Billing', 'Account', 'Other'];
+        if (!in_array($category, $valid_categories)) {
+            header("Location: /views/report_issue.php?error=Invalid category!");
+            exit;
+        }
+
+        // Insert issue into database
+        $stmt = $pdo->prepare("INSERT INTO issues (user_id, description, category, status, created_at) 
+                               VALUES (?, ?, ?, 'pending', NOW())");
+        $stmt->execute([$_SESSION['user_id'], $description, $category]);
+
+        // Log the action
+        $ip_address = $_SERVER['REMOTE_ADDR'];
+        $stmt = $pdo->prepare("INSERT INTO activity_logs (user_id, role, action, ip_address, created_at) 
+                               VALUES (?, ?, ?, ?, NOW())");
+        $stmt->execute([$_SESSION['user_id'], 'user', 'Reported a new issue', $ip_address]);
+
+        header("Location: /views/user_dashboard.php?success=Issue reported successfully!");
+        exit;
+    }
+}
