@@ -53,14 +53,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
         }
 
         .navbar-container {
-            max-width: 1400px;
+            max-width: 95%;
             margin: 0 auto;
             padding: 0 2rem;
             width: 100%;
         }
 
         .navbar-brand img {
-            height: 50px;
+            height: 65px;
             transition: all 0.3s ease;
         }
 

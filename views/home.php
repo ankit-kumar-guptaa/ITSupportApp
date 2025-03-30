@@ -25,7 +25,7 @@
             </div>
 
             <div class="cta-container">
-                <a href="/report" class="primary-btn">Get Instant Help Now</a>
+                <a href="/views/free-consultation.php" class="primary-btn">Get Instant Help Now</a>
                 <a href="/services" class="secondary-btn">Explore Services</a>
             </div>
 
@@ -181,8 +181,7 @@
         <div class="text-center mt-5" data-aos="fade-up">
             <div class="d-inline-block bg-primary bg-opacity-10 px-4 py-3 rounded-3">
                 <p class="mb-0"><i class="fas fa-headset me-2 text-primary"></i> <strong>Need help choosing the right
-                        service?</strong> Call our experts at <a href="tel:+911234567890" class="text-primary">+91 12345
-                        67890</a></p>
+                        service?</strong> Call our experts at <a href="tel:+917703823008" class="text-primary">+91 77038 23008</a></p>
             </div>
         </div>
     </div>
@@ -999,111 +998,127 @@
     }
 </style>
 
-<!-- Success Stories Section -->
-<section class="success-stories py-5 bg-light position-relative">
+<!-- IT Solutions Showcase Section -->
+<section class="solutions-showcase py-5 bg-light position-relative">
     <!-- Decorative elements -->
     <div class="position-absolute top-0 start-0 w-100 h-100 z-0">
-        <div class="success-shape shape-1"></div>
-        <div class="success-shape shape-2"></div>
+        <div class="solutions-shape shape-1"></div>
+        <div class="solutions-shape shape-2"></div>
     </div>
     
     <div class="container position-relative z-1">
         <div class="row justify-content-center mb-5">
             <div class="col-lg-10 text-center" data-aos="fade-up">
                 <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill">
-                    <i class="fas fa-rocket me-2"></i> Startup Growth Stories
+                    <i class="fas fa-laptop-code me-2"></i> Our IT Solutions
                 </span>
-                <h2 class="display-5 fw-bold mb-3">How <span class="text-gradient">IT Sahayata</span> Powers Startup Success</h2>
-                <p class="lead text-muted mx-auto" style="max-width: 700px">Discover how we've helped startups like yours overcome tech challenges and scale efficiently</p>
+                <h2 class="display-5 fw-bold mb-3">Transform Your Business With <span class="text-gradient">IT Sahayata</span></h2>
+                <p class="lead text-muted mx-auto" style="max-width: 700px">Comprehensive IT support services designed to keep your business running smoothly 24/7</p>
             </div>
         </div>
         
         <div class="row g-4">
-            <!-- Story 1 -->
+            <!-- Solution 1 -->
             <div class="col-lg-4" data-aos="fade-up">
-                <div class="story-card h-100 bg-white rounded-4 p-4 shadow-sm">
-                    <div class="story-header mb-4">
-                        <div class="logo-wrapper bg-primary bg-opacity-10 rounded-3 p-3 mb-3" style="width: 60px">
-                            <img src="https://via.placeholder.com/40" alt="TechFusion" class="img-fluid">
+                <div class="solution-card h-100 bg-white rounded-4 p-4 shadow-sm">
+                    <div class="solution-header mb-4">
+                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-3 p-3 mb-3" style="width: 60px">
+                            <i class="fas fa-desktop fa-lg text-primary"></i>
                         </div>
-                        <h3 class="h5 mb-1">TechFusion Solutions</h3>
-                        <p class="small text-muted">SaaS Startup • 15 Employees</p>
+                        <h3 class="h5 mb-1">Hardware Support</h3>
+                        <p class="small text-muted">Diagnostics, Repair & Maintenance</p>
                     </div>
-                    <div class="story-body">
-                        <p class="mb-4">"IT Sahayata helped us migrate our entire infrastructure to cloud in just 2 weeks with zero downtime, saving us 40% on IT costs."</p>
-                        <div class="achievements">
-                            <div class="achievement-item">
+                    <div class="solution-body">
+                        <p class="mb-4">Expert hardware troubleshooting and repair services for desktops, laptops, and peripherals with same-day solutions.</p>
+                        <div class="features">
+                            <div class="feature-item">
                                 <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Cloud migration completed in 14 days</span>
+                                <span>Component-level diagnostics</span>
                             </div>
-                            <div class="achievement-item">
+                            <div class="feature-item">
                                 <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>40% reduction in IT expenses</span>
+                                <span>On-site and remote support</span>
                             </div>
-                            <div class="achievement-item">
+                            <div class="feature-item">
                                 <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>24/7 monitoring implemented</span>
+                                <span>Preventive maintenance</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="solution-footer mt-4 pt-3 border-top">
+                        <a href="/hardware-support" class="btn btn-sm btn-outline-primary w-100">
+                            <i class="fas fa-arrow-right me-1"></i> Explore Hardware Services
+                        </a>
                     </div>
                 </div>
             </div>
             
-            <!-- Story 2 -->
+            <!-- Solution 2 -->
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="story-card h-100 bg-white rounded-4 p-4 shadow-sm">
-                    <div class="story-header mb-4">
-                        <div class="logo-wrapper bg-success bg-opacity-10 rounded-3 p-3 mb-3" style="width: 60px">
-                            <img src="https://via.placeholder.com/40" alt="QuickCart" class="img-fluid">
+                <div class="solution-card h-100 bg-white rounded-4 p-4 shadow-sm">
+                    <div class="solution-header mb-4">
+                        <div class="icon-wrapper bg-success bg-opacity-10 rounded-3 p-3 mb-3" style="width: 60px">
+                            <i class="fas fa-code fa-lg text-success"></i>
                         </div>
-                        <h3 class="h5 mb-1">QuickCart</h3>
-                        <p class="small text-muted">E-commerce • 25 Employees</p>
+                        <h3 class="h5 mb-1">Software Solutions</h3>
+                        <p class="small text-muted">Installation & Troubleshooting</p>
                     </div>
-                    <div class="story-body">
-                        <p class="mb-4">"During our Diwali sale, IT Sahayata's team prevented 3 potential server crashes that could have cost us ₹20L+ in lost sales."</p>
-                        <div class="achievements">
-                            <div class="achievement-item">
+                    <div class="solution-body">
+                        <p class="mb-4">Comprehensive software support including installation, configuration, and troubleshooting for all major platforms.</p>
+                        <div class="features">
+                            <div class="feature-item">
                                 <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>99.9% uptime during peak sales</span>
+                                <span>Virus/malware removal</span>
                             </div>
-                            <div class="achievement-item">
+                            <div class="feature-item">
                                 <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>₹20L+ potential loss prevented</span>
+                                <span>OS installation & upgrades</span>
                             </div>
-                            <div class="achievement-item">
+                            <div class="feature-item">
                                 <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Real-time monitoring alerts</span>
+                                <span>Application support</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="solution-footer mt-4 pt-3 border-top">
+                        <a href="/software-support" class="btn btn-sm btn-outline-success w-100">
+                            <i class="fas fa-arrow-right me-1"></i> Explore Software Services
+                        </a>
                     </div>
                 </div>
             </div>
             
-            <!-- Story 3 -->
+            <!-- Solution 3 -->
             <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="story-card h-100 bg-white rounded-4 p-4 shadow-sm">
-                    <div class="story-header mb-4">
-                        <div class="logo-wrapper bg-warning bg-opacity-10 rounded-3 p-3 mb-3" style="width: 60px">
-                            <img src="https://via.placeholder.com/40" alt="EduTech" class="img-fluid">
+                <div class="solution-card h-100 bg-white rounded-4 p-4 shadow-sm">
+                    <div class="solution-header mb-4">
+                        <div class="icon-wrapper bg-info bg-opacity-10 rounded-3 p-3 mb-3" style="width: 60px">
+                            <i class="fas fa-network-wired fa-lg text-info"></i>
                         </div>
-                        <h3 class="h5 mb-1">EduTech Innovations</h3>
-                        <p class="small text-muted">EdTech Platform • 10 Employees</p>
+                        <h3 class="h5 mb-1">Network Services</h3>
+                        <p class="small text-muted">Setup & Security Solutions</p>
                     </div>
-                    <div class="story-body">
-                        <p class="mb-4">"From day one, IT Sahayata became our virtual CTO, helping us scale from 100 to 10,000 users without tech hiccups."</p>
-                        <div class="achievements">
-                            <div class="achievement-item">
+                    <div class="solution-body">
+                        <p class="mb-4">Complete networking solutions for businesses of all sizes with 99.9% uptime guarantee.</p>
+                        <div class="features">
+                            <div class="feature-item">
                                 <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>100x user growth supported</span>
+                                <span>Wi-Fi setup & optimization</span>
                             </div>
-                            <div class="achievement-item">
+                            <div class="feature-item">
                                 <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Zero downtime during scaling</span>
+                                <span>Network security audits</span>
                             </div>
-                            <div class="fas fa-check-circle text-success me-2"></i>
-                                <span>Cost-effective infrastructure</span>
+                            <div class="feature-item">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <span>Server configuration</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="solution-footer mt-4 pt-3 border-top">
+                        <a href="/network-support" class="btn btn-sm btn-outline-info w-100">
+                            <i class="fas fa-arrow-right me-1"></i> Explore Network Services
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1112,14 +1127,14 @@
         <!-- CTA -->
         <div class="text-center mt-5" data-aos="fade-up">
             <div class="cta-card bg-white p-4 p-lg-5 rounded-4 shadow-sm d-inline-block">
-                <h3 class="h2 mb-4">Ready to Write <span class="text-primary">Your Success Story</span>?</h3>
-                <p class="lead mb-4 mx-auto" style="max-width: 600px">Let's discuss how IT Sahayata can support your startup's growth journey</p>
+                <h3 class="h2 mb-4">Need <span class="text-primary">Custom IT Solutions</span>?</h3>
+                <p class="lead mb-4 mx-auto" style="max-width: 600px">Our experts can design a complete IT support package tailored to your business needs</p>
                 <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
-                    <a href="#contact" class="btn btn-primary btn-lg px-4">
-                        <i class="fas fa-calendar-check me-2"></i> Book Free Consultation
+                    <a href="/views/free-consultation.php" class="btn btn-primary btn-lg px-4">
+                        <i class="fas fa-headset me-2"></i> Get Free Consultation
                     </a>
-                    <a href="tel:+911234567890" class="btn btn-outline-primary btn-lg px-4">
-                        <i class="fas fa-phone-alt me-2"></i> Call Now
+                    <a href="tel:+917703823008" class="btn btn-outline-primary btn-lg px-4">
+                        <i class="fas fa-phone-alt me-2"></i> Call: +91 77038 23008
                     </a>
                 </div>
             </div>
@@ -1128,12 +1143,12 @@
 </section>
 
 <style>
-    /* Success Stories Styles */
-    .success-stories {
+    /* Solutions Showcase Styles */
+    .solutions-showcase {
         background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
     }
     
-    .success-shape {
+    .solutions-shape {
         position: absolute;
         opacity: 0.03;
     }
@@ -1163,33 +1178,40 @@
         color: transparent;
     }
     
-    .story-card {
+    .solution-card {
         transition: all 0.3s ease;
         border-top: 4px solid #2563eb;
     }
     
-    .story-card:hover {
+    .solution-card:hover {
         transform: translateY(-5px);
         box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
     }
     
-    .logo-wrapper {
-        display: flex;
-        align-items: center;
-        justify-content: center;
+    .solution-header .icon-wrapper {
+        transition: transform 0.3s ease;
     }
     
-    .achievements {
+    .solution-card:hover .icon-wrapper {
+        transform: rotate(10deg) scale(1.1);
+    }
+    
+    .features {
         margin-top: 1.5rem;
     }
     
-    .achievement-item {
+    .feature-item {
         margin-bottom: 0.8rem;
         font-size: 0.9rem;
     }
     
+    .solution-footer {
+        margin-top: auto;
+    }
+    
     .cta-card {
         border: 1px solid rgba(37, 99, 235, 0.1);
+        background: white;
     }
     
     @media (max-width: 768px) {

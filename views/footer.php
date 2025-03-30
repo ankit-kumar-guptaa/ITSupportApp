@@ -253,7 +253,7 @@
                 <p><i class="fas fa-map-marker-alt"></i>2/241 jankipuram Sector H lucknow 226021</p>
                 <p><i class="fas fa-envelope"></i> support@itsahayata.com</p>
                 <p><i class="fas fa-clock"></i> Mon-Sun: 24/7 Support</p>
-                <p><i class="fas fa-phone-alt"></i> +91 98765 43210</p>
+                <p><i class="fas fa-phone-alt"></i> +91 77038 23008</p>
                 <p><i class="fas fa-phone-alt"></i> +91 73792 17619</p>
             </div>
         </div>
