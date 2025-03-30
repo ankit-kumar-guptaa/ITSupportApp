@@ -128,6 +128,20 @@ if (isset($_GET['error'])) {
                 <p style="color: red;"><?php echo htmlspecialchars($_GET['error']); ?></p>
             <?php endif; ?>
 
+            <div class="row mb-4">
+    <div class="col-md-4">
+        <a href="/admin/admin_bookings.php" class="card card-hover text-decoration-none">
+            <div class="card-body text-center">
+                <div class="text-primary mb-3">
+                    <i class="fas fa-calendar-check fa-3x"></i>
+                </div>
+                <h5 class="card-title">Manage Bookings</h5>
+                <p class="text-muted">View and manage all service bookings</p>
+            </div>
+        </a>
+    </div>
+</div>
+
             <!-- Tabs Navigation -->
             <div class="tab">
                 <button class="tablinks active" onclick="openTab(event, 'users')">Users</button>

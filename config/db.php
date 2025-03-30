@@ -3,9 +3,17 @@
 // $dbname = 'itsupport_db';
 // $username = 'root';
 // $password = '';
+
+
+// $host = 'localhost';
+// $dbname = 'u634223065_itsupport_db';
+// $username = 'u634223065_itsupport_db';
+// $password = 'Ankit@1925@';
+
+
 $host = 'localhost';
-$dbname = 'u634223065_itsupport_db';
-$username = 'u634223065_itsupport_db';
+$dbname = 'u634223065_itsahayata_db';
+$username = 'u634223065_itsahayata_db';
 $password = 'Ankit@1925@';
 
 try {
