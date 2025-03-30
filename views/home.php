@@ -806,7 +806,7 @@
 <section class="digital-guardian py-5 position-relative overflow-hidden">
     <!-- Animated Background Elements -->
     <div class="position-absolute top-0 start-0 w-100 h-100 z-0">
-        <div class="guardian-shape shape-1"></div>
+        <!-- <div class="guardian-shape shape-1"></div> -->
         <div class="guardian-shape shape-2"></div>
         <div class="guardian-shape shape-3"></div>
     </div>
@@ -1002,7 +1002,7 @@
 <section class="solutions-showcase py-5 bg-light position-relative">
     <!-- Decorative elements -->
     <div class="position-absolute top-0 start-0 w-100 h-100 z-0">
-        <div class="solutions-shape shape-1"></div>
+        <!-- <div class="solutions-shape shape-1"></div> -->
         <div class="solutions-shape shape-2"></div>
     </div>
     
