@@ -348,9 +348,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                     <li><a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                                 <?php elseif ($_SESSION['role'] === 'admin'): ?>
                                     <li><h6 class="dropdown-header">Admin Menu</h6></li>
-                                    <li><a class="dropdown-item" href="/views/admin_dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                                    <li><a class="dropdown-item" href="/views/admin_dashboard.php#agents"><i class="fas fa-users-cog me-2"></i>Manage Agents</a></li>
-                                    <li><a class="dropdown-item" href="/views/admin_dashboard.php#bookings"><i class="fas fa-calendar-alt me-2"></i>Manage Bookings</a></li>
+                                    <li><a class="dropdown-item" href="/admin/dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
+                                    <li><a class="dropdown-item" href="/admin/dashboard.php#agents"><i class="fas fa-users-cog me-2"></i>Manage Agents</a></li>
+                                    <li><a class="dropdown-item" href="/admin/admin_bookings.php"><i class="fas fa-calendar-alt me-2"></i>Manage Bookings</a></li>
                                     <li><hr class="dropdown-divider"></li>
                                     <li><a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
                                 <?php endif; ?>
