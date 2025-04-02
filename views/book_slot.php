@@ -214,7 +214,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['confirm_booking'])) {
             sendEmail($customerEmail, $userEmailSubject, $userEmailBody);
             
             // Send notification to admin
-            sendEmail('theankitkumarg@gmail.com', $adminEmailSubject, $adminEmailBody);
+            sendEmail('gauravmishra92812@gmail.com', $adminEmailSubject, $adminEmailBody);
             
             // Set success session
             $_SESSION['booking_success'] = true;
