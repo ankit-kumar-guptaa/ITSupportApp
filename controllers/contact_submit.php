@@ -5,10 +5,14 @@ use PHPMailer\PHPMailer\Exception;
 require '../vendor/autoload.php'; // Ensure PHPMailer is installed via Composer
 
 // Database configuration
-$host = 'localhost';
-$dbname = 'itsupport_db';
-$username = 'root';
-$password = '';
+// $host = 'localhost';
+// $dbname = 'itsupport_db';
+// $username = 'root';
+// $password = '';
+
+
+require '../config/db.php';
+
 
 // SMTP configuration
 $smtpHost = 'smtp.hostinger.com';
