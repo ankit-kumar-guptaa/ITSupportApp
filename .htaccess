@@ -1,0 +1,13 @@
+# Custom 404 Error Page
+ErrorDocument 404 /404.php
+
+# Ensure index.php is the default file
+DirectoryIndex index.php
+
+# Enable Rewrite Engine for clean URLs (if needed)
+RewriteEngine On
+
+# Redirect all requests to index.php (if using a framework or clean URLs)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php [L]
