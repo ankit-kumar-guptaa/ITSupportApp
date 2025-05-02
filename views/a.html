@@ -1,0 +1,1617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TVS Carpool Admin</title>
+    <!-- Bootstrap 5 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        :root {
+            --tvs-red: #E31937;
+            --tvs-light: #f8f9fa;
+            --tvs-gray: #e9ecef;
+            --tvs-dark: #343a40;
+            --tvs-blue: #16213E;
+            --tvs-accent: #00B4D8;
+            --tvs-green: #28a745;
+            --tvs-yellow: #ffc107;
+            --tvs-purple: #6f42c1;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f5f7fa;
+            color: var(--tvs-dark);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            background: white;
+            height: 100vh;
+            position: fixed;
+            width: 250px;
+            box-shadow: 0 0 30px rgba(0,0,0,0.05);
+            z-index: 1000;
+            transition: all 0.3s;
+        }
+        
+        .sidebar .nav-link {
+            color: var(--tvs-dark);
+            border-radius: 8px;
+            margin: 5px 10px;
+            padding: 10px 15px;
+            transition: all 0.3s;
+        }
+        
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(227, 25, 55, 0.1);
+            color: var(--tvs-red) !important;
+            transform: translateX(5px);
+        }
+        
+        .sidebar .nav-link.active {
+            font-weight: 600;
+            background-color: rgba(227, 25, 55, 0.15);
+        }
+        
+        .sidebar .nav-link i {
+            margin-right: 12px;
+            width: 20px;
+            text-align: center;
+            font-size: 1.1rem;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 250px;
+            padding: 25px;
+            min-height: 100vh;
+            transition: all 0.3s;
+        }
+        
+        /* Card Styling */
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.03);
+            margin-bottom: 25px;
+            transition: all 0.3s;
+        }
+        
+        .card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+            transform: translateY(-2px);
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            font-weight: 600;
+            padding: 15px 20px;
+            border-radius: 12px 12px 0 0 !important;
+        }
+        
+        /* Badges */
+        .badge {
+            padding: 6px 10px;
+            font-weight: 500;
+            font-size: 0.75rem;
+            border-radius: 8px;
+        }
+        
+        .badge-completed { background: var(--tvs-green); }
+        .badge-inprogress { background: var(--tvs-yellow); color: #212529; }
+        .badge-scheduled { background: var(--tvs-accent); }
+        .badge-active { background: var(--tvs-green); }
+        .badge-inactive { background: #6c757d; }
+        .badge-pending { background: #fd7e14; }
+        
+        /* Table */
+        .table-custom {
+            border-collapse: separate;
+            border-spacing: 0;
+        }
+        
+        .table-custom th {
+            background-color: #f8f9fa;
+            color: var(--tvs-dark);
+            font-weight: 600;
+            padding: 12px 15px;
+            border-bottom: 2px solid #e9ecef;
+        }
+        
+        .table-custom td {
+            padding: 12px 15px;
+            vertical-align: middle;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .table-custom tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .table-custom tr:hover td {
+            background-color: #f8f9fa;
+        }
+        
+        /* Stats Cards */
+        .stat-card {
+            border-left: 4px solid;
+            transition: all 0.3s;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+        
+        .stat-card .card-body {
+            padding: 20px;
+        }
+        
+        .stat-card .icon-circle {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .stat-card.rides { border-left-color: var(--tvs-red); }
+        .stat-card.employees { border-left-color: var(--tvs-blue); }
+        .stat-card.pending { border-left-color: var(--tvs-yellow); }
+        .stat-card.co2 { border-left-color: var(--tvs-green); }
+        .stat-card.km { border-left-color: var(--tvs-accent); }
+        .stat-card.money { border-left-color: var(--tvs-purple); }
+        
+        /* Buttons */
+        .btn {
+            border-radius: 8px;
+            padding: 8px 16px;
+            font-weight: 500;
+            transition: all 0.3s;
+        }
+        
+        .btn-sm {
+            padding: 5px 12px;
+            font-size: 0.85rem;
+        }
+        
+        .btn-danger {
+            background-color: var(--tvs-red);
+            border-color: var(--tvs-red);
+        }
+        
+        .btn-outline-secondary {
+            border-color: #dee2e6;
+        }
+        
+        /* Responsive */
+        @media (max-width: 992px) {
+            .sidebar {
+                width: 80px;
+                overflow: hidden;
+            }
+            .sidebar .nav-link span {
+                display: none;
+            }
+            .sidebar .nav-link i {
+                margin-right: 0;
+                font-size: 1.3rem;
+            }
+            .sidebar .nav-link {
+                padding: 12px;
+                text-align: center;
+                margin: 5px 8px;
+            }
+            .main-content {
+                margin-left: 80px;
+                padding: 15px;
+            }
+        }
+        
+        /* Page header */
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+        }
+        
+        .page-header h3 {
+            font-weight: 600;
+            color: var(--tvs-dark);
+        }
+        
+        /* Map Placeholder */
+        .map-placeholder {
+            height: 400px;
+            background-color: #f5f5f5;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+        
+        .map-placeholder i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #adb5bd;
+        }
+        
+        /* Analytics Cards */
+        .analytics-card {
+            border-radius: 12px;
+            overflow: hidden;
+            height: 100%;
+        }
+        
+        .analytics-card .card-body {
+            padding: 0;
+        }
+        
+        .analytics-card canvas {
+            padding: 15px;
+            width: 100% !important;
+            height: 300px !important;
+        }
+        
+        /* Form elements */
+        .form-control, .form-select {
+            border-radius: 8px;
+            padding: 8px 15px;
+            border: 1px solid #e9ecef;
+        }
+        
+        /* Avatar */
+        .avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        /* Animation */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        /* Fix for chart containers */
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="d-flex">
+        <!-- Sidebar -->
+        <div class="sidebar p-3">
+            <div class="text-center mb-4 pt-2">
+                <img src="https://www.tvsmotor.com/-/media/Feature/Header/TVSLogo-hr.svg" alt="TVS Logo" style="height: 40px;">
+                <h6 class="mt-2 d-none d-lg-block">Carpool Admin</h6>
+            </div>
+            <ul class="nav flex-column">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#dashboard" onclick="showPage('dashboard')">
+                        <i class="fas fa-tachometer-alt"></i> <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#employees" onclick="showPage('employees')">
+                        <i class="fas fa-users"></i> <span>Employees</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#rides" onclick="showPage('rides')">
+                        <i class="fas fa-route"></i> <span>Rides</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#analytics" onclick="showPage('analytics')">
+                        <i class="fas fa-chart-pie"></i> <span>Analytics</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#settings" onclick="showPage('settings')">
+                        <i class="fas fa-cog"></i> <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Dashboard Page -->
+            <div id="dashboard-page" class="page-content fade-in">
+                <div class="page-header">
+                    <h3><i class="fas fa-tachometer-alt me-2 text-danger"></i> Dashboard Overview</h3>
+                    <div>
+                        <button class="btn btn-sm btn-outline-secondary me-2">
+                            <i class="fas fa-download me-1"></i> Export Report
+                        </button>
+                        <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-calendar-alt me-1"></i> This Month
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Cards -->
+                <div class="row mb-4">
+                    <div class="col-md-4 col-lg-2 mb-3">
+                        <div class="card stat-card rides h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="text-muted mb-2">TOTAL RIDES</h6>
+                                        <h3 class="mb-1">142</h3>
+                                        <div class="text-success small">
+                                            <i class="fas fa-arrow-up me-1"></i> 12% from last month
+                                        </div>
+                                    </div>
+                                    <div class="icon-circle bg-danger text-white">
+                                        <i class="fas fa-car"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 mb-3">
+                        <div class="card stat-card employees h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="text-muted mb-2">REGISTERED EMPLOYEES</h6>
+                                        <h3 class="mb-1">324</h3>
+                                        <div class="text-success small">
+                                            <i class="fas fa-arrow-up me-1"></i> 8% this quarter
+                                        </div>
+                                    </div>
+                                    <div class="icon-circle bg-primary text-white">
+                                        <i class="fas fa-users"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 mb-3">
+                        <div class="card stat-card pending h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="text-muted mb-2">PENDING REQUESTS</h6>
+                                        <h3 class="mb-1">23</h3>
+                                        <div class="text-danger small">
+                                            <i class="fas fa-arrow-down me-1"></i> 3% from last week
+                                        </div>
+                                    </div>
+                                    <div class="icon-circle bg-warning text-white">
+                                        <i class="fas fa-clock"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 mb-3">
+                        <div class="card stat-card co2 h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="text-muted mb-2">CO2 SAVED (LIKELY)</h6>
+                                        <h3 class="mb-1">428.5</h3>
+                                        <div class="small">
+                                            Equivalent to <strong>36 trees</strong>
+                                        </div>
+                                    </div>
+                                    <div class="icon-circle bg-success text-white">
+                                        <i class="fas fa-leaf"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 mb-3">
+                        <div class="card stat-card km h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="text-muted mb-2">TOTAL KMs</h6>
+                                        <h3 class="mb-1">2,842</h3>
+                                        <div class="text-success small">
+                                            <i class="fas fa-arrow-up me-1"></i> 15% from last month
+                                        </div>
+                                    </div>
+                                    <div class="icon-circle bg-info text-white">
+                                        <i class="fas fa-road"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-4 col-lg-2 mb-3">
+                        <div class="card stat-card money h-100">
+                            <div class="card-body">
+                                <div class="d-flex justify-content-between">
+                                    <div>
+                                        <h6 class="text-muted mb-2">MONEY SAVED</h6>
+                                        <h3 class="mb-1">₹28,420</h3>
+                                        <div class="text-success small">
+                                            <i class="fas fa-arrow-up me-1"></i> 18% from last month
+                                        </div>
+                                    </div>
+                                    <div class="icon-circle bg-purple text-white">
+                                        <i class="fas fa-rupee-sign"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Row -->
+                <div class="row mb-4">
+                    <div class="col-lg-8 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-chart-line me-2 text-danger"></i> Weekly Ride Frequency</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="rideFrequencyChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 mb-4">
+                        <div class="card h-100">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-chart-pie me-2 text-danger"></i> Ride Distribution</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="rideDistributionChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Rides -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h5 class="mb-0"><i class="fas fa-list me-2 text-danger"></i> Recent Rides</h5>
+                        <a href="#rides" onclick="showPage('rides')" class="btn btn-sm btn-outline-danger">View All Rides</a>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Route</th>
+                                        <th>Time</th>
+                                        <th>Distance</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Rahul Sharma</strong><br>
+                                                    <small class="text-muted">rahul.s@tvs.com</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Hosur → Corporate Office</td>
+                                        <td>Today, 08:30 AM</td>
+                                        <td>12.5 km</td>
+                                        <td><span class="badge badge-completed">Completed</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/women/44.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Priya Patel</strong><br>
+                                                    <small class="text-muted">priya.p@tvs.com</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Electronic City → TVS Plant</td>
+                                        <td>Today, 09:15 AM</td>
+                                        <td>18.2 km</td>
+                                        <td><span class="badge badge-completed">Completed</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/men/22.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Vikram Joshi</strong><br>
+                                                    <small class="text-muted">vikram.j@tvs.com</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Whitefield → Corporate Office</td>
+                                        <td>Today, 09:45 AM</td>
+                                        <td>22.7 km</td>
+                                        <td><span class="badge badge-inprogress">In Progress</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/women/68.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Neha Gupta</strong><br>
+                                                    <small class="text-muted">neha.g@tvs.com</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Koramangala → R&D Center</td>
+                                        <td>Today, 10:30 AM</td>
+                                        <td>15.3 km</td>
+                                        <td><span class="badge badge-scheduled">Scheduled</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Employees Page -->
+            <div id="employees-page" class="page-content" style="display: none;">
+                <div class="page-header">
+                    <h3><i class="fas fa-users me-2 text-danger"></i> Employee Management</h3>
+                    <div>
+                        <button class="btn btn-sm btn-outline-secondary me-2">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                        <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-filter me-1"></i> Filters
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Employee Stats -->
+                <div class="row mb-4">
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light h-100">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">TOTAL EMPLOYEES</h6>
+                                <h2 class="mb-0">324</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light h-100">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">ACTIVE</h6>
+                                <h2 class="mb-0">298</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light h-100">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">CAR OWNERS</h6>
+                                <h2 class="mb-0">142</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light h-100">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">AVG RIDES/MONTH</h6>
+                                <h2 class="mb-0">4.2</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Employees Table -->
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div class="input-group" style="width: 300px;">
+                            <input type="text" class="form-control" placeholder="Search employees...">
+                            <button class="btn btn-outline-secondary" type="button">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div>
+                            <select class="form-select form-select-sm me-2" style="width: 150px;">
+                                <option>All Departments</option>
+                                <option>Engineering</option>
+                                <option>Manufacturing</option>
+                                <option>HR</option>
+                            </select>
+                            <select class="form-select form-select-sm" style="width: 120px;">
+                                <option>All Status</option>
+                                <option>Active</option>
+                                <option>Inactive</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>Employee</th>
+                                        <th>Department</th>
+                                        <th>Location</th>
+                                        <th>Rides</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Rahul Sharma</strong><br>
+                                                    <small class="text-muted">EMP-1001</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Engineering</td>
+                                        <td>Hosur</td>
+                                        <td>24</td>
+                                        <td><span class="badge bg-success">Active</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/women/44.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Priya Patel</strong><br>
+                                                    <small class="text-muted">EMP-1002</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Manufacturing</td>
+                                        <td>Corporate Office</td>
+                                        <td>18</td>
+                                        <td><span class="badge bg-success">Active</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/men/22.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Vikram Joshi</strong><br>
+                                                    <small class="text-muted">EMP-1003</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>HR</td>
+                                        <td>R&D Center</td>
+                                        <td>12</td>
+                                        <td><span class="badge bg-success">Active</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/women/68.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Neha Gupta</strong><br>
+                                                    <small class="text-muted">EMP-1004</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Finance</td>
+                                        <td>Corporate Office</td>
+                                        <td>8</td>
+                                        <td><span class="badge bg-secondary">Inactive</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <nav class="mt-3">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rides Page -->
+            <div id="rides-page" class="page-content" style="display: none;">
+                <div class="page-header">
+                    <h3><i class="fas fa-route me-2 text-danger"></i> Ride Management</h3>
+                    <div>
+                        <button class="btn btn-sm btn-outline-secondary me-2">
+                            <i class="fas fa-download me-1"></i> Export
+                        </button>
+                        <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-plus me-1"></i> New Ride
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Ride Stats -->
+                <div class="row mb-4">
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light h-100">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">TODAY'S RIDES</h6>
+                                <h2 class="mb-0">18</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light h-100">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">THIS WEEK</h6>
+                                <h2 class="mb-0">142</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light h-100">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">AVG DISTANCE</h6>
+                                <h2 class="mb-0">15.2 km</h2>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card bg-light h-100">
+                            <div class="card-body text-center">
+                                <h6 class="text-muted">AVG SAVINGS</h6>
+                                <h2 class="mb-0">₹152</h2>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Rides Table -->
+                <div class="card mb-4">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <div class="input-group" style="width: 300px;">
+                            <input type="text" class="form-control" placeholder="Search rides...">
+                            <button class="btn btn-outline-secondary" type="button">
+                                <i class="fas fa-search"></i>
+                            </button>
+                        </div>
+                        <div>
+                            <select class="form-select form-select-sm me-2" style="width: 150px;">
+                                <option>All Status</option>
+                                <option>Completed</option>
+                                <option>In Progress</option>
+                                <option>Scheduled</option>
+                            </select>
+                            <select class="form-select form-select-sm" style="width: 150px;">
+                                <option>All Locations</option>
+                                <option>Hosur</option>
+                                <option>Corporate Office</option>
+                                <option>R&D Center</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-custom">
+                                <thead>
+                                    <tr>
+                                        <th>Ride ID</th>
+                                        <th>Driver</th>
+                                        <th>Passengers</th>
+                                        <th>Route</th>
+                                        <th>Date/Time</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>RIDE-1001</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/men/32.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Rahul Sharma</strong><br>
+                                                    <small class="text-muted">EMP-1001</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>3</td>
+                                        <td>Hosur → Corporate Office</td>
+                                        <td>Today, 08:30 AM</td>
+                                        <td><span class="badge badge-completed">Completed</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>RIDE-1002</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/women/44.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Priya Patel</strong><br>
+                                                    <small class="text-muted">EMP-1002</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>2</td>
+                                        <td>Electronic City → TVS Plant</td>
+                                        <td>Today, 09:15 AM</td>
+                                        <td><span class="badge badge-completed">Completed</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>RIDE-1003</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/men/22.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Vikram Joshi</strong><br>
+                                                    <small class="text-muted">EMP-1003</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>3</td>
+                                        <td>Whitefield → Corporate Office</td>
+                                        <td>Today, 09:45 AM</td>
+                                        <td><span class="badge badge-inprogress">In Progress</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>RIDE-1004</td>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <img src="https://randomuser.me/api/portraits/women/68.jpg" class="avatar me-2">
+                                                <div>
+                                                    <strong>Neha Gupta</strong><br>
+                                                    <small class="text-muted">EMP-1004</small>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>2</td>
+                                        <td>Koramangala → R&D Center</td>
+                                        <td>Today, 10:30 AM</td>
+                                        <td><span class="badge badge-scheduled">Scheduled</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-outline-primary me-1">
+                                                <i class="fas fa-eye"></i>
+                                            </button>
+                                            <button class="btn btn-sm btn-outline-secondary">
+                                                <i class="fas fa-print"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- Pagination -->
+                        <nav class="mt-3">
+                            <ul class="pagination justify-content-center">
+                                <li class="page-item disabled">
+                                    <a class="page-link" href="#" tabindex="-1">Previous</a>
+                                </li>
+                                <li class="page-item active"><a class="page-link" href="#">1</a></li>
+                                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                <li class="page-item">
+                                    <a class="page-link" href="#">Next</a>
+                                </li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <!-- Ride Map -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-map-marked-alt me-2 text-danger"></i> Today's Ride Map</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="map-placeholder">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <h5>Ride Map Visualization</h5>
+                            <p class="text-muted">Interactive map showing today's rides and routes</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Page -->
+            <div id="analytics-page" class="page-content" style="display: none;">
+                <div class="page-header">
+                    <h3><i class="fas fa-chart-pie me-2 text-danger"></i> Analytics Dashboard</h3>
+                    <div>
+                        <button class="btn btn-sm btn-outline-secondary me-2">
+                            <i class="fas fa-download me-1"></i> Export Report
+                        </button>
+                        <button class="btn btn-sm btn-danger">
+                            <i class="fas fa-calendar-alt me-1"></i> This Month
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Analytics Cards -->
+                <div class="row mb-4">
+                    <div class="col-lg-6 mb-4">
+                        <div class="card analytics-card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-chart-line me-2 text-danger"></i> Monthly Ride Trend</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="monthlyRideChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card analytics-card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-chart-bar me-2 text-danger"></i> Department-wise Participation</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="departmentChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row mb-4">
+                    <div class="col-lg-6 mb-4">
+                        <div class="card analytics-card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-chart-pie me-2 text-danger"></i> Ride Status Distribution</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="rideStatusChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card analytics-card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-road me-2 text-danger"></i> Popular Routes</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="chart-container">
+                                    <canvas id="routesChart"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Savings Analytics -->
+                <div class="card mb-4">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-rupee-sign me-2 text-danger"></i> Savings Analysis</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4 mb-3">
+                                <div class="card bg-light h-100">
+                                    <div class="card-body text-center">
+                                        <h6 class="text-muted">TOTAL SAVINGS</h6>
+                                        <h2 class="mb-1">₹28,420</h2>
+                                        <div class="text-success small">
+                                            <i class="fas fa-arrow-up me-1"></i> 18% from last month
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card bg-light h-100">
+                                    <div class="card-body text-center">
+                                        <h6 class="text-muted">AVG SAVINGS/RIDE</h6>
+                                        <h2 class="mb-1">₹152</h2>
+                                        <div class="text-success small">
+                                            <i class="fas fa-arrow-up me-1"></i> 5% from last month
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4 mb-3">
+                                <div class="card bg-light h-100">
+                                    <div class="card-body text-center">
+                                        <h6 class="text-muted">TOP SAVER</h6>
+                                        <h4 class="mb-1">Rahul Sharma</h4>
+                                        <small class="text-muted">₹2,450 saved</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Settings Page -->
+            <div id="settings-page" class="page-content" style="display: none;">
+                <div class="page-header">
+                    <h3><i class="fas fa-cog me-2 text-danger"></i> System Settings</h3>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-sliders-h me-2 text-danger"></i> General Settings</h5>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label">System Name</label>
+                                        <input type="text" class="form-control" value="TVS Carpool Admin">
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Time Zone</label>
+                                        <select class="form-select">
+                                            <option>(UTC+05:30) Chennai, Kolkata, Mumbai, New Delhi</option>
+                                            <option>Other time zones...</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Date Format</label>
+                                        <select class="form-select">
+                                            <option>DD/MM/YYYY</option>
+                                            <option>MM/DD/YYYY</option>
+                                            <option>YYYY-MM-DD</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="notificationsSwitch" checked>
+                                        <label class="form-check-label" for="notificationsSwitch">Enable Notifications</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Save Changes</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-user-shield me-2 text-danger"></i> Security Settings</h5>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="mb-3">
+                                        <label class="form-label">Password Policy</label>
+                                        <select class="form-select">
+                                            <option>Medium (8 characters, 1 number)</option>
+                                            <option>Strong (10 characters, 1 number, 1 special)</option>
+                                            <option>Very Strong (12 characters, mixed case, numbers, special)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="2faSwitch">
+                                        <label class="form-check-label" for="2faSwitch">Enable Two-Factor Authentication</label>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="sessionSwitch" checked>
+                                        <label class="form-check-label" for="sessionSwitch">Session Timeout (30 mins)</label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Login Attempts Before Lockout</label>
+                                        <input type="number" class="form-control" value="5">
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Update Security</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-4 mb-4">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0"><i class="fas fa-bell me-2 text-danger"></i> Notification Settings</h5>
+                            </div>
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="emailSwitch" checked>
+                                        <label class="form-check-label" for="emailSwitch">Email Notifications</label>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="smsSwitch">
+                                        <label class="form-check-label" for="smsSwitch">SMS Notifications</label>
+                                    </div>
+                                    <div class="form-check form-switch mb-3">
+                                        <input class="form-check-input" type="checkbox" id="pushSwitch" checked>
+                                        <label class="form-check-label" for="pushSwitch">Push Notifications</label>
+                                    </div>
+                                    <div class="mb-3">
+                                        <label class="form-label">Notification Frequency</label>
+                                        <select class="form-select">
+                                            <option>Immediately</option>
+                                            <option>Daily Summary</option>
+                                            <option>Weekly Summary</option>
+                                        </select>
+                                    </div>
+                                    <button type="submit" class="btn btn-danger">Update Notifications</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- System Info -->
+                <div class="card">
+                    <div class="card-header">
+                        <h5 class="mb-0"><i class="fas fa-info-circle me-2 text-danger"></i> System Information</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">System Version</label>
+                                    <input type="text" class="form-control" value="v2.3.1" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Last Updated</label>
+                                    <input type="text" class="form-control" value="15 June 2023" readonly>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label class="form-label">Database Size</label>
+                                    <input type="text" class="form-control" value="24.5 MB" readonly>
+                                </div>
+                                <div class="mb-3">
+                                    <label class="form-label">Server Status</label>
+                                    <input type="text" class="form-control" value="Running (Optimal)" readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex justify-content-between mt-3">
+                            <button class="btn btn-outline-secondary">
+                                <i class="fas fa-sync-alt me-1"></i> Check for Updates
+                            </button>
+                            <div>
+                                <button class="btn btn-outline-danger me-2">
+                                    <i class="fas fa-database me-1"></i> Backup Now
+                                </button>
+                                <button class="btn btn-danger">
+                                    <i class="fas fa-power-off me-1"></i> System Restart
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Page Navigation
+        function showPage(pageId) {
+            document.querySelectorAll('.page-content').forEach(page => {
+                page.style.display = 'none';
+            });
+            document.getElementById(pageId + '-page').style.display = 'block';
+            
+            // Update active nav link
+            document.querySelectorAll('.sidebar .nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            // Add fade-in animation
+            document.getElementById(pageId + '-page').classList.add('fade-in');
+            setTimeout(() => {
+                document.getElementById(pageId + '-page').classList.remove('fade-in');
+            }, 500);
+        }
+
+        // Initialize charts when DOM is loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            showPage('dashboard');
+            initializeCharts();
+        });
+
+        function initializeCharts() {
+            // Dashboard charts
+            const rideFrequencyCtx = document.getElementById('rideFrequencyChart').getContext('2d');
+            new Chart(rideFrequencyCtx, {
+                type: 'line',
+                data: {
+                    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+                    datasets: [{
+                        label: 'Rides',
+                        data: [35, 42, 48, 45, 52, 20, 15],
+                        borderColor: '#E31937',
+                        backgroundColor: 'rgba(227, 25, 55, 0.1)',
+                        tension: 0.3,
+                        fill: true,
+                        borderWidth: 2,
+                        pointBackgroundColor: '#E31937',
+                        pointRadius: 4,
+                        pointHoverRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#343a40',
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 12 },
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            const rideDistributionCtx = document.getElementById('rideDistributionChart').getContext('2d');
+            new Chart(rideDistributionCtx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Completed', 'In Progress', 'Scheduled', 'Cancelled'],
+                    datasets: [{
+                        data: [65, 15, 12, 8],
+                        backgroundColor: [
+                            '#28a745',
+                            '#ffc107',
+                            '#00B4D8',
+                            '#dc3545'
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#343a40',
+                            bodyFont: { size: 12 },
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    cutout: '70%'
+                }
+            });
+            
+            // Analytics charts
+            const monthlyRideCtx = document.getElementById('monthlyRideChart').getContext('2d');
+            new Chart(monthlyRideCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+                    datasets: [{
+                        label: 'Rides',
+                        data: [120, 135, 142, 155, 162, 148, 165, 172, 158, 175, 182, 195],
+                        backgroundColor: 'rgba(227, 25, 55, 0.7)',
+                        borderColor: '#E31937',
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#343a40',
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 12 },
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: { 
+                        y: { 
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+            
+            const departmentCtx = document.getElementById('departmentChart').getContext('2d');
+            new Chart(departmentCtx, {
+                type: 'polarArea',
+                data: {
+                    labels: ['Engineering', 'Manufacturing', 'HR', 'Finance', 'R&D', 'Marketing'],
+                    datasets: [{
+                        data: [35, 25, 15, 12, 8, 5],
+                        backgroundColor: [
+                            'rgba(227, 25, 55, 0.7)',
+                            'rgba(0, 180, 216, 0.7)',
+                            'rgba(40, 167, 69, 0.7)',
+                            'rgba(255, 193, 7, 0.7)',
+                            'rgba(108, 117, 125, 0.7)',
+                            'rgba(111, 66, 193, 0.7)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#343a40',
+                            bodyFont: { size: 12 },
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: {
+                        r: {
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            }
+                        }
+                    }
+                }
+            });
+            
+            const rideStatusCtx = document.getElementById('rideStatusChart').getContext('2d');
+            new Chart(rideStatusCtx, {
+                type: 'pie',
+                data: {
+                    labels: ['Completed', 'In Progress', 'Scheduled', 'Cancelled'],
+                    datasets: [{
+                        data: [65, 15, 12, 8],
+                        backgroundColor: [
+                            '#28a745',
+                            '#ffc107',
+                            '#00B4D8',
+                            '#dc3545'
+                        ],
+                        borderWidth: 0,
+                        hoverOffset: 10
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                padding: 20,
+                                usePointStyle: true,
+                                pointStyle: 'circle'
+                            }
+                        },
+                        tooltip: {
+                            backgroundColor: '#343a40',
+                            bodyFont: { size: 12 },
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    }
+                }
+            });
+            
+            const routesCtx = document.getElementById('routesChart').getContext('2d');
+            new Chart(routesCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Hosur → Corp', 'ECity → Plant', 'WF → Corp', 'Koramangala → R&D', 'Hebbal → Plant'],
+                    datasets: [{
+                        label: 'Rides',
+                        data: [85, 72, 68, 45, 32],
+                        backgroundColor: [
+                            'rgba(227, 25, 55, 0.7)',
+                            'rgba(227, 25, 55, 0.6)',
+                            'rgba(227, 25, 55, 0.5)',
+                            'rgba(227, 25, 55, 0.4)',
+                            'rgba(227, 25, 55, 0.3)'
+                        ],
+                        borderColor: '#E31937',
+                        borderWidth: 1,
+                        borderRadius: 6
+                    }]
+                },
+                options: {
+                    indexAxis: 'y',
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            backgroundColor: '#343a40',
+                            titleFont: { size: 14 },
+                            bodyFont: { size: 12 },
+                            padding: 12,
+                            cornerRadius: 8
+                        }
+                    },
+                    scales: { 
+                        x: { 
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.05)'
+                            }
+                        },
+                        y: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+    </script>
+</body>
+</html>

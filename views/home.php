@@ -228,6 +228,11 @@
     }
 </style>
 
+
+
+
+
+
 <!-- About Section -->
 <section class="about">
     <div class="container">
@@ -542,6 +547,9 @@
         }
     }
 </style>
+
+
+
 
 <!-- Enhanced Industry Solutions Section -->
 <section class="industry-solutions py-5 position-relative overflow-hidden">
@@ -1231,7 +1239,7 @@
     :root {
         --primary: #2563eb;
         --primary-dark: #1d4ed8;
-        --secondary: #f59e0b;
+        --secondary:rgb(52, 109, 232);;
         --dark: #1e293b;
         --light: #f8fafc;
         --gray: #64748b;

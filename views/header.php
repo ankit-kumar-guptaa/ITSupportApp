@@ -20,7 +20,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IT Sahayta</title>
     <link rel="stylesheet" href="../assets/css/user_dashboard.css">
@@ -32,6 +32,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+   
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <style>
         :root {
             --primary: #4361ee;
@@ -307,13 +310,13 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         <a class="nav-link <?php echo ($current_page == 'report_issue.php') ? 'active' : ''; ?>" href="/views/report_issue.php">Report Issue</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($current_page == 'book_slot.php') ? 'active' : ''; ?>" href="/views/book_slot.php">Book Slot</a>
+                        <a class="nav-link <?php echo ($current_page == 'pricing.php') ? 'active' : ''; ?>" href="/views/pricing.php">Pricing</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($current_page == 'about.php') ? 'active' : ''; ?>" href="/about">About Us</a>
+                        <a class="nav-link <?php echo ($current_page == 'about.php') ? 'active' : ''; ?>" href="/views/about.php">About Us</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($current_page == 'faq.php') ? 'active' : ''; ?>" href="/faq">FAQ</a>
+                        <a class="nav-link <?php echo ($current_page == 'faq.php') ? 'active' : ''; ?>" href="/views/faq.php">FAQ</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>" href="/views/contact.php">Contact</a>
