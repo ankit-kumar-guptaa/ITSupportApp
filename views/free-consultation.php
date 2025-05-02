@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $preferred_time = $_POST['preferred-time'] ?? '';
     
     // Admin email details
-    $admin_email = 'gauravmishra92812@gmail.com';
+    $admin_email = 'theankitkumarg@gmail.com';
     $admin_subject = 'New Consultation Booking - IT Sahayata';
     
     // User email details
