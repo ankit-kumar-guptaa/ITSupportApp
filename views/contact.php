@@ -29,7 +29,7 @@
                         </div>
                     </div>
                     
-                    <form class="modern-contact-form" action="/submit-contact" method="POST">
+                    <form class="modern-contact-form" action="/controllers/contact_submit.php" method="POST">
                         <div class="form-group floating">
                             <input type="text" id="name" name="name" required>
                             <label for="name">Full Name</label>
