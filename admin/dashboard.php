@@ -406,9 +406,10 @@ if (isset($_GET['error'])) {
                     <thead>
                         <tr>
                             <th>ID</th>
-                            <th>User Name</th>
+                            <th>User</th>
                             <th>Description</th>
                             <th>Category</th>
+                            <th>Gadget Type</th>
                             <th>Status</th>
                             <th>Agent</th>
                             <th>Created At</th>
@@ -418,36 +419,56 @@ if (isset($_GET['error'])) {
                     <tbody>
                         <?php if (empty($issues)): ?>
                             <tr>
-                                <td colspan="8">No issues found.</td>
+                                <td colspan="9">No issues found.</td>
                             </tr>
                         <?php else: ?>
                             <?php foreach ($issues as $issue): ?>
                                 <tr>
                                     <td><?php echo $issue['id']; ?></td>
-                                    <td><?php echo htmlspecialchars($issue['user_name']); ?></td>
-                                    <!-- इश्यू डिटेल्स में इमेज और फाइल दिखाने के लिए कोड
-                                <td>
-                                    <?php echo htmlspecialchars($issue['description']); ?>
-                                    
-                                    <?php if (!empty($issue['image_path'])): ?>
-                                        <div class="issue-image">
-                                            <a href="<?php echo $issue['image_path']; ?>" target="_blank">
-                                                <img src="<?php echo $issue['image_path']; ?>" alt="Issue Image" style="max-width: 100px; max-height: 100px;">
-                                            </a>
-                                        </div>
-                                    <?php endif; ?>
-                                    
-                                    <?php if (!empty($issue['attached_file'])): ?>
-                                        <div class="issue-file">
-                                            <a href="<?php echo $issue['attached_file']; ?>" target="_blank" class="btn btn-sm btn-primary">
-                                                <i class="fas fa-file-pdf"></i> फाइल देखें
-                                            </a>
-                                        </div>
-                                    <?php endif; ?>
-                                </td>
+                                    <td>
+                                        <?php 
+                                        // Get user name
+                                        $stmt = $pdo->prepare("SELECT name FROM users WHERE id = ?");
+                                        $stmt->execute([$issue['user_id']]);
+                                        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+                                        echo htmlspecialchars($user['name'] ?? 'Unknown');
+                                        ?>
+                                    </td>
+                                    <td>
+                                        <?php echo htmlspecialchars($issue['description']); ?>
+                                        
+                                        <?php if (!empty($issue['image_path'])): ?>
+                                            <div class="issue-image">
+                                                <a href="<?php echo $issue['image_path']; ?>" target="_blank">
+                                                    <img src="<?php echo $issue['image_path']; ?>" alt="Issue Image" style="max-width: 100px; max-height: 100px;">
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                        
+                                        <?php if (!empty($issue['attached_file'])): ?>
+                                            <div class="issue-file">
+                                                <a href="<?php echo $issue['attached_file']; ?>" target="_blank" class="btn btn-sm btn-primary">
+                                                    <i class="fas fa-file"></i> View File
+                                                </a>
+                                            </div>
+                                        <?php endif; ?>
+                                    </td>
+                                    <td><?php echo htmlspecialchars($issue['category']); ?></td>
+                                    <td><?php echo htmlspecialchars($issue['gadget_type']); ?></td>
                                     <td><?php echo htmlspecialchars($issue['status']); ?></td>
-                                    <td><?php echo htmlspecialchars($issue['agent_name'] ?? 'Not Assigned'); ?></td>
-                                    <td><?php echo $issue['created_at']; ?></td>
+                                    <td>
+                                        <?php 
+                                        if ($issue['agent_id']) {
+                                            $stmt = $pdo->prepare("SELECT name FROM agents WHERE id = ?");
+                                            $stmt->execute([$issue['agent_id']]);
+                                            $agent = $stmt->fetch(PDO::FETCH_ASSOC);
+                                            echo htmlspecialchars($agent['name'] ?? 'Unknown');
+                                        } else {
+                                            echo 'Not Assigned';
+                                        }
+                                        ?>
+                                    </td>
+                                    <td><?php echo date('Y-m-d H:i', strtotime($issue['created_at'])); ?></td>
                                     <td>
                                         <!-- Assign Agent -->
                                         <form action="/controllers/AdminController.php?action=assign_issue" method="POST"
