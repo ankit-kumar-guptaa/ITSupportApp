@@ -132,7 +132,6 @@ $reported_issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($reported_issues as $issue): ?>
                     <tr>
                         <td><?php echo $issue['id']; ?></td>
-                        <!-- इश्यू डिटेल्स में इमेज और फाइल दिखाने के लिए -->
                         <td>
                             <?php echo htmlspecialchars($issue['description']); ?>
                             
@@ -147,14 +146,42 @@ $reported_issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <?php if (!empty($issue['attached_file'])): ?>
                                 <div class="issue-file">
                                     <a href="<?php echo $issue['attached_file']; ?>" target="_blank" class="btn btn-sm btn-primary">
-                                        <i class="fas fa-file-pdf"></i> फाइल देखें
+                                        <i class="fas fa-file-pdf"></i> View File
                                     </a>
                                 </div>
                             <?php endif; ?>
                         </td>
-                        <td><?php echo $issue['created_at']; ?></td>
+                        <td><?php echo htmlspecialchars($issue['category']); ?></td>
                         <td>
-                            <?php if ($issue['status'] == 'resolved'): ?>
+                            <?php 
+                                $status_class = '';
+                                switch($issue['status']) {
+                                    case 'Pending':
+                                        $status_class = 'status-pending';
+                                        break;
+                                    case 'In Progress':
+                                        $status_class = 'status-progress';
+                                        break;
+                                    case 'Resolved':
+                                        $status_class = 'status-resolved';
+                                        break;
+                                    default:
+                                        $status_class = 'status-default';
+                                }
+                            ?>
+                            <span class="status-badge <?php echo $status_class; ?>"><?php echo htmlspecialchars($issue['status']); ?></span>
+                        </td>
+                        <td>
+                            <?php if ($issue['agent_id']): ?>
+                                <?php echo htmlspecialchars($issue['agent_name']); ?><br>
+                                <small><?php echo htmlspecialchars($issue['agent_phone']); ?></small>
+                            <?php else: ?>
+                                Not assigned yet
+                            <?php endif; ?>
+                        </td>
+                        <td><?php echo date('Y-m-d H:i', strtotime($issue['created_at'])); ?></td>
+                        <td>
+                            <?php if ($issue['status'] == 'Resolved'): ?>
                                 <?php
                                 // Check if feedback already submitted
                                 $stmt = $pdo->prepare("SELECT * FROM feedback WHERE issue_id = ? AND user_id = ?");
@@ -243,5 +270,31 @@ function openTab(evt, tabName) {
     evt.currentTarget.classList.add("active");
 }
 </script>
+
+<style>
+    .status-badge {
+    padding: 5px 10px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-weight: bold;
+    color: white;
+}
+
+.status-pending {
+    background-color: #ffc107;
+}
+
+.status-progress {
+    background-color: #17a2b8;
+}
+
+.status-resolved {
+    background-color: #28a745;
+}
+
+.status-default {
+    background-color: #6c757d;
+}
+</style>
 
 <?php include 'footer.php'; ?>
