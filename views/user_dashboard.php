@@ -132,19 +132,26 @@ $reported_issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <?php foreach ($reported_issues as $issue): ?>
                     <tr>
                         <td><?php echo $issue['id']; ?></td>
-                        <td><?php echo htmlspecialchars($issue['description']); ?></td>
-                        <td><?php echo htmlspecialchars($issue['category']); ?></td>
-                        <td><?php echo htmlspecialchars($issue['status']); ?></td>
-                     
+                        <!-- इश्यू डिटेल्स में इमेज और फाइल दिखाने के लिए -->
                         <td>
-    <?php 
-    if ($issue['agent_name']) {
-        echo htmlspecialchars($issue['agent_name']) . "<br>Phone: " . htmlspecialchars($issue['agent_phone'] ?? 'Not provided');
-    } else {
-        echo "Not Assigned";
-    }
-    ?>
-</td>
+                            <?php echo htmlspecialchars($issue['description']); ?>
+                            
+                            <?php if (!empty($issue['image_path'])): ?>
+                                <div class="issue-image">
+                                    <a href="<?php echo $issue['image_path']; ?>" target="_blank">
+                                        <img src="<?php echo $issue['image_path']; ?>" alt="Issue Image" style="max-width: 100px; max-height: 100px;">
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                            
+                            <?php if (!empty($issue['attached_file'])): ?>
+                                <div class="issue-file">
+                                    <a href="<?php echo $issue['attached_file']; ?>" target="_blank" class="btn btn-sm btn-primary">
+                                        <i class="fas fa-file-pdf"></i> फाइल देखें
+                                    </a>
+                                </div>
+                            <?php endif; ?>
+                        </td>
                         <td><?php echo $issue['created_at']; ?></td>
                         <td>
                             <?php if ($issue['status'] == 'resolved'): ?>

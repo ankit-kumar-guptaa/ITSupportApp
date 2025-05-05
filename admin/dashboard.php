@@ -425,8 +425,26 @@ if (isset($_GET['error'])) {
                                 <tr>
                                     <td><?php echo $issue['id']; ?></td>
                                     <td><?php echo htmlspecialchars($issue['user_name']); ?></td>
-                                    <td><?php echo htmlspecialchars($issue['description']); ?></td>
-                                    <td><?php echo htmlspecialchars($issue['category']); ?></td>
+                                    <!-- इश्यू डिटेल्स में इमेज और फाइल दिखाने के लिए कोड
+                                <td>
+                                    <?php echo htmlspecialchars($issue['description']); ?>
+                                    
+                                    <?php if (!empty($issue['image_path'])): ?>
+                                        <div class="issue-image">
+                                            <a href="<?php echo $issue['image_path']; ?>" target="_blank">
+                                                <img src="<?php echo $issue['image_path']; ?>" alt="Issue Image" style="max-width: 100px; max-height: 100px;">
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+                                    
+                                    <?php if (!empty($issue['attached_file'])): ?>
+                                        <div class="issue-file">
+                                            <a href="<?php echo $issue['attached_file']; ?>" target="_blank" class="btn btn-sm btn-primary">
+                                                <i class="fas fa-file-pdf"></i> फाइल देखें
+                                            </a>
+                                        </div>
+                                    <?php endif; ?>
+                                </td>
                                     <td><?php echo htmlspecialchars($issue['status']); ?></td>
                                     <td><?php echo htmlspecialchars($issue['agent_name'] ?? 'Not Assigned'); ?></td>
                                     <td><?php echo $issue['created_at']; ?></td>
