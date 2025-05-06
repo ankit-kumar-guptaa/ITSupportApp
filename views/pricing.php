@@ -535,10 +535,9 @@ $meta_keywords = "IT support pricing, managed IT services cost, computer support
                             </ul>
                             <?php endif; ?>
                             
-                            <!-- <a href="contact.php?plan=<?= $key ?>&cycle=<?= $billing_cycle ?>" class="btn <?= isset($plan['popular']) ? 'btn-primary' : 'btn-outline-primary' ?> pricing-btn">
+                            <a href="contact.php?plan=<?= $key ?>&cycle=<?= $billing_cycle ?>" class="btn <?= isset($plan['popular']) ? 'btn-primary' : 'btn-outline-primary' ?> pricing-btn">
                                 Choose <?= $plan['name'] ?>
-                            </a> -->
-                            <a href="https://rzp.io/rzp/M7hE7nhy" class="btn btn-primary btn-outline-primary pricing-btn">choose</a>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -943,3 +942,31 @@ $meta_keywords = "IT support pricing, managed IT services cost, computer support
     </script>
 </body>
 </html>
+
+<!-- Razorpay Script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+function payWithRazorpay(planName, amount) {
+    var options = {
+        "key": "rzp_live_W1ZSYhZ4kTPWhm", // Razorpay key
+        "amount": amount * 100, // Amount in paise
+        "currency": "INR",
+        "name": "IT Sahayata",
+        "description": "Payment for " + planName + " Plan",
+        "handler": function (response){
+            alert("Payment successful! Payment ID: " + response.razorpay_payment_id);
+            // यहाँ आप AJAX से backend को payment details भेज सकते हो
+        },
+        "prefill": {
+            "name": "",
+            "email": "",
+            "contact": ""
+        },
+        "theme": {
+            "color": "#4e73df"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    rzp1.open();
+}
+</script>
