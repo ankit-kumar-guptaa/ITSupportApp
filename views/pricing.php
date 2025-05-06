@@ -535,9 +535,14 @@ $meta_keywords = "IT support pricing, managed IT services cost, computer support
                             </ul>
                             <?php endif; ?>
                             
-                            <a href="contact.php?plan=<?= $key ?>&cycle=<?= $billing_cycle ?>" class="btn <?= isset($plan['popular']) ? 'btn-primary' : 'btn-outline-primary' ?> pricing-btn">
+                            <!-- <a href="contact.php?plan=<?= $key ?>&cycle=<?= $billing_cycle ?>" class="btn <?= isset($plan['popular']) ? 'btn-primary' : 'btn-outline-primary' ?> pricing-btn">
                                 Choose <?= $plan['name'] ?>
-                            </a>
+                            </a> -->
+                            <a href="javascript:void(0);" 
+   class="btn <?= isset($plan['popular']) ? 'btn-primary' : 'btn-outline-primary' ?> pricing-btn"
+   onclick="payWithRazorpay('<?= $plan['name'] ?>', <?= $plan[$billing_cycle] ?>)">
+   Choose <?= $plan['name'] ?>
+</a>
                         </div>
                     </div>
                 </div>
