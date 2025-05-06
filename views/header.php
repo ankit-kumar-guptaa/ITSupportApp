@@ -310,7 +310,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         <a class="nav-link <?php echo ($current_page == 'report_issue.php') ? 'active' : ''; ?>" href="/views/report_issue.php">Report Issue</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link <?php echo ($current_page == 'pricing.php') ? 'active' : ''; ?>" href="/views/pricing.php">Pricing</a>
+                        <a class="nav-link <?php echo ($current_page == 'pricing.php') ? 'active' : ''; ?>" href="/views/pricing.php">Priciing</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo ($current_page == 'about.php') ? 'active' : ''; ?>" href="/views/about.php">About Us</a>
