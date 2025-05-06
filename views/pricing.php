@@ -75,6 +75,7 @@ $meta_description = "Transparent pricing for enterprise-grade IT support service
 $meta_keywords = "IT support pricing, managed IT services cost, computer support plans, IT helpdesk pricing, business IT support packages";
 
 ?>
+   <?php include "assets.php"?>
 <?php include 'header.php'; ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,6 +85,8 @@ $meta_keywords = "IT support pricing, managed IT services cost, computer support
     <title><?php echo $page_title; ?></title>
     <meta name="description" content="<?php echo $meta_description; ?>">
     <meta name="keywords" content="<?php echo $meta_keywords; ?>">
+
+ 
     
     <!-- Open Graph / Social Media Meta Tags -->
     <meta property="og:title" content="<?php echo $page_title; ?>">

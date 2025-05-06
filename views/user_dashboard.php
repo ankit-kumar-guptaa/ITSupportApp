@@ -38,6 +38,19 @@ $stmt->execute([$_SESSION['user_id']]);
 $reported_issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayata - User Dashboard | Manage Your IT Support</title>
+    <meta name="description" content="Access your user dashboard at IT Sahayta to manage your profile, report issues, and track your IT support requests.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+// ... existing code ...
+
 <?php include 'header.php'; ?>
 <main>
     <section class="dashboard-section">

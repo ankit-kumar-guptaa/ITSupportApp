@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+
 
 <?php
 // Check if form was submitted
@@ -114,6 +114,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Free IT Consultation | Expert Tech Solutions</title>
+    <meta name="description" content="Book a free IT consultation with IT Sahayta. Get expert advice on tech issues and personalized solutions for your business or home.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+<?php include 'header.php'; ?>
 
 <!-- Consultation Hero Section -->
 <section class="consultation-hero py-5 position-relative overflow-hidden">

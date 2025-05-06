@@ -2,6 +2,24 @@
 session_start();
 ?>
 
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Privacy Policy | Protecting Your Personal Information</title>
+    <meta name="description" content="Learn how IT Sahayta collects, uses, and protects your personal information. Our privacy policy ensures transparency and security for all users.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
+
+
+
 <?php include 'header.php'; ?>
 
 <main>

@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayata - Thank You | We Appreciate Your Feedback</title>
+    <meta name="description" content="Thank you for reaching out to IT Sahayata. We value your feedback and will respond promptly to your inquiry.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
+
 <?php include 'header.php'; ?>
 
 <!-- Thank You Section -->

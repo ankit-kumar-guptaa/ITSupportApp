@@ -1,3 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Verify OTP | Secure Access</title>
+    <meta name="description" content="Verify your OTP to securely access IT Sahayta services. Ensure your identity with our simple OTP verification process.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
+
 <?php include 'header.php'; ?>
 <main class="otp-verification">
     <section class="otp-section">

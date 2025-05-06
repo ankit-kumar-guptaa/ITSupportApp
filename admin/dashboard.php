@@ -112,6 +112,17 @@ if (isset($_GET['error'])) {
     ";
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Admin Dashboard | Manage IT Support Operations</title>
+    <meta name="description" content="Access the IT Sahayta admin dashboard to manage users, agents, issues, and more. Streamline your IT support operations efficiently.">
+    <?php include "../views/assets.php"?>
+  
+</head>
+<body>
 
 
 

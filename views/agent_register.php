@@ -1,3 +1,17 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Register as IT Support Agent | Join Our Team</title>
+    <meta name="description" content="Register as an IT support agent with IT Sahayta. Join our team to provide expert IT solutions and services.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
 <?php include 'header.php'; ?>
 <main>
     <section class="signup-section">

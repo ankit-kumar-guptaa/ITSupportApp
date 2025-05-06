@@ -1,3 +1,5 @@
+
+
 <?php include 'header.php'; ?>
 <main>
     <section class="signup-section">

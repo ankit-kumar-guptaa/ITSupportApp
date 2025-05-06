@@ -1,3 +1,18 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayata - Sign Up | Join Our IT Support Community</title>
+    <meta name="description" content="Sign up for IT Sahayta to access expert IT support services. Join our community and enhance your tech experience.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
+
 <?php include 'header.php'; ?>
 <main>
     <section class="signup-section">

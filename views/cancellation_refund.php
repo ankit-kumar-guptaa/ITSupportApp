@@ -2,6 +2,20 @@
 session_start();
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Cancellation and Refund Policy | Hassle-Free IT Support</title>
+    <meta name="description" content="Understand IT Sahayta's cancellation and refund policy for IT support services. Learn about our terms for cancellations, refunds, and service credits.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
+
 <?php include 'header.php'; ?>
 
 <main>

@@ -6,6 +6,21 @@ if (!isset($_SESSION['user_id']) || $_SESSION['role'] !== 'user') {
 }
 ?>
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Report an IT Issue | Quick and Reliable Support</title>
+    <meta name="description" content="Report your IT issues to IT Sahayta and get quick and reliable support. Our team is ready to assist you with hardware, software, and network problems.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
+
 <?php include 'header.php'; ?>
 
 <main class="issue-reporting-container">

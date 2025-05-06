@@ -62,6 +62,21 @@ $stmt->execute([$_SESSION['user_id']]);
 $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Agent Dashboard | Manage Your IT Support Tasks</title>
+    <meta name="description" content="Access your agent dashboard at IT Sahayta to manage assigned issues, view history, and communicate with admin. Enhance your IT support efficiency.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
+
 <?php include 'header.php'; ?>
 <main>
     <section class="dashboard-section">

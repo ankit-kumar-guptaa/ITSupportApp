@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Login | Access Your IT Support Account</title>
+    <meta name="description" content="Login to IT Sahayta to access your personalized IT support services. Manage your account, report issues, and get expert assistance.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
 <?php include 'header.php'; ?>
 <main>
     <section class="signup-section">

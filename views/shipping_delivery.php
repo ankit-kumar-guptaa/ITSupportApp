@@ -2,6 +2,19 @@
 session_start();
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayata - Shipping and Delivery Policy | Reliable IT Services</title>
+    <meta name="description" content="Learn about IT Sahayta's shipping and delivery policy for hardware products and on-site IT support services. Find out about service areas, delivery timeframes, and costs.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
 <?php include 'header.php'; ?>
 
 <main>

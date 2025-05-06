@@ -6,6 +6,19 @@ if (!isset($_SESSION['pending_email_update'])) {
 }
 ?>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Verify Email OTP | Secure Your Account</title>
+    <meta name="description" content="Verify your OTP for email update at IT Sahayta. Ensure secure and successful email verification with our easy OTP process.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
 <?php include 'header.php'; ?>
 <main>
     <section class="dashboard-section">

@@ -1,3 +1,16 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - FAQs | Get Answers to Your IT Support Questions</title>
+    <meta name="description" content="Find answers to frequently asked questions about IT Sahayta's support services. Learn about our offerings, service areas, response times, and more.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
 
     <?php include 'header.php'; ?>
 

@@ -37,6 +37,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Edit User Details | Admin Dashboard</title>
+    <meta name="description" content="Edit user details in the IT Sahayta admin dashboard. Manage user information efficiently and ensure data accuracy.">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
 
 <?php include 'header.php'; ?>
 <main>

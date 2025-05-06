@@ -1,3 +1,24 @@
+<?php
+session_start();
+?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IT Sahayta - Professional IT Support Services in India | Hardware, Software & Network Solutions</title>
+    <meta name="description" content="IT Sahayta provides 24/7 professional IT support services for businesses & individuals. Expert solutions for hardware repair, software issues, and network setup. Get instant help now!">
+    <?php include "assets.php"?>
+  
+</head>
+<body>
+
+
+
+
+
 <?php include 'header.php'; ?>
 
 
