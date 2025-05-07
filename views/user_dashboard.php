@@ -49,7 +49,7 @@ $reported_issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
   
 </head>
 <body>
-// ... existing code ...
+
 
 <?php include 'header.php'; ?>
 <main>

@@ -1,3 +1,5 @@
+<link rel="shortcut icon" href="../assets/fav.png" type="image/x-icon">
+
 <link rel="stylesheet" href="../assets/css/user_dashboard.css">
     <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">

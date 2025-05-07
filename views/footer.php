@@ -229,10 +229,10 @@
                 <h3 class="footer-heading">Quick Links</h3>
                 <ul class="footer-links">
                     <li><a href="/"><i class="fas fa-chevron-right"></i> Home</a></li>
-                    <li><a href="/services"><i class="fas fa-chevron-right"></i> Services</a></li>
-                    <li><a href="/about"><i class="fas fa-chevron-right"></i> About Us</a></li>
-                    <li><a href="/contact"><i class="fas fa-chevron-right"></i> Contact</a></li>
-                    <li><a href="/blog"><i class="fas fa-chevron-right"></i> Blog</a></li>
+                    <li><a href="/views/service.php"><i class="fas fa-chevron-right"></i> Services</a></li>
+                    <li><a href="/views/about.php"><i class="fas fa-chevron-right"></i> About Us</a></li>
+                    <li><a href="/views/contact.php"><i class="fas fa-chevron-right"></i> Contact</a></li>
+                    <li><a href="/blog/index.php"><i class="fas fa-chevron-right"></i> Blog</a></li>
                 </ul>
             </div>
 
