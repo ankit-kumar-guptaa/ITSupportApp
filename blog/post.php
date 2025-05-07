@@ -154,31 +154,64 @@ $meta_description = substr(strip_tags($post['content']), 0, 160);
     }
     
     /* ब्रेडक्रम्ब नेविगेशन */
-    .breadcrumb {
-        background: transparent;
-        padding: 0;
-        margin: 0;
-    }
-    
-    .breadcrumb-item a {
-        color: rgba(255, 255, 255, 0.9);
-        text-decoration: none;
-        transition: var(--transition);
-        font-weight: 500;
-    }
-    
-    .breadcrumb-item a:hover {
-        color: white;
-        text-decoration: underline;
-    }
-    
-    .breadcrumb-item.active {
-        color: rgba(255, 255, 255, 0.7);
-    }
-    
-    .breadcrumb-item+.breadcrumb-item::before {
-        color: rgba(255, 255, 255, 0.7);
-    }
+  /* ब्रेडक्रम्ब नेविगेशन */
+.breadcrumb {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+    z-index: 2;
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.breadcrumb-item a {
+    color: rgba(255, 255, 255, 0.9);
+    text-decoration: none;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    padding: 8px 15px;
+    border-radius: 30px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    display: flex;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.breadcrumb-item a:hover {
+    color: white;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.breadcrumb-item.active {
+    color: rgba(255, 255, 255, 0.8);
+    padding: 8px 15px;
+    border-radius: 30px;
+    background: rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(5px);
+    font-weight: 500;
+}
+
+.breadcrumb-item+.breadcrumb-item::before {
+    color: rgba(255, 255, 255, 0.9);
+    content: "→";
+    padding: 0 8px;
+    font-size: 1.2em;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    animation: arrowPulse 2s infinite;
+}
+
+@keyframes arrowPulse {
+    0% { transform: translateX(0); }
+    50% { transform: translateX(3px); }
+    100% { transform: translateX(0); }
+}
     
     /* मुख्य कंटेंट कंटेनर */
     .blog-content {
@@ -591,11 +624,7 @@ $meta_description = substr(strip_tags($post['content']), 0, 160);
         box-shadow: 0 8px 25px rgba(67, 97, 238, 0.4);
     }
     
-    /* स्टिकी साइडबार */
-    .sticky-top {
-        top: 2rem;
-        z-index: 900;
-    }
+
     
     /* रेस्पॉन्सिव एडजस्टमेंट्स */
     @media (max-width: 991px) {
@@ -736,11 +765,12 @@ $meta_description = substr(strip_tags($post['content']), 0, 160);
     <?php include $_SERVER['DOCUMENT_ROOT'] . '/views/header.php'; ?>
 
     <!-- Blog Header -->
-    <header class="blog-header">
+       <!-- Blog Header -->
+       <header class="blog-header">
         <div class="container">
             <nav aria-label="breadcrumb">
                 <ol class="breadcrumb mb-0">
-                    <li class="breadcrumb-item"><a href="/" class="text-white">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/index.php" class="text-white">Home</a></li>
                     <li class="breadcrumb-item"><a href="/blog/index.php" class="text-white">Blog</a></li>
                     <li class="breadcrumb-item active text-white-50" aria-current="page"><?php echo htmlspecialchars($post['title']); ?></li>
                 </ol>
