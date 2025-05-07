@@ -3,16 +3,15 @@ session_start();
 ?>
 
 
-<!DOCTYPE html>
-<html lang="en">
 <head>
 <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IT Sahayta - Professional IT Support Services in India | Hardware, Software & Network Solutions</title>
     <meta name="description" content="IT Sahayta provides 24/7 professional IT support services for businesses & individuals. Expert solutions for hardware repair, software issues, and network setup. Get instant help now!">
+    <meta name="keywords" content="IT support services in Lucknow, IT support services in Delhi, Computer repair services Lucknow, Computer repair services Delhi, Laptop repair services Lucknow, Laptop repair services Delhi, Desktop repair services Lucknow, Desktop repair services Delhi, On-site IT support Lucknow, On-site IT support Delhi, Motherboard repair Lucknow, Motherboard repair Delhi, RAM upgrade services Lucknow, RAM upgrade services Delhi, Hard drive replacement Lucknow, Hard drive replacement Delhi, SSD installation services Lucknow, SSD installation services Delhi, Power supply repair Lucknow, Power supply repair Delhi, Operating system installation Lucknow, Operating system installation Delhi, Virus removal services Lucknow, Virus removal services Delhi, Software troubleshooting Lucknow, Software troubleshooting Delhi, Driver installation services Lucknow, Driver installation services Delhi, Application support services Lucknow, Application support services Delhi, Wi-Fi setup services Lucknow, Wi-Fi setup services Delhi, Network troubleshooting Lucknow, Network troubleshooting Delhi, VPN configuration services Lucknow, VPN configuration services Delhi, Router installation services Lucknow, Router installation services Delhi, Network security services Lucknow, Network security services Delhi, Home IT support Lucknow, Home IT support Delhi, Remote IT support Lucknow, Remote IT support Delhi, Home office setup services Lucknow, Home office setup services Delhi, Data backup services Lucknow, Data backup services Delhi, IT consultation services Lucknow, IT consultation services Delhi">
     <?php include "assets.php"?>
-  
 </head>
+// ... existing code ...
 <body>
 
 

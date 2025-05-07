@@ -285,8 +285,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </button>
                 
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link <?php echo ($current_page == 'index.php' || $current_page == '') ? 'active' : ''; ?>" href="/">Home</a>
+                <li class="nav-item">
+                        <a class="nav-link <?php echo ($current_page == 'index.php' && strpos($_SERVER['REQUEST_URI'], '/blog/') === false) ? 'active' : ''; ?>" href="/">Home</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo ($current_page == 'report_issue.php') ? 'active' : ''; ?>" href="/views/report_issue.php">Report Issue</a>
@@ -302,6 +302,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     </li>
                     <li class="nav-item">
                         <a class="nav-link <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>" href="/views/contact.php">Contact</a>
+                    </li>
+                 
+
+                    <li class="nav-item">
+                        <a class="nav-link <?php echo (strpos($current_page, 'blog') !== false || $current_page == 'post.php' || ($current_page == 'index.php' && strpos($_SERVER['REQUEST_URI'], '/blog/') !== false)) ? 'active' : ''; ?>" href="/blog/index.php">Blog</a>
                     </li>
                 </ul>
                 

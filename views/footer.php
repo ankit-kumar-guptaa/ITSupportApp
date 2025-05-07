@@ -249,8 +249,8 @@
 
             <div class="footer-contact">
                 <h3 class="footer-heading">Contact Us</h3>
-                <p><i class="fas fa-map-marker-alt"></i> G-18 Saurabh Vihar Jaitpur , Badarpur , New Delhi - 110044</p>
-                <p><i class="fas fa-map-marker-alt"></i>2/241 jankipuram Sector H lucknow 226021</p>
+                <p><i class="fas fa-map-marker-alt"></i>Badarpur , New Delhi - 110044</p>
+                <p><i class="fas fa-map-marker-alt"></i>jankipuram Sector H lucknow 226021</p>
                 <p><i class="fas fa-envelope"></i> support@itsahayata.com</p>
                 <p><i class="fas fa-clock"></i> Mon-Sun: 24/7 Support</p>
                 <p><i class="fas fa-phone-alt"></i> +91 77038 23008</p>

@@ -1,3 +1,11 @@
+RewriteEngine On
+
+# ब्लॉग पोस्ट के लिए SEO फ्रेंडली URL
+RewriteRule ^blog/([0-9]+)/([a-zA-Z0-9-]+)$ /blog/post.php?id=$1 [L]
+
+# ब्लॉग पेजिनेशन के लिए SEO फ्रेंडली URL
+RewriteRule ^blog/page/([0-9]+)$ /blog/index.php?page=$1 [L]
+
 # Custom 404 Error Page
 ErrorDocument 404 /404.php
 
