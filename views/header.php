@@ -39,6 +39,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
         top: 0;
         z-index: 1000;
         transition: all 0.3s ease;
+        will-change: transform; /* स्क्रॉल पर हिलने को रोकने के लिए */
+        transform: translateZ(0); /* हार्डवेयर एक्सेलेरेशन के लिए */
+        backface-visibility: hidden; /* और स्मूथनेस के लिए */
     }
     
     .navbar.scrolled {
@@ -48,7 +51,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     .navbar-container {
         width: 100%;
-        /* max-width: 1320px; */
         margin: 0 auto;
         padding: 0 1.5rem;
         display: flex;
@@ -62,7 +64,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     }
 
     .navbar-brand img {
-        height: 70px; /* बड़ा लोगो */
+        height: 70px;
         transition: all 0.3s ease;
     }
     
@@ -81,7 +83,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     .navbar-nav {
         display: flex;
         align-items: center;
-        gap: 0.5rem; /* मेन्यू आइटम्स के बीच गैप बढ़ाया */
+        gap: 0.5rem;
         margin: 0;
         padding: 0;
         list-style: none;
@@ -89,19 +91,19 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     .nav-item {
         position: relative;
-        white-space: nowrap; /* टेक्स्ट को एक लाइन में रखने के लिए */
+        white-space: nowrap;
     }
 
     .nav-link {
         font-weight: 500;
         color: var(--dark) !important;
-        padding: 0.7rem 0.8rem !important; /* पैडिंग कम की */
+        padding: 0.7rem 0.8rem !important;
         position: relative;
         transition: all 0.3s ease;
         display: flex;
         align-items: center;
         text-decoration: none;
-        font-size: 1rem; /* फॉन्ट साइज़ थोड़ा कम किया */
+        font-size: 1rem;
     }
 
     .nav-link:before {
@@ -135,6 +137,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
         margin-top: 0.5rem !important;
         min-width: 220px;
         animation: fadeIn 0.3s ease;
+        display: none;
+        position: absolute;
+        background-color: white;
+        z-index: 1001;
+    }
+    
+    .dropdown-menu.show {
+        display: block;
     }
 
     .dropdown-item {
@@ -145,6 +155,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
         display: flex;
         align-items: center;
         gap: 0.5rem;
+        text-decoration: none;
+        color: var(--dark);
     }
 
     .dropdown-item:hover {
@@ -261,6 +273,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
         font-size: 1.25rem;
         cursor: pointer;
         transition: all 0.3s ease;
+        margin-left: auto;
+        z-index: 998; /* मोबाइल मेनू से कम z-index */
     }
     
     .navbar-toggler:hover {
@@ -292,6 +306,26 @@ $current_page = basename($_SERVER['PHP_SELF']);
         visibility: visible;
     }
 
+    .navbar-collapse {
+        position: fixed;
+        top: 0;
+        right: -100%; /* शुरू में स्क्रीन के बाहर */
+        width: 280px;
+        height: 100vh;
+        background: white;
+        padding: 1.5rem;
+        z-index: 1000;
+        transition: right 0.4s ease; /* translateX के बजाय right प्रॉपर्टी का उपयोग */
+        box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+    }
+    
+    .navbar-collapse.show {
+        right: 0; /* दिखाने के लिए स्क्रीन पर लाएं */
+    }
+
     .mobile-close-btn {
         position: absolute;
         top: 1.25rem;
@@ -316,6 +350,22 @@ $current_page = basename($_SERVER['PHP_SELF']);
         transform: rotate(90deg);
     }
 
+    /* ड्रॉपडाउन टॉगल के लिए स्टाइल */
+    .dropdown-toggle {
+        cursor: pointer;
+    }
+    
+    .dropdown-toggle::after {
+        display: inline-block;
+        margin-left: 0.255em;
+        vertical-align: 0.255em;
+        content: "";
+        border-top: 0.3em solid;
+        border-right: 0.3em solid transparent;
+        border-bottom: 0;
+        border-left: 0.3em solid transparent;
+    }
+
     /* Animations */
     @keyframes fadeIn {
         from {
@@ -331,11 +381,19 @@ $current_page = basename($_SERVER['PHP_SELF']);
     /* Responsive Styles */
     @media (min-width: 992px) {
         .navbar-collapse {
+            position: static;
             display: flex !important;
             flex-basis: auto;
             flex-grow: 1;
             align-items: center;
             justify-content: space-between;
+            height: auto;
+            width: auto;
+            background: transparent;
+            box-shadow: none;
+            padding: 0;
+            overflow: visible;
+            right: 0;
         }
         
         .navbar-nav {
@@ -351,6 +409,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     @media (max-width: 991.98px) {
         .navbar-container {
             padding: 0 1rem;
+            position: relative;
         }
         
         .navbar-brand img {
@@ -359,27 +418,10 @@ $current_page = basename($_SERVER['PHP_SELF']);
         
         .navbar-toggler {
             display: flex;
-        }
-        
-        .navbar-collapse {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 280px;
-            height: 100vh;
-            background: white;
-            padding: 1.5rem;
-            z-index: 1000;
-            transform: translateX(100%);
-            transition: transform 0.4s ease;
-            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            overflow-y: auto;
-        }
-        
-        .navbar-collapse.show {
-            transform: translateX(0);
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
         }
         
         .navbar-nav {
@@ -520,6 +562,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
             width: 100%;
         }
     }
+
+    /* मोबाइल मेनू खुलने पर टॉगलर बटन छिपाने के लिए */
+    .mobile-menu-overlay.active ~ .navbar-container .navbar-toggler {
+        display: none;
+    }
 </style>
 
 <!-- Mobile Menu Overlay -->
@@ -577,7 +624,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <div class="auth-buttons d-none d-lg-flex">
             <?php if (isset($_SESSION['user_id'])): ?>
                 <div class="dropdown">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button">
                         <div class="user-avatar">
                             <?php echo strtoupper(substr($user_name, 0, 1)); ?>
                         </div>
@@ -631,8 +678,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <!-- मोबाइल मेन्यू -->
         <div class="navbar-collapse" id="navbarContent">
             <div class="mobile-menu-header d-lg-none">
-                <div class="mobile-menu-title">IT Sahayta</div>
-                <button class="mobile-close-btn">
+                <div class="mobile-menu-title">IT Sahayata</div>
+                <button class="mobile-close-btn" aria-label="Close menu">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -640,166 +687,196 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <ul class="navbar-nav d-lg-none">
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($current_page == 'index.php' && strpos($_SERVER['REQUEST_URI'], '/blog/') === false) ? 'active' : ''; ?>" href="/">
-                        <i class="fas fa-home me-2"></i>Home
+                        <i class="fas fa-home me-2"></i> Home
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($current_page == 'report_issue.php') ? 'active' : ''; ?>" href="/views/report_issue.php">
-                        <i class="fas fa-exclamation-circle me-2"></i>Report Issue
+                        <i class="fas fa-plus-circle me-2"></i> Report Issue
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($current_page == 'pricing.php') ? 'active' : ''; ?>" href="/views/pricing.php">
-                        <i class="fas fa-tags me-2"></i>Pricing
+                        <i class="fas fa-tags me-2"></i> Pricing
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($current_page == 'about.php') ? 'active' : ''; ?>" href="/views/about.php">
-                        <i class="fas fa-info-circle me-2"></i>About Us
+                        <i class="fas fa-info-circle me-2"></i> About Us
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($current_page == 'faq.php') ? 'active' : ''; ?>" href="/views/faq.php">
-                        <i class="fas fa-question-circle me-2"></i>FAQ
+                        <i class="fas fa-question-circle me-2"></i> FAQ
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo ($current_page == 'contact.php') ? 'active' : ''; ?>" href="/views/contact.php">
-                        <i class="fas fa-envelope me-2"></i>Contact
+                        <i class="fas fa-envelope me-2"></i> Contact
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link <?php echo (strpos($current_page, 'blog') !== false || $current_page == 'post.php' || ($current_page == 'index.php' && strpos($_SERVER['REQUEST_URI'], '/blog/') !== false)) ? 'active' : ''; ?>" href="/blog/index.php">
-                        <i class="fas fa-blog me-2"></i>Blog
+                        <i class="fas fa-blog me-2"></i> Blog
                     </a>
                 </li>
             </ul>
             
-            <div class="auth-buttons d-lg-none">
+            <div class="mobile-menu-footer d-lg-none">
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <div class="dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
-                            <div class="user-avatar">
-                                <?php echo strtoupper(substr($user_name, 0, 1)); ?>
-                            </div>
-                            <span><?php echo $user_name; ?></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <?php if ($_SESSION['role'] === 'user'): ?>
-                                <li><h6 class="dropdown-header">User Menu</h6></li>
-                                <li><a class="dropdown-item" href="/views/user_dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                                <li><a class="dropdown-item" href="/views/report_issue.php"><i class="fas fa-plus-circle me-2"></i>Report Issue</a></li>
-                                <li><a class="dropdown-item" href="/views/book_slot.php"><i class="fas fa-calendar-check me-2"></i>Book Slot</a></li>
-                                <li><a class="dropdown-item" href="/views/reported_issues.php"><i class="fas fa-tasks me-2"></i>Your Issues</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                            <?php elseif ($_SESSION['role'] === 'agent'): ?>
-                                <li><h6 class="dropdown-header">Agent Menu</h6></li>
-                                <li><a class="dropdown-item" href="/views/agent_dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                                <li><a class="dropdown-item" href="/views/agent_dashboard.php#issues"><i class="fas fa-clipboard-list me-2"></i>Assigned Issues</a></li>
-                                <li><a class="dropdown-item" href="/views/agent_dashboard.php#bookings"><i class="fas fa-calendar-day me-2"></i>Booked Slots</a></li>
-                                <li><a class="dropdown-item" href="/views/agent_dashboard.php#history"><i class="fas fa-history me-2"></i>History</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                            <?php elseif ($_SESSION['role'] === 'admin'): ?>
-                                <li><h6 class="dropdown-header">Admin Menu</h6></li>
-                                <li><a class="dropdown-item" href="/admin/dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                                <li><a class="dropdown-item" href="/admin/dashboard.php#agents"><i class="fas fa-users-cog me-2"></i>Manage Agents</a></li>
-                                <li><a class="dropdown-item" href="/admin/admin_bookings.php"><i class="fas fa-calendar-alt me-2"></i>Manage Bookings</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                            <?php endif; ?>
-                        </ul>
+                    <div class="d-flex align-items-center mb-3">
+                        <div class="user-avatar">
+                            <?php echo strtoupper(substr($user_name, 0, 1)); ?>
+                        </div>
+                        <div class="ms-2">
+                            <div class="fw-bold"><?php echo $user_name; ?></div>
+                            <div class="text-muted small"><?php echo ucfirst($_SESSION['role']); ?></div>
+                        </div>
                     </div>
+                    
+                    <?php if ($_SESSION['role'] === 'user'): ?>
+                        <a href="/views/user_dashboard.php" class="btn btn-primary w-100 mb-2">
+                            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                        </a>
+                        <a href="/views/logout.php" class="btn btn-outline-danger w-100">
+                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                        </a>
+                    <?php elseif ($_SESSION['role'] === 'agent'): ?>
+                        <a href="/views/agent_dashboard.php" class="btn btn-primary w-100 mb-2">
+                            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                        </a>
+                        <a href="/views/logout.php" class="btn btn-outline-danger w-100">
+                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                        </a>
+                    <?php elseif ($_SESSION['role'] === 'admin'): ?>
+                        <a href="/admin/dashboard.php" class="btn btn-primary w-100 mb-2">
+                            <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                        </a>
+                        <a href="/views/logout.php" class="btn btn-outline-danger w-100">
+                            <i class="fas fa-sign-out-alt me-2"></i> Logout
+                        </a>
+                    <?php endif; ?>
                 <?php else: ?>
-                    <a href="/views/login.php" class="btn btn-login">
-                        <i class="fas fa-user"></i> User Login
+                    <a href="/views/login.php" class="btn btn-login w-100 mb-2">
+                        <i class="fas fa-user me-2"></i> User Login
                     </a>
-                    <a href="/views/agent_login.php" class="btn btn-agent">
-                        <i class="fas fa-headset"></i> Agent Login
+                    <a href="/views/agent_login.php" class="btn btn-agent w-100 mb-2">
+                        <i class="fas fa-headset me-2"></i> Agent Login
                     </a>
-                    <a href="/views/book_slot.php" class="btn btn-book">
-                        <i class="fas fa-calendar-check"></i> Book Slot
+                    <a href="/views/book_slot.php" class="btn btn-book w-100">
+                        <i class="fas fa-calendar-check me-2"></i> Book Slot
                     </a>
                 <?php endif; ?>
-            </div>
-            
-            <div class="mobile-menu-footer d-lg-none">
-                <a href="tel:+918005678900" class="mobile-menu-contact">
-                    <i class="fas fa-phone-alt"></i> +91 800 567 8900
-                </a>
-                <a href="mailto:support@itsahayta.com" class="mobile-menu-contact">
-                    <i class="fas fa-envelope"></i> support@itsahayta.com
-                </a>
+                
+                <div class="mt-4">
+                    <a href="tel:+917703823008" class="mobile-menu-contact">
+                        <i class="fas fa-phone-alt me-2"></i> +91-7703823008
+                    </a>
+                    <a href="mailto:support@itsahayta.com" class="mobile-menu-contact">
+                        <i class="fas fa-envelope me-2"></i> support@itsahayata.com
+                    </a>
+                </div>
+                
                 <div class="mobile-menu-social">
-                    <a href="#" class="social-icon"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-twitter"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="social-icon"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
+    
+</div>
 </nav>
 
-<!-- JavaScript for Mobile Menu and Scroll Effects -->
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const navbarToggler = document.querySelector('.navbar-toggler');
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-        const mobileCloseBtn = document.querySelector('.mobile-close-btn');
-        const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
-        const navbar = document.querySelector('.navbar');
-        
-        // Toggle mobile menu
+document.addEventListener('DOMContentLoaded', function() {
+    // ड्रॉपडाउन टॉगल के लिए
+    const dropdownToggle = document.querySelectorAll('.dropdown-toggle');
+    dropdownToggle.forEach(function(toggle) {
+        toggle.addEventListener('click', function(e) {
+            e.preventDefault();
+            const parent = this.parentElement;
+            const dropdownMenu = parent.querySelector('.dropdown-menu');
+            
+            // अन्य सभी ड्रॉपडाउन को बंद करें
+            document.querySelectorAll('.dropdown-menu.show').forEach(function(menu) {
+                if (menu !== dropdownMenu) {
+                    menu.classList.remove('show');
+                }
+            });
+            
+            // टॉगल करें
+            dropdownMenu.classList.toggle('show');
+        });
+    });
+    
+    // बाहर क्लिक करने पर ड्रॉपडाउन बंद करें
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown-menu.show').forEach(function(menu) {
+                menu.classList.remove('show');
+            });
+        }
+    });
+    
+    // मोबाइल मेनू के लिए
+    const navbarToggler = document.querySelector('.navbar-toggler');
+    const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
+    
+    if (navbarToggler) {
         navbarToggler.addEventListener('click', function() {
             navbarCollapse.classList.add('show');
             mobileMenuOverlay.classList.add('active');
             document.body.style.overflow = 'hidden';
+            navbarToggler.style.display = 'none'; // टॉगलर को छिपाएं
         });
+    }
+    
+    if (mobileCloseBtn) {
+        mobileCloseBtn.addEventListener('click', function() {
+            closeMenu();
+        });
+    }
+    
+    if (mobileMenuOverlay) {
+        mobileMenuOverlay.addEventListener('click', function() {
+            closeMenu();
+        });
+    }
+    
+    // मेनू बंद करने का फंक्शन
+    function closeMenu() {
+        navbarCollapse.classList.remove('show');
+        mobileMenuOverlay.classList.remove('active');
+        document.body.style.overflow = '';
         
-        // Close mobile menu
-        function closeMenu() {
-            navbarCollapse.classList.remove('show');
-            mobileMenuOverlay.classList.remove('active');
-            document.body.style.overflow = '';
+        // थोड़ी देर बाद टॉगलर को वापस दिखाएं
+        setTimeout(function() {
+            navbarToggler.style.display = 'flex';
+        }, 300);
+    }
+    
+    // स्क्रॉल पर नेवबार का स्टाइल बदलें
+    window.addEventListener('scroll', function() {
+        const navbar = document.querySelector('.navbar');
+        if (window.scrollY > 10) {
+            navbar.classList.add('scrolled');
+        } else {
+            navbar.classList.remove('scrolled');
         }
-        
-        mobileCloseBtn.addEventListener('click', closeMenu);
-        mobileMenuOverlay.addEventListener('click', closeMenu);
-        
-        // Close menu when clicking on nav links
-        document.querySelectorAll('.nav-link').forEach(link => {
-            link.addEventListener('click', function() {
-                if (window.innerWidth < 992) {
-                    closeMenu();
-                }
-            });
-        });
-        
-        // Scroll effect for navbar
-        window.addEventListener('scroll', function() {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-        
-        // Handle dropdown menus on mobile
-        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-        dropdownToggles.forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                if (window.innerWidth < 992) {
-                    e.preventDefault();
-                    const dropdownMenu = this.nextElementSibling;
-                    if (dropdownMenu.classList.contains('show')) {
-                        dropdownMenu.classList.remove('show');
-                    } else {
-                        dropdownMenu.classList.add('show');
-                    }
-                }
-            });
-        });
     });
+});
 </script>
+                    
