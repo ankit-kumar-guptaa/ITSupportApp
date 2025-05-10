@@ -273,7 +273,7 @@
  <div style="position:fixed;bottom:0;left:0;width:100vw;display:flex;justify-content:end;align-items:end;padding:24px;background:transparent;z-index:9999;">
     <div id="itsahayata-chat-icon">
       <img src="../assets/fav.png" alt="Chatbot" />
-      <span>IT Sahayata</span>
+      <span>IT Sahayata AI</span>
     </div>
 </div>
 
