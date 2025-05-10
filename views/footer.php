@@ -269,6 +269,10 @@
         </div>
     </div>
 </footer>
+
+ <!-- CHATBOT WIDGET -->
+ <div id="itsahayata-chatbot-root"></div>
+  <script src="../chatbot.js"></script>
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
