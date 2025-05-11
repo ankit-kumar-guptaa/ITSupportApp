@@ -355,9 +355,9 @@
 
 /* User Registration Form */
 #itsahayata-registration-form {
-  padding: 20px;
+  padding: 15px;
   background: var(--bg-gray);
-  max-height: 350px;
+  max-height: 320px;
   overflow-y: auto;
   transition: all var(--transition-normal);
   background-image: 
@@ -382,7 +382,7 @@
 #itsahayata-user-form {
   background: var(--bg-light);
   border-radius: var(--border-radius-lg);
-  padding: 20px;
+  padding: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: all var(--transition-normal);
 }
@@ -393,19 +393,19 @@
 
 #itsahayata-user-form h3 {
   margin-top: 0;
-  margin-bottom: 20px;
+  margin-bottom: 12px;
   color: var(--primary-color);
-  font-size: 18px;
+  font-size: 16px;
   text-align: center;
   font-weight: 600;
   position: relative;
-  padding-bottom: 12px;
+  padding-bottom: 8px;
 }
 
 #itsahayata-user-form h3::after {
   content: '';
   position: absolute;
-  width: 60px;
+  width: 50px;
   height: 3px;
   background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
   bottom: 0;
@@ -415,14 +415,14 @@
 }
 
 .form-group {
-  margin-bottom: 16px;
+  margin-bottom: 10px;
   position: relative;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 8px;
-  font-size: 14px;
+  margin-bottom: 4px;
+  font-size: 13px;
   color: var(--primary-dark);
   font-weight: 500;
   transition: all var(--transition-fast);
@@ -431,10 +431,10 @@
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 12px 14px;
+  padding: 8px 12px;
   border: 1px solid var(--border-light);
   border-radius: var(--border-radius-md);
-  font-size: 14px;
+  font-size: 13px;
   transition: all var(--transition-fast);
   background-color: var(--bg-light);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
@@ -448,7 +448,7 @@
 }
 
 .form-group textarea {
-  height: 70px;
+  height: 60px;
   resize: none;
 }
 
@@ -456,13 +456,13 @@
   background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
   color: white;
   border: none;
-  padding: 14px;
+  padding: 10px;
   border-radius: var(--border-radius-md);
   cursor: pointer;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   width: 100%;
-  margin-top: 10px;
+  margin-top: 8px;
   transition: all var(--transition-normal);
   box-shadow: 0 4px 10px rgba(43, 115, 230, 0.2);
   position: relative;
@@ -500,12 +500,13 @@
 /* Responsive Styles */
 @media (max-width: 450px) {
   #itsahayata-chatbot-box {
-    width: 98vw;
+    width: 95vw;
     border-radius: var(--border-radius-md);
+    max-height: 85vh;
   }
   
   #itsahayata-chatbot-root {
-    right: 1vw;
+    right: 2.5vw;
     bottom: 70px;
   }
   
@@ -518,37 +519,39 @@
   }
   
   #itsahayata-chatbot-messages {
-    max-height: 320px;
+    max-height: 280px;
+    min-height: 200px;
   }
   
   #itsahayata-registration-form {
-    padding: 15px;
-    max-height: 320px;
+    padding: 12px;
+    max-height: 280px;
   }
   
   #itsahayata-user-form {
-    padding: 15px;
+    padding: 12px;
   }
   
   #itsahayata-user-form h3 {
-    font-size: 16px;
-    margin-bottom: 15px;
+    font-size: 15px;
+    margin-bottom: 10px;
   }
   
   .form-group {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
   }
   
   .form-group input,
   .form-group textarea {
-    padding: 10px 12px;
+    padding: 8px 10px;
   }
   
   .form-group textarea {
-    height: 60px;
+    height: 50px;
   }
   
   #itsahayata-submit-details {
-    padding: 12px;
+    padding: 10px;
+    font-size: 13px;
   }
 }

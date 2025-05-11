@@ -3,38 +3,68 @@ const ICON_ID = 'itsahayata-chat-icon';
 const CHAT_ID = 'itsahayata-chatbot-root';
 let currentQueryId = null;
 
+// Check if user has already submitted the form
+function hasUserSubmittedForm() {
+  return localStorage.getItem('itsahayata_user_submitted') === 'true';
+}
+
+// Save user submission status
+function saveUserSubmission() {
+  localStorage.setItem('itsahayata_user_submitted', 'true');
+  localStorage.setItem('itsahayata_last_session', new Date().toISOString());
+}
+
+// Check if we need to show the form again (after 24 hours)
+function shouldResetForm() {
+  const lastSession = localStorage.getItem('itsahayata_last_session');
+  if (!lastSession) return true;
+  
+  const lastSessionDate = new Date(lastSession);
+  const currentDate = new Date();
+  const hoursDiff = (currentDate - lastSessionDate) / (1000 * 60 * 60);
+  
+  // Reset form after 24 hours
+  return hoursDiff >= 24;
+}
+
 function renderChatbot(open) {
   if(open) {
+    // Check if form was submitted before
+    const formSubmitted = hasUserSubmittedForm() && !shouldResetForm();
+    
     document.getElementById(CHAT_ID).innerHTML = `
       <div id="itsahayata-chatbot-box">
         <div id="itsahayata-chatbot-header">
           <span class="title">IT Sahayata <span style='font-size:13px;font-weight:400;opacity:.7;'>AI</span></span>
           <button class="close" title="Close Chat" onclick="window.closeItsaChatbot()">×</button>
         </div>
-        <div id="itsahayata-chatbot-messages" style="display:none;"></div>
-        <div id="itsahayata-user-form">
-          <h3>कृपया अपनी जानकारी दें</h3>
+        <div id="itsahayata-chatbot-messages" style="${formSubmitted ? 'display:flex;' : 'display:none;'}"></div>
+        <div id="itsahayata-user-form" style="${formSubmitted ? 'display:none;' : 'display:block;'}">
+          <h3>Please provide your information</h3>
+          <p style="text-align:center;margin-bottom:15px;color:#666;font-size:13px;">
+            Fill this form to start using the IT Support AI
+          </p>
           <div class="form-group">
-            <label for="itsahayata-name">नाम</label>
-            <input type="text" id="itsahayata-name" placeholder="अपना नाम दर्ज करें" required />
+            <label for="itsahayata-name">Name</label>
+            <input type="text" id="itsahayata-name" placeholder="Enter your name" required />
           </div>
           <div class="form-group">
-            <label for="itsahayata-email">ईमेल</label>
-            <input type="email" id="itsahayata-email" placeholder="अपना ईमेल दर्ज करें" required />
+            <label for="itsahayata-email">Email</label>
+            <input type="email" id="itsahayata-email" placeholder="Enter your email" required />
           </div>
           <div class="form-group">
-            <label for="itsahayata-phone">फोन नंबर</label>
-            <input type="tel" id="itsahayata-phone" placeholder="अपना फोन नंबर दर्ज करें" required />
+            <label for="itsahayata-phone">Phone Number</label>
+            <input type="tel" id="itsahayata-phone" placeholder="Enter your phone number" required />
           </div>
           <div class="form-group">
-            <label for="itsahayata-problem">समस्या का विवरण</label>
-            <textarea id="itsahayata-problem" placeholder="अपनी IT समस्या का विवरण दें" required></textarea>
+            <label for="itsahayata-problem">Problem Description</label>
+            <textarea id="itsahayata-problem" placeholder="Describe your IT issue" required></textarea>
           </div>
-          <button type="button" id="itsahayata-submit-details">शुरू करें</button>
+          <button type="button" id="itsahayata-submit-details">Start Chat</button>
         </div>
-        <form id="itsahayata-chatbot-inputform" style="display:none;">
-          <input id="itsahayata-chatbot-input" autocomplete="off" maxlength="420" placeholder="अपनी IT समस्या बताएं..." required />
-          <button type="submit" id="itsahayata-chatbot-sendbtn">भेजें</button>
+        <form id="itsahayata-chatbot-inputform" style="${formSubmitted ? 'display:flex;' : 'display:none;'}">
+          <input id="itsahayata-chatbot-input" autocomplete="off" maxlength="420" placeholder="Describe your IT problem..." required />
+          <button type="submit" id="itsahayata-chatbot-sendbtn">Send</button>
         </form>
         <div id="itsahayata-chatbot-brand">IT Sahayata • Ankit Kumar Gupta</div>
       </div>
@@ -42,6 +72,13 @@ function renderChatbot(open) {
     
     // Add event listener for user details form
     document.getElementById('itsahayata-submit-details').addEventListener('click', submitUserDetails);
+    
+    // If user already submitted form, initialize chat events
+    if (formSubmitted) {
+      itsaInitEvents();
+      // Show welcome back message
+      appendMsg('bot', `👋 Welcome back to IT Sahayata! How can I help you today?`);
+    }
     
   } else {
     document.getElementById(CHAT_ID).innerHTML = '';
@@ -57,14 +94,14 @@ async function submitUserDetails() {
   // Validate inputs
   if (!nameInput.value.trim() || !emailInput.value.trim() || 
       !phoneInput.value.trim() || !problemInput.value.trim()) {
-    alert('कृपया सभी फील्ड भरें');
+    alert('Please fill in all fields');
     return;
   }
   
   // Email validation
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailRegex.test(emailInput.value.trim())) {
-    alert('कृपया सही ईमेल फॉर्मेट दर्ज करें');
+    alert('Please enter a valid email format');
     return;
   }
   
@@ -83,6 +120,9 @@ async function submitUserDetails() {
     const data = await response.json();
     
     if (data.success) {
+      // Save user submission to localStorage
+      saveUserSubmission();
+      
       // Hide form and show chat interface
       document.getElementById('itsahayata-user-form').style.display = 'none';
       document.getElementById('itsahayata-chatbot-messages').style.display = 'flex';
@@ -92,20 +132,20 @@ async function submitUserDetails() {
       currentQueryId = data.queryId;
       
       // Show welcome message
-      appendMsg('bot', `👋 नमस्ते ${nameInput.value.trim()}! IT Sahayata में आपका स्वागत है! कृपया अपनी IT संबंधित समस्या या प्रश्न का विवरण दें और मैं आपकी मदद करूंगा।`);
+      appendMsg('bot', `👋 Hello ${nameInput.value.trim()}! Welcome to IT Sahayata! Please describe your IT-related problem or question, and I'll help you.`);
       
       // Initialize chat events
       itsaInitEvents();
       
       // Save the welcome message to database
-      await saveChatMessage(currentQueryId, `👋 नमस्ते ${nameInput.value.trim()}! IT Sahayata में आपका स्वागत है! कृपया अपनी IT संबंधित समस्या या प्रश्न का विवरण दें और मैं आपकी मदद करूंगा।`, false);
+      await saveChatMessage(currentQueryId, `👋 Hello ${nameInput.value.trim()}! Welcome to IT Sahayata! Please describe your IT-related problem or question, and I'll help you.`, false);
       
     } else {
-      alert('एक त्रुटि हुई: ' + (data.message || 'कृपया पुनः प्रयास करें'));
+      alert('An error occurred: ' + (data.message || 'Please try again'));
     }
   } catch (error) {
     console.error('Error:', error);
-    alert('एक त्रुटि हुई। कृपया पुनः प्रयास करें।');
+    alert('An error occurred. Please try again.');
   }
 }
 
