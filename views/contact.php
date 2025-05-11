@@ -92,7 +92,7 @@
                                 <span>Delhi</span>
                             </div>
                             <div class="office-info">
-                                <p>G-18 Saurabh Vihar Jaitpur, Badarpur</p>
+                                <p>Badarpur</p>
                                 <p>New Delhi - 110044</p>
                                 <div class="contact-method">
                                     <i class="fas fa-phone-alt"></i>
@@ -112,7 +112,7 @@
                                 <span>Lucknow</span>
                             </div>
                             <div class="office-info">
-                                <p>2/241 Jankipuram Sector H</p>
+                                <p>Jankipuram Sector H</p>
                                 <p>Lucknow - 226021</p>
                                 <div class="contact-method">
                                     <i class="fas fa-phone-alt"></i>
