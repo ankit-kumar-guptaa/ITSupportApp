@@ -11,7 +11,7 @@ function renderChatbot(open) {
           <span class="title">IT Sahayata <span style='font-size:13px;font-weight:400;opacity:.7;'>AI</span></span>
           <button class="close" title="Close Chat" onclick="window.closeItsaChatbot()">×</button>
         </div>
-        <div id="itsahayata-chatbot-messages"></div>
+        <div id="itsahayata-chatbot-messages" style="display:none;"></div>
         <div id="itsahayata-user-form">
           <h3>कृपया अपनी जानकारी दें</h3>
           <div class="form-group">
@@ -85,6 +85,7 @@ async function submitUserDetails() {
     if (data.success) {
       // Hide form and show chat interface
       document.getElementById('itsahayata-user-form').style.display = 'none';
+      document.getElementById('itsahayata-chatbot-messages').style.display = 'flex';
       document.getElementById('itsahayata-chatbot-inputform').style.display = 'flex';
       
       // Store query ID for future messages
