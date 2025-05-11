@@ -149,60 +149,132 @@
   #itsahayata-chat-icon span{display:none;}
 }
 
-/* अगर यह फाइल पहले से मौजूद नहीं है तो इसे बनाएं और अपने HTML में लिंक करें */
 
+
+/* मॉडर्न और आकर्षक यूजर फॉर्म स्टाइल */
 #itsahayata-user-form {
   padding: 15px;
-  background: #f9f9f9;
-  border-radius: 5px;
+  background: linear-gradient(145deg, #ffffff, #f5f7fa);
+  border-radius: 12px;
   margin-bottom: 10px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  max-height: 360px;
+  overflow-y: auto;
+  transition: all 0.3s ease;
 }
 
 #itsahayata-user-form h3 {
   margin-top: 0;
-  margin-bottom: 15px;
-  color: #333;
-  font-size: 16px;
+  margin-bottom: 18px;
+  color: #1245a8;
+  font-size: 18px;
   text-align: center;
+  font-weight: 600;
+  position: relative;
+  padding-bottom: 10px;
+}
+
+#itsahayata-user-form h3:after {
+  content: '';
+  position: absolute;
+  width: 60px;
+  height: 3px;
+  background: #8a49f7;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  border-radius: 2px;
 }
 
 .form-group {
-  margin-bottom: 12px;
+  margin-bottom: 14px;
+  position: relative;
 }
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 6px;
   font-size: 14px;
-  color: #555;
+  color: #1245a8;
+  font-weight: 500;
+  transition: all 0.2s;
 }
 
 .form-group input,
 .form-group textarea {
   width: 100%;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 10px 12px;
+  border: 1px solid #d9e3f9;
+  border-radius: 8px;
   font-size: 14px;
+  transition: all 0.3s;
+  background-color: #fff;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+  border-color: #8a49f7;
+  box-shadow: 0 0 0 3px rgba(138, 73, 247, 0.1);
+  outline: none;
 }
 
 .form-group textarea {
-  height: 80px;
-  resize: vertical;
+  height: 70px;
+  resize: none;
 }
 
 #itsahayata-submit-details {
-  background-color: #4CAF50;
+  background: linear-gradient(45deg, #8a49f7, #2b73e6);
   color: white;
   border: none;
-  padding: 10px 15px;
-  border-radius: 4px;
+  padding: 12px 15px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
+  font-weight: 500;
   width: 100%;
   margin-top: 10px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(43, 115, 230, 0.2);
 }
 
 #itsahayata-submit-details:hover {
-  background-color: #45a049;
+  background: linear-gradient(45deg, #7b3ee0, #1a62d5);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(43, 115, 230, 0.3);
+}
+
+#itsahayata-submit-details:active {
+  transform: translateY(0);
+}
+
+/* रेस्पॉन्सिव स्टाइल */
+@media (max-width: 450px) {
+  #itsahayata-user-form {
+    padding: 12px;
+    max-height: 320px;
+  }
+  
+  #itsahayata-user-form h3 {
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  
+  .form-group {
+    margin-bottom: 12px;
+  }
+  
+  .form-group input,
+  .form-group textarea {
+    padding: 8px 10px;
+  }
+  
+  .form-group textarea {
+    height: 60px;
+  }
+  
+  #itsahayata-submit-details {
+    padding: 10px;
+  }
 }
