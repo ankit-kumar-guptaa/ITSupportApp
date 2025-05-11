@@ -81,6 +81,7 @@ $meta_description = substr(strip_tags($post['content']), 0, 160);
     <meta property="twitter:image" content="<?php echo "https://$_SERVER[HTTP_HOST]/uploads/blog/" . htmlspecialchars($post['featured_image']); ?>">
     <?php endif; ?>
     
+    <?php include "../views/assets.php"?>
     <!-- Canonical URL for SEO -->
     <link rel="canonical" href="<?php echo "https://$_SERVER[HTTP_HOST]/blog/post.php?id=$post_id"; ?>">
     

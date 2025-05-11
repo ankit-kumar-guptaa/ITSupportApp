@@ -1,13 +1,18 @@
-/* IT Sahayata Chatbot - Modern & Creative Design */
+/* IT Sahayata Chatbot - Modern & Creative Design 2.0 */
 :root {
   --primary-color: #8a49f7;
+  --primary-light: #a67ff9;
   --primary-dark: #7038d5;
   --secondary-color: #2b73e6;
+  --secondary-light: #4a8bef;
   --secondary-dark: #1a62d5;
+  --accent-color: #ff6b6b;
+  --accent-dark: #ff4f4f;
   --text-light: #ffffff;
   --text-dark: #333333;
+  --text-muted: #6c757d;
   --bg-light: #ffffff;
-  --bg-gray: #f4f7fb;
+  --bg-gray: #f8fafd;
   --border-light: #e3eaf5;
   --shadow-light: rgba(18, 69, 168, 0.15);
   --shadow-medium: rgba(18, 69, 168, 0.25);
@@ -21,6 +26,7 @@
   --border-radius-xl: 24px;
   --transition-fast: 0.2s ease;
   --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
 }
 
 /* Chat Icon */
@@ -32,15 +38,17 @@
   color: var(--text-light);
   padding: 12px 20px;
   border-radius: var(--border-radius-xl);
-  box-shadow: 0 4px 20px var(--shadow-medium);
+  box-shadow: 0 4px 20px var(--shadow-medium), 0 0 0 2px rgba(138, 73, 247, 0.1);
   cursor: pointer;
   font-family: var(--font-main);
   font-size: 18px;
   font-weight: 500;
-  transition: transform var(--transition-fast), box-shadow var(--transition-fast);
+  transition: all var(--transition-fast);
   z-index: 1010;
   position: relative;
   overflow: hidden;
+  -webkit-backdrop-filter: blur(5px);
+  backdrop-filter: blur(5px);
 }
 
 #itsahayata-chat-icon::before {
@@ -56,13 +64,30 @@
   z-index: -1;
 }
 
+#itsahayata-chat-icon::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 50%;
+  top: -10px;
+  right: -10px;
+  transition: all 0.5s ease;
+}
+
 #itsahayata-chat-icon:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 25px var(--shadow-dark);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px var(--shadow-dark), 0 0 0 3px rgba(138, 73, 247, 0.2);
 }
 
 #itsahayata-chat-icon:hover::before {
   opacity: 1;
+}
+
+#itsahayata-chat-icon:hover::after {
+  transform: scale(3);
+  opacity: 0;
 }
 
 #itsahayata-chat-icon:active {
@@ -77,7 +102,7 @@
 }
 
 #itsahayata-chat-icon:hover img {
-  transform: scale(1.1);
+  transform: scale(1.1) rotate(5deg);
 }
 
 /* Chatbot Container */
@@ -94,12 +119,14 @@
   max-width: 96vw;
   background: var(--bg-light);
   border-radius: var(--border-radius-lg);
-  box-shadow: 0 8px 32px var(--shadow-medium);
+  box-shadow: 0 10px 40px var(--shadow-medium), 0 0 0 1px rgba(138, 73, 247, 0.1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
   animation: chatbotIn 0.4s cubic-bezier(0.2, 0.9, 0.3, 1.1);
   border: 1px solid rgba(138, 73, 247, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
 }
 
 @keyframes chatbotIn {
@@ -142,6 +169,23 @@
   font-size: 20px;
   letter-spacing: 1px;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  position: relative;
+  display: inline-block;
+}
+
+#itsahayata-chatbot-header .title::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--text-light);
+  transition: width 0.3s ease;
+}
+
+#itsahayata-chatbot-header:hover .title::after {
+  width: 100%;
 }
 
 #itsahayata-chatbot-header .close {
@@ -158,12 +202,28 @@
   justify-content: center;
   border-radius: 50%;
   transition: all var(--transition-fast);
+  position: relative;
+  overflow: hidden;
+}
+
+#itsahayata-chatbot-header .close::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  transform: scale(0);
+  transition: transform 0.3s ease;
 }
 
 #itsahayata-chatbot-header .close:hover {
-  background: rgba(255, 255, 255, 0.15);
   opacity: 1;
   transform: rotate(90deg);
+}
+
+#itsahayata-chatbot-header .close:hover::before {
+  transform: scale(1);
 }
 
 /* Messages Container */
@@ -180,6 +240,20 @@
   background-image: 
     radial-gradient(circle at 10% 20%, rgba(138, 73, 247, 0.03) 0%, transparent 20%),
     radial-gradient(circle at 90% 80%, rgba(43, 115, 230, 0.03) 0%, transparent 20%);
+  position: relative;
+}
+
+#itsahayata-chatbot-messages::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 30px;
+  background: linear-gradient(to bottom, var(--bg-gray), transparent);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.8;
 }
 
 #itsahayata-chatbot-messages::-webkit-scrollbar {
@@ -194,6 +268,7 @@
 #itsahayata-chatbot-messages::-webkit-scrollbar-thumb {
   background: rgba(138, 73, 247, 0.15);
   border-radius: 10px;
+  transition: background 0.3s ease;
 }
 
 #itsahayata-chatbot-messages::-webkit-scrollbar-thumb:hover {
@@ -210,9 +285,29 @@
   max-width: 80%;
   word-break: break-word;
   font-size: 15px;
-  box-shadow: 0 2px 8px var(--shadow-light);
+  box-shadow: 0 3px 10px var(--shadow-light);
   animation: msgIn 0.3s ease-out;
   position: relative;
+  transform-origin: bottom right;
+  transition: transform 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.itsahayata-msg-user:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-medium);
+}
+
+.itsahayata-msg-user::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  right: 12px;
+  width: 10px;
+  height: 10px;
+  background: linear-gradient(135deg, var(--secondary-dark), var(--primary-dark));
+  border-radius: 50%;
+  opacity: 0.5;
 }
 
 .itsahayata-msg-bot {
@@ -224,10 +319,31 @@
   max-width: 85%;
   word-break: break-word;
   font-size: 15px;
-  box-shadow: 0 2px 8px var(--shadow-light);
+  box-shadow: 0 3px 10px var(--shadow-light);
   border: 1px solid var(--border-light);
   animation: msgIn 0.3s ease-out;
   line-height: 1.5;
+  transform-origin: bottom left;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  position: relative;
+}
+
+.itsahayata-msg-bot:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px var(--shadow-medium);
+}
+
+.itsahayata-msg-bot::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 12px;
+  width: 10px;
+  height: 10px;
+  background: var(--bg-light);
+  border: 1px solid var(--border-light);
+  border-radius: 50%;
+  opacity: 0.5;
 }
 
 @keyframes msgIn {
@@ -236,21 +352,47 @@
 }
 
 .itsahayata-msg-thinking {
-  color: #4a689f;
+  color: var(--primary-dark);
   font-style: italic;
   font-size: 14px;
-  opacity: 0.8;
-  padding: 8px 12px;
-  background: rgba(255, 255, 255, 0.7);
+  padding: 10px 16px;
+  background: rgba(255, 255, 255, 0.9);
   border-radius: var(--border-radius-md);
   align-self: flex-start;
-  animation: pulse 1.5s infinite;
+  position: relative;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-@keyframes pulse {
-  0% { opacity: 0.5; }
-  50% { opacity: 0.9; }
-  100% { opacity: 0.5; }
+.itsahayata-msg-thinking::before {
+  content: '';
+  width: 12px;
+  height: 12px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  display: inline-block;
+  animation: thinkingDot 1.4s infinite ease-in-out both;
+}
+
+.itsahayata-msg-thinking::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 15px;
+  width: 10px;
+  height: 10px;
+  background: white;
+  transform: rotate(45deg);
+  border-right: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+}
+
+@keyframes thinkingDot {
+  0%, 80%, 100% { transform: scale(0); }
+  40% { transform: scale(1); }
 }
 
 /* Input Form */
@@ -261,6 +403,7 @@
   padding: 14px 16px;
   border-top: 1px solid var(--border-light);
   position: relative;
+  transition: all var(--transition-normal);
 }
 
 #itsahayata-chatbot-inputform::before {
@@ -276,6 +419,10 @@
     rgba(43, 115, 230, 0.2), 
     transparent
   );
+}
+
+#itsahayata-chatbot-inputform:focus-within {
+  background: var(--bg-gray);
 }
 
 #itsahayata-chatbot-input {
@@ -310,11 +457,32 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+#itsahayata-chatbot-sendbtn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255, 255, 255, 0.2), 
+    transparent
+  );
+  transition: all 0.6s;
 }
 
 #itsahayata-chatbot-sendbtn:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 8px var(--shadow-medium);
+}
+
+#itsahayata-chatbot-sendbtn:hover::before {
+  left: 100%;
 }
 
 #itsahayata-chatbot-sendbtn:active {
@@ -338,6 +506,11 @@
   letter-spacing: 0.5px;
   background: var(--bg-light);
   position: relative;
+  transition: opacity 0.3s ease;
+}
+
+#itsahayata-chatbot-brand:hover {
+  opacity: 1;
 }
 
 #itsahayata-chatbot-brand::before {
@@ -385,10 +558,24 @@
   padding: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
   transition: all var(--transition-normal);
+  position: relative;
+  overflow: hidden;
+}
+
+#itsahayata-user-form::before {
+  content: '';
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(138, 73, 247, 0.05) 0%, transparent 70%);
+  top: -100px;
+  right: -100px;
+  border-radius: 50%;
 }
 
 #itsahayata-user-form:hover {
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
 }
 
 #itsahayata-user-form h3 {
@@ -495,6 +682,67 @@
 
 #itsahayata-submit-details:active {
   transform: translateY(0);
+}
+
+/* Promotional Message */
+.itsahayata-promo-msg {
+  background: linear-gradient(135deg, rgba(138, 73, 247, 0.05), rgba(43, 115, 230, 0.05));
+  border: 1px dashed rgba(138, 73, 247, 0.3);
+  border-radius: 16px;
+  padding: 12px 16px;
+  position: relative;
+  overflow: hidden;
+}
+
+.itsahayata-promo-msg::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, 
+    rgba(138, 73, 247, 0.05) 0%, 
+    rgba(43, 115, 230, 0.05) 50%, 
+    rgba(138, 73, 247, 0.05) 100%);
+  background-size: 200% 200%;
+  animation: promoBg 3s ease infinite;
+  pointer-events: none;
+}
+
+@keyframes promoBg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.itsahayata-promo-link {
+  display: inline-block;
+  margin-top: 8px;
+  color: var(--primary-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+  padding-right: 20px;
+}
+
+.itsahayata-promo-link::after {
+  content: '→';
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.2s ease;
+}
+
+.itsahayata-promo-link:hover {
+  color: var(--secondary-color);
+  text-decoration: underline;
+}
+
+.itsahayata-promo-link:hover::after {
+  transform: translate(3px, -50%);
 }
 
 /* Responsive Styles */

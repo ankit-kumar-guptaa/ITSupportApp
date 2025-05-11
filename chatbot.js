@@ -3,6 +3,22 @@ const ICON_ID = 'itsahayata-chat-icon';
 const CHAT_ID = 'itsahayata-chatbot-root';
 let currentQueryId = null;
 
+// Get base URL for API calls
+function getBaseUrl() {
+  // Get the base URL (domain and path to root directory)
+  const pathArray = window.location.pathname.split('/');
+  const appDirIndex = pathArray.indexOf('ITSupportApp');
+  
+  if (appDirIndex !== -1) {
+    // If we're in a subdirectory of ITSupportApp
+    const basePath = pathArray.slice(0, appDirIndex + 1).join('/');
+    return window.location.origin + basePath;
+  }
+  
+  // Fallback to origin if we can't determine the app directory
+  return window.location.origin;
+}
+
 // Check if user has already submitted the form
 function hasUserSubmittedForm() {
   return localStorage.getItem('itsahayata_user_submitted') === 'true';
@@ -32,29 +48,43 @@ const companyServices = [
   {
     name: "Free IT Consultation",
     description: "Get a free 15-minute consultation with our IT experts",
-    link: "contact.php?service=free-consultation"
+    link: getBaseUrl() + "/views/free-consultation.php#consultation-form"
   },
   {
     name: "Affordable PC Repair",
     description: "Complete PC diagnostics and repair starting at just ₹499",
-    link: "contact.php?service=pc-repair"
+    link: getBaseUrl() + "/views/contact.php"
   },
   {
     name: "Data Recovery",
     description: "Lost important data? We can help recover it at competitive rates",
-    link: "contact.php?service=data-recovery"
+    link: getBaseUrl() + "/views/contact.php"
   },
   {
     name: "Network Setup",
     description: "Professional network setup and troubleshooting for home and office",
-    link: "contact.php?service=network-setup"
+    link: getBaseUrl() + "/views/contact.php"
   },
   {
     name: "Software Installation",
     description: "Software installation and configuration service at affordable prices",
-    link: "contact.php?service=software-installation"
+    link: getBaseUrl() + "/views/contact.php"
   }
 ];
+
+// Initialize chatbot when DOM is fully loaded
+document.addEventListener('DOMContentLoaded', function() {
+  // Find chat icon
+  const chatIcon = document.getElementById(ICON_ID);
+  if (chatIcon) {
+    chatIcon.addEventListener('click', async () => {
+      itsaChatOpen = !itsaChatOpen;
+      renderChatbot(itsaChatOpen);
+    });
+  } else {
+    console.error('Chat icon element not found with ID:', ICON_ID);
+  }
+});
 
 function renderChatbot(open) {
   if(open) {
@@ -135,7 +165,7 @@ async function submitUserDetails() {
   }
   
   try {
-    const response = await fetch('submit_user_details.php', {
+    const response = await fetch(getBaseUrl() + '/submit_user_details.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -180,7 +210,7 @@ async function submitUserDetails() {
 
 async function saveChatMessage(queryId, message, isUser) {
   try {
-    await fetch('save_chat_message.php', {
+    await fetch(getBaseUrl() + '/save_chat_message.php', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -200,11 +230,12 @@ window.closeItsaChatbot = () => {
   renderChatbot(false);
 };
 
-const chatIcon = document.getElementById(ICON_ID);
-chatIcon.addEventListener('click',async()=>{
-  itsaChatOpen = !itsaChatOpen;
-  renderChatbot(itsaChatOpen);
-});
+// Remove the direct event listener here since we're adding it in DOMContentLoaded
+// const chatIcon = document.getElementById(ICON_ID);
+// chatIcon.addEventListener('click',async()=>{
+//   itsaChatOpen = !itsaChatOpen;
+//   renderChatbot(itsaChatOpen);
+// });
 
 function itsaInitEvents() {
   const form = document.getElementById('itsahayata-chatbot-inputform');
@@ -360,7 +391,7 @@ Important guidelines:
 User message:
 ${userInput}
     `.trim();
-    const r = await fetch('ask_gemini.php', {
+    const r = await fetch(getBaseUrl() + '/ask_gemini.php', {
       method:'POST',
       headers:{'Content-Type':'application/json'},
       body: JSON.stringify({ prompt: enforcedPrompt })
