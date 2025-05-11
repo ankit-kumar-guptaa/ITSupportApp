@@ -415,7 +415,7 @@
 }
 
 .form-group {
-  margin-bottom: 10px !important;
+  margin-bottom: 6px !important;
   position: relative;
 }
 
@@ -448,8 +448,8 @@
 }
 
 .form-group textarea {
-  height: 60px !important;
-  resize: none;
+  min-height: 58px !important;
+  resize: none !important;
 }
 
 #itsahayata-submit-details {

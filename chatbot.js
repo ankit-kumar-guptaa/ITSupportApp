@@ -27,6 +27,35 @@ function shouldResetForm() {
   return hoursDiff >= 24;
 }
 
+// Company services and promotions
+const companyServices = [
+  {
+    name: "Free IT Consultation",
+    description: "Get a free 15-minute consultation with our IT experts",
+    link: "contact.php?service=free-consultation"
+  },
+  {
+    name: "Affordable PC Repair",
+    description: "Complete PC diagnostics and repair starting at just ₹499",
+    link: "contact.php?service=pc-repair"
+  },
+  {
+    name: "Data Recovery",
+    description: "Lost important data? We can help recover it at competitive rates",
+    link: "contact.php?service=data-recovery"
+  },
+  {
+    name: "Network Setup",
+    description: "Professional network setup and troubleshooting for home and office",
+    link: "contact.php?service=network-setup"
+  },
+  {
+    name: "Software Installation",
+    description: "Software installation and configuration service at affordable prices",
+    link: "contact.php?service=software-installation"
+  }
+];
+
 function renderChatbot(open) {
   if(open) {
     // Check if form was submitted before
@@ -76,8 +105,8 @@ function renderChatbot(open) {
     // If user already submitted form, initialize chat events
     if (formSubmitted) {
       itsaInitEvents();
-      // Show welcome back message
-      appendMsg('bot', `👋 Welcome back to IT Sahayata! How can I help you today?`);
+      // Show welcome back message with typing animation
+      typeMessage('bot', `👋 Welcome back to IT Sahayata! How can I help you today?`);
     }
     
   } else {
@@ -131,8 +160,8 @@ async function submitUserDetails() {
       // Store query ID for future messages
       currentQueryId = data.queryId;
       
-      // Show welcome message
-      appendMsg('bot', `👋 Hello ${nameInput.value.trim()}! Welcome to IT Sahayata! Please describe your IT-related problem or question, and I'll help you.`);
+      // Show welcome message with typing animation
+      typeMessage('bot', `👋 Hello ${nameInput.value.trim()}! Welcome to IT Sahayata! Please describe your IT-related problem or question, and I'll help you.`);
       
       // Initialize chat events
       itsaInitEvents();
@@ -197,10 +226,12 @@ function itsaInitEvents() {
     appendThinking();
     const respTxt = await fetchGemini(userText);
     removeThinking();
-    appendMsg('bot', respTxt || 'माफ़ करें, मुझे कोई समाधान नहीं मिला। कृपया अपनी समस्या को दोबारा बताएं या अधिक विवरण प्रदान करें।');
+    
+    // Use typing animation for bot response
+    typeMessage('bot', respTxt || 'Sorry, I couldn\'t find a solution. Please describe your problem again or provide more details.');
     
     // Save bot response to database
-    await saveChatMessage(currentQueryId, respTxt || 'माफ़ करें, मुझे कोई समाधान नहीं मिला। कृपया अपनी समस्या को दोबारा बताएं या अधिक विवरण प्रदान करें।', false);
+    await saveChatMessage(currentQueryId, respTxt || 'Sorry, I couldn\'t find a solution. Please describe your problem again or provide more details.', false);
     
     inp.disabled = false;
     document.getElementById('itsahayata-chatbot-sendbtn').disabled = false;
@@ -218,12 +249,88 @@ function appendMsg(role, text) {
   box.scrollTop = box.scrollHeight;
 }
 
+// Typing animation function
+function typeMessage(role, text) {
+  const box = document.getElementById('itsahayata-chatbot-messages');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = role==='user' ? 'itsahayata-msg-user' : 'itsahayata-msg-bot';
+  msgDiv.id = 'typing-message';
+  box.appendChild(msgDiv);
+  
+  let i = 0;
+  const speed = 20; // Typing speed (lower is faster)
+  
+  function typeWriter() {
+    if (i < text.length) {
+      msgDiv.textContent += text.charAt(i);
+      i++;
+      box.scrollTop = box.scrollHeight;
+      setTimeout(typeWriter, speed);
+    } else {
+      msgDiv.removeAttribute('id');
+      
+      // Check if we should add a promotional message (20% chance)
+      if (role === 'bot' && Math.random() < 0.2) {
+        setTimeout(() => {
+          addPromotionalMessage();
+        }, 1000);
+      }
+    }
+  }
+  
+  typeWriter();
+}
+
+// Add promotional message with service suggestion
+function addPromotionalMessage() {
+  // Select random service
+  const randomService = companyServices[Math.floor(Math.random() * companyServices.length)];
+  
+  const box = document.getElementById('itsahayata-chatbot-messages');
+  const msgDiv = document.createElement('div');
+  msgDiv.className = 'itsahayata-msg-bot itsahayata-promo-msg';
+  
+  msgDiv.innerHTML = `
+    <p><strong>💡 Did you know?</strong></p>
+    <p>${randomService.description}</p>
+    <a href="${randomService.link}" target="_blank" class="itsahayata-promo-link">Learn more about ${randomService.name} →</a>
+  `;
+  
+  box.appendChild(msgDiv);
+  box.scrollTop = box.scrollHeight;
+  
+  // Add CSS for promotional message if not already added
+  if (!document.getElementById('itsahayata-promo-styles')) {
+    const styleEl = document.createElement('style');
+    styleEl.id = 'itsahayata-promo-styles';
+    styleEl.textContent = `
+      .itsahayata-promo-msg {
+        background: linear-gradient(135deg, rgba(138, 73, 247, 0.05), rgba(43, 115, 230, 0.05));
+        border: 1px dashed rgba(138, 73, 247, 0.3);
+      }
+      .itsahayata-promo-link {
+        display: inline-block;
+        margin-top: 8px;
+        color: #8a49f7;
+        font-weight: 500;
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+      .itsahayata-promo-link:hover {
+        color: #2b73e6;
+        text-decoration: underline;
+      }
+    `;
+    document.head.appendChild(styleEl);
+  }
+}
+
 function appendThinking() {
   const box = document.getElementById('itsahayata-chatbot-messages');
   const div = document.createElement('div');
   div.className = 'itsahayata-msg-thinking';
   div.id = 'itsahayata-msg-thinking';
-  div.innerText = 'सोच रहा हूँ...';
+  div.innerText = 'Thinking...';
   box.appendChild(div);
   box.scrollTop = box.scrollHeight;
 }
@@ -235,13 +342,20 @@ function removeThinking() {
 
 async function fetchGemini(userInput) {
   try {
-    // This prompt makes answers helpful and dynamic for IT support
+    // Enhanced prompt with service recommendations
     const enforcedPrompt = `
 You are "IT Sahayata", a helpful AI support expert for IT (hardware, software, internet, devices, tech problems). 
 Give friendly, practical, and clear solutions to any queries that are related to IT, computers, networks, devices, internet, digital services, software, hardware etc.
-If a user is having a general conversation or greeting, you can respond naturally—but always be helpful regarding IT support, troubleshooting, and solution.
-Never reply: "I help with IT problems only." Instead, always try to answer helpfully, even for unclear queries, and encourage user to give details if you need more information.
-Respond in a positive and helpful human tone; your goal is to genuinely solve problems or answer questions about IT.
+
+Important guidelines:
+1. If a user is having a general conversation or greeting, respond naturally but always be helpful regarding IT support.
+2. Never reply: "I help with IT problems only." Instead, always try to answer helpfully.
+3. Respond in a positive and helpful human tone; your goal is to genuinely solve problems.
+4. When appropriate, mention that IT Sahayata offers affordable professional services for complex issues.
+5. For hardware problems that can't be solved remotely, suggest that the user might benefit from our affordable on-site repair services.
+6. For data recovery or security issues, mention that we offer specialized services at competitive rates.
+7. For network setup or troubleshooting, mention that our technicians can provide professional assistance.
+8. Always prioritize solving the user's problem first, then subtly mention our services only if relevant.
 
 User message:
 ${userInput}
