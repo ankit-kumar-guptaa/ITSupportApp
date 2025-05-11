@@ -1,6 +1,7 @@
 // --- Chatbot Widget Logic ---
 const ICON_ID = 'itsahayata-chat-icon';
 const CHAT_ID = 'itsahayata-chatbot-root';
+let currentQueryId = null;
 
 function renderChatbot(open) {
   if(open) {
@@ -11,21 +12,115 @@ function renderChatbot(open) {
           <button class="close" title="Close Chat" onclick="window.closeItsaChatbot()">×</button>
         </div>
         <div id="itsahayata-chatbot-messages"></div>
-        <form id="itsahayata-chatbot-inputform">
-          <input id="itsahayata-chatbot-input" autocomplete="off" maxlength="420" placeholder="Describe your IT problem..." required />
-          <button type="submit" id="itsahayata-chatbot-sendbtn">Send</button>
+        <div id="itsahayata-user-form">
+          <h3>कृपया अपनी जानकारी दें</h3>
+          <div class="form-group">
+            <label for="itsahayata-name">नाम</label>
+            <input type="text" id="itsahayata-name" placeholder="अपना नाम दर्ज करें" required />
+          </div>
+          <div class="form-group">
+            <label for="itsahayata-email">ईमेल</label>
+            <input type="email" id="itsahayata-email" placeholder="अपना ईमेल दर्ज करें" required />
+          </div>
+          <div class="form-group">
+            <label for="itsahayata-phone">फोन नंबर</label>
+            <input type="tel" id="itsahayata-phone" placeholder="अपना फोन नंबर दर्ज करें" required />
+          </div>
+          <div class="form-group">
+            <label for="itsahayata-problem">समस्या का विवरण</label>
+            <textarea id="itsahayata-problem" placeholder="अपनी IT समस्या का विवरण दें" required></textarea>
+          </div>
+          <button type="button" id="itsahayata-submit-details">शुरू करें</button>
+        </div>
+        <form id="itsahayata-chatbot-inputform" style="display:none;">
+          <input id="itsahayata-chatbot-input" autocomplete="off" maxlength="420" placeholder="अपनी IT समस्या बताएं..." required />
+          <button type="submit" id="itsahayata-chatbot-sendbtn">भेजें</button>
         </form>
         <div id="itsahayata-chatbot-brand">IT Sahayata • Ankit Kumar Gupta</div>
       </div>
     `;
-    // Show friendly welcome
-    setTimeout(()=>{
-      appendMsg('bot', "👋 Welcome to IT Sahayata! Please describe your IT-related problem or question and I'll do my best to help you.");
-      const box = document.getElementById('itsahayata-chatbot-box');
-      if(box) box.focus();
-    }, 11);
+    
+    // Add event listener for user details form
+    document.getElementById('itsahayata-submit-details').addEventListener('click', submitUserDetails);
+    
   } else {
     document.getElementById(CHAT_ID).innerHTML = '';
+  }
+}
+
+async function submitUserDetails() {
+  const nameInput = document.getElementById('itsahayata-name');
+  const emailInput = document.getElementById('itsahayata-email');
+  const phoneInput = document.getElementById('itsahayata-phone');
+  const problemInput = document.getElementById('itsahayata-problem');
+  
+  // Validate inputs
+  if (!nameInput.value.trim() || !emailInput.value.trim() || 
+      !phoneInput.value.trim() || !problemInput.value.trim()) {
+    alert('कृपया सभी फील्ड भरें');
+    return;
+  }
+  
+  // Email validation
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(emailInput.value.trim())) {
+    alert('कृपया सही ईमेल फॉर्मेट दर्ज करें');
+    return;
+  }
+  
+  try {
+    const response = await fetch('submit_user_details.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: nameInput.value.trim(),
+        email: emailInput.value.trim(),
+        phone: phoneInput.value.trim(),
+        problem: problemInput.value.trim()
+      })
+    });
+    
+    const data = await response.json();
+    
+    if (data.success) {
+      // Hide form and show chat interface
+      document.getElementById('itsahayata-user-form').style.display = 'none';
+      document.getElementById('itsahayata-chatbot-inputform').style.display = 'flex';
+      
+      // Store query ID for future messages
+      currentQueryId = data.queryId;
+      
+      // Show welcome message
+      appendMsg('bot', `👋 नमस्ते ${nameInput.value.trim()}! IT Sahayata में आपका स्वागत है! कृपया अपनी IT संबंधित समस्या या प्रश्न का विवरण दें और मैं आपकी मदद करूंगा।`);
+      
+      // Initialize chat events
+      itsaInitEvents();
+      
+      // Save the welcome message to database
+      await saveChatMessage(currentQueryId, `👋 नमस्ते ${nameInput.value.trim()}! IT Sahayata में आपका स्वागत है! कृपया अपनी IT संबंधित समस्या या प्रश्न का विवरण दें और मैं आपकी मदद करूंगा।`, false);
+      
+    } else {
+      alert('एक त्रुटि हुई: ' + (data.message || 'कृपया पुनः प्रयास करें'));
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('एक त्रुटि हुई। कृपया पुनः प्रयास करें।');
+  }
+}
+
+async function saveChatMessage(queryId, message, isUser) {
+  try {
+    await fetch('save_chat_message.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        queryId: queryId,
+        message: message,
+        isUser: isUser
+      })
+    });
+  } catch (error) {
+    console.error('Error saving message:', error);
   }
 }
 
@@ -39,7 +134,6 @@ const chatIcon = document.getElementById(ICON_ID);
 chatIcon.addEventListener('click',async()=>{
   itsaChatOpen = !itsaChatOpen;
   renderChatbot(itsaChatOpen);
-  if(itsaChatOpen) itsaInitEvents();
 });
 
 function itsaInitEvents() {
@@ -52,13 +146,21 @@ function itsaInitEvents() {
     const userText = inp.value.trim();
     if(!userText) return;
     appendMsg('user', userText);
+    
+    // Save user message to database
+    await saveChatMessage(currentQueryId, userText, true);
+    
     inp.value = '';
     inp.disabled = true;
     document.getElementById('itsahayata-chatbot-sendbtn').disabled = true;
     appendThinking();
     const respTxt = await fetchGemini(userText);
     removeThinking();
-    appendMsg('bot', respTxt || 'Sorry, I could not find a solution. Please try rephrasing your problem or provide more details.');
+    appendMsg('bot', respTxt || 'माफ़ करें, मुझे कोई समाधान नहीं मिला। कृपया अपनी समस्या को दोबारा बताएं या अधिक विवरण प्रदान करें।');
+    
+    // Save bot response to database
+    await saveChatMessage(currentQueryId, respTxt || 'माफ़ करें, मुझे कोई समाधान नहीं मिला। कृपया अपनी समस्या को दोबारा बताएं या अधिक विवरण प्रदान करें।', false);
+    
     inp.disabled = false;
     document.getElementById('itsahayata-chatbot-sendbtn').disabled = false;
     inp.focus();
@@ -74,15 +176,17 @@ function appendMsg(role, text) {
   box.appendChild(msgDiv);
   box.scrollTop = box.scrollHeight;
 }
+
 function appendThinking() {
   const box = document.getElementById('itsahayata-chatbot-messages');
   const div = document.createElement('div');
   div.className = 'itsahayata-msg-thinking';
   div.id = 'itsahayata-msg-thinking';
-  div.innerText = 'Thinking...';
+  div.innerText = 'सोच रहा हूँ...';
   box.appendChild(div);
   box.scrollTop = box.scrollHeight;
 }
+
 function removeThinking() {
   const e = document.getElementById('itsahayata-msg-thinking');
   if(e) e.remove();

@@ -148,3 +148,61 @@
   #itsahayata-chatbot-root{right:2vw;}
   #itsahayata-chat-icon span{display:none;}
 }
+
+/* अगर यह फाइल पहले से मौजूद नहीं है तो इसे बनाएं और अपने HTML में लिंक करें */
+
+#itsahayata-user-form {
+  padding: 15px;
+  background: #f9f9f9;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+#itsahayata-user-form h3 {
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #333;
+  font-size: 16px;
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 12px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  color: #555;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.form-group textarea {
+  height: 80px;
+  resize: vertical;
+}
+
+#itsahayata-submit-details {
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  width: 100%;
+  margin-top: 10px;
+}
+
+#itsahayata-submit-details:hover {
+  background-color: #45a049;
+}
