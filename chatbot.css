@@ -94,16 +94,16 @@
   transform: translateY(0);
 }
 
-/* #itsahayata-chat-icon img {
-  width: 32px;
-  height: 32px;
+#itsahayata-chat-icon img {
+  /* width: 32px; */
+  height: 80px;
   filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
   transition: transform var(--transition-fast);
 }
 
 #itsahayata-chat-icon:hover img {
   transform: scale(1.1) rotate(5deg);
-} */
+}
 
 /* Chatbot Container */
 #itsahayata-chatbot-root {
