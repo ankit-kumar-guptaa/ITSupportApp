@@ -33,7 +33,7 @@
                         </div>
                     <?php endif; ?>
                     
-                    <form action="/../controllers/AdminController.php?action=admin_register" method="POST" class="needs-validation" novalidate>
+                    <form action="/controllers/AdminController.php?action=admin_register" method="POST" class="needs-validation" novalidate>
                         <div class="form-floating mb-3">
                             <input type="text" class="form-control" id="name" name="name" placeholder="Enter your name" required>
                             <label for="name"><i class="fas fa-user me-2"></i>Full Name</label>

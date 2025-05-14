@@ -272,8 +272,8 @@
  <!-- FOOTER WITH CHATBOT ICON -->
  <div style="position:fixed;bottom:0;left:0;width:100vw;display:flex;justify-content:end;align-items:end;padding:24px;background:transparent;z-index:9999;">
     <div id="itsahayata-chat-icon">
-      <img src="../assets/fav.png" alt="Chatbot" />
-      <span>IT Sahayata AI</span>
+      <img src="https://media3.giphy.com/media/7x3PHPSMXSONHFuOK4/200w.gif?cid=6c09b952v3l00pl6xkp92u3zhl7gghyip8hheknpnzgpustg&ep=v1_gifs_search&rid=200w.gif&ct=g" alt="Chatbot" />
+      <span style="color:#ffffff;">IT Sahayata AI</span>
     </div>
 </div>
 
