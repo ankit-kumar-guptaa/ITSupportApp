@@ -435,3 +435,80 @@ if ($action === 'search_sort_feedback') {
     header("Location: /views/admin_dashboard.php?tab=feedback");
     exit;
 }
+
+
+class AdminController {
+    private $conn;
+
+    public function __construct() {
+        // Start session if not already started
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+        
+        // Database connection
+        require_once '../config/db.php';
+        global $pdo;
+        $this->conn = $pdo;
+        $this->conn = $database->getConnection();
+        
+        // Handle actions
+        if (isset($_GET['action'])) {
+            $action = $_GET['action'];
+            
+            switch ($action) {
+                case 'admin_register':
+                    $this->adminRegister();
+                    break;
+                // Other actions can be added here
+            }
+        }
+    }
+    
+    private function adminRegister() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Get form data
+            $name = $_POST['name'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $code = $_POST['code'] ?? '';
+            
+            // Validate admin code
+            if ($code !== "ADMIN-2025-XYZ123") {
+                $_SESSION['error'] = "Invalid admin code. Please enter the correct code.";
+                header("Location: /ITSupportApp/views/admin_register.php");
+                exit;
+            }
+            
+            // Check if email already exists
+            $stmt = $this->conn->prepare("SELECT * FROM users WHERE email = ?");
+            $stmt->execute([$email]);
+            
+            if ($stmt->rowCount() > 0) {
+                $_SESSION['error'] = "This email is already registered.";
+                header("Location: /ITSupportApp/views/admin_register.php");
+                exit;
+            }
+            
+            // Hash password
+            $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+            
+            // Register admin user
+            $stmt = $this->conn->prepare("INSERT INTO users (name, email, password, role) VALUES (?, ?, ?, 'admin')");
+            
+            if ($stmt->execute([$name, $email, $hashed_password])) {
+                $_SESSION['success'] = "Admin registration successful! You can now login.";
+                header("Location: /ITSupportApp/views/login.php");
+                exit;
+            } else {
+                $_SESSION['error'] = "Registration failed. Please try again.";
+                header("Location: /ITSupportApp/views/admin_register.php");
+                exit;
+            }
+        }
+    }
+}
+
+// Initialize controller
+$controller = new AdminController();
+?>
