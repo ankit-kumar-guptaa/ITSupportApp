@@ -436,7 +436,6 @@ if ($action === 'search_sort_feedback') {
     exit;
 }
 
-
 class AdminController {
     private $conn;
 
@@ -450,7 +449,6 @@ class AdminController {
         require_once '../config/db.php';
         global $pdo;
         $this->conn = $pdo;
-        $this->conn = $database->getConnection();
         
         // Handle actions
         if (isset($_GET['action'])) {
@@ -476,7 +474,7 @@ class AdminController {
             // Validate admin code
             if ($code !== "ADMIN-2025-XYZ123") {
                 $_SESSION['error'] = "Invalid admin code. Please enter the correct code.";
-                header("Location: /ITSupportApp/views/admin_register.php");
+                header("Location: /views/admin_register.php");
                 exit;
             }
             
@@ -486,7 +484,7 @@ class AdminController {
             
             if ($stmt->rowCount() > 0) {
                 $_SESSION['error'] = "This email is already registered.";
-                header("Location: /ITSupportApp/views/admin_register.php");
+                header("Location: /views/admin_register.php");
                 exit;
             }
             
@@ -498,11 +496,11 @@ class AdminController {
             
             if ($stmt->execute([$name, $email, $hashed_password])) {
                 $_SESSION['success'] = "Admin registration successful! You can now login.";
-                header("Location: /ITSupportApp/views/login.php");
+                header("Location: /views/login.php");
                 exit;
             } else {
                 $_SESSION['error'] = "Registration failed. Please try again.";
-                header("Location: /ITSupportApp/views/admin_register.php");
+                header("Location: /views/admin_register.php");
                 exit;
             }
         }
@@ -511,4 +509,6 @@ class AdminController {
 
 // Initialize controller
 $controller = new AdminController();
-?>
+
+
+
