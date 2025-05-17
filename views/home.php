@@ -422,7 +422,7 @@ session_start();
                         <div class="mt-auto pt-3 border-top">
                             <p class="small text-muted mb-2">Average response time: <strong class="text-dark">30
                                     minutes</strong></p>
-                            <a href="/hardware-support" class="btn btn-sm btn-outline-primary w-100">View Hardware
+                            <a href="hardware_support.php" class="btn btn-sm btn-outline-primary w-100">View Hardware
                                 Packages</a>
                         </div>
                     </div>
