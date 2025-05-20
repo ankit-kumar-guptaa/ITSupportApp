@@ -93,6 +93,9 @@ if ($action === 'list') {
     
     $user_id = verifyToken();
     
+    // डीबग के लिए लॉग जोड़ें
+    error_log("Fetching issues for user_id: $user_id");
+    
     // पेजिनेशन पैरामीटर्स
     $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
     $limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
@@ -109,16 +112,22 @@ if ($action === 'list') {
     }
     
     // इश्यूज प्राप्त करें
-    $stmt = $pdo->prepare("SELECT i.*, a.name as agent_name, a.phone_number as agent_phone 
-                          FROM issues i 
-                          LEFT JOIN agents a ON i.agent_id = a.id 
-                          WHERE i.user_id = ? $status_condition
-                          ORDER BY i.created_at DESC
-                          LIMIT ? OFFSET ?");
+    $query = "SELECT i.*, a.name as agent_name, a.phone_number as agent_phone 
+              FROM issues i 
+              LEFT JOIN agents a ON i.agent_id = a.id 
+              WHERE i.user_id = ? $status_condition
+              ORDER BY i.created_at DESC
+              LIMIT ? OFFSET ?";
+              
+    error_log("Query: $query");
+    
+    $stmt = $pdo->prepare($query);
     $params[] = $limit;
     $params[] = $offset;
     $stmt->execute($params);
     $issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    error_log("Found " . count($issues) . " issues");
     
     // टोटल इश्यूज काउंट प्राप्त करें
     $stmt = $pdo->prepare("SELECT COUNT(*) as total FROM issues WHERE user_id = ? $status_condition");
