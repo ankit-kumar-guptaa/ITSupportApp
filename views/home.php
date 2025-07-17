@@ -2,1207 +2,862 @@
 session_start();
 ?>
 
-
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IT Sahayta - Professional IT Support Services in India | Hardware, Software & Network Solutions</title>
     <meta name="description" content="IT Sahayta provides 24/7 professional IT support services for businesses & individuals. Expert solutions for hardware repair, software issues, and network setup. Get instant help now!">
     <meta name="keywords" content="IT support services in Lucknow, IT support services in Delhi, Computer repair services Lucknow, Computer repair services Delhi, Laptop repair services Lucknow, Laptop repair services Delhi, Desktop repair services Lucknow, Desktop repair services Delhi, On-site IT support Lucknow, On-site IT support Delhi, Motherboard repair Lucknow, Motherboard repair Delhi, RAM upgrade services Lucknow, RAM upgrade services Delhi, Hard drive replacement Lucknow, Hard drive replacement Delhi, SSD installation services Lucknow, SSD installation services Delhi, Power supply repair Lucknow, Power supply repair Delhi, Operating system installation Lucknow, Operating system installation Delhi, Virus removal services Lucknow, Virus removal services Delhi, Software troubleshooting Lucknow, Software troubleshooting Delhi, Driver installation services Lucknow, Driver installation services Delhi, Application support services Lucknow, Application support services Delhi, Wi-Fi setup services Lucknow, Wi-Fi setup services Delhi, Network troubleshooting Lucknow, Network troubleshooting Delhi, VPN configuration services Lucknow, VPN configuration services Delhi, Router installation services Lucknow, Router installation services Delhi, Network security services Lucknow, Network security services Delhi, Home IT support Lucknow, Home IT support Delhi, Remote IT support Lucknow, Remote IT support Delhi, Home office setup services Lucknow, Home office setup services Delhi, Data backup services Lucknow, Data backup services Delhi, IT consultation services Lucknow, IT consultation services Delhi">
     <?php include "assets.php"?>
 
-     <!-- Hero Section Custom Styles -->
-     <style>
-        .light-hero {
-            position: relative;
-            background: linear-gradient(135deg, #f8fafc 0%, #e0e7ff 100%);
-            min-height: 65vh;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-            padding: 60px 0;
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    
+    <!-- GSAP for animations -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Custom Styles -->
+    <style>
+        /* Base Styles */
+        :root {
+            --primary-color: #4361ee;
+            --primary-dark: #3a56d4;
+            --secondary-color: #f8fafc;
+            --text-dark: #1e293b;
+            --text-light: #64748b;
+            --border-light: #e2e8f0;
+            --border-medium: #cbd5e1;
+            --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.03);
+            --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.05);
+            --shadow-lg: 0 15px 30px rgba(0, 0, 0, 0.15);
+            --shadow-primary: 0 4px 12px rgba(67, 97, 238, 0.2);
+            --shadow-primary-lg: 0 8px 15px rgba(67, 97, 238, 0.3);
         }
         
-        .light-hero::before {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+            background-color: #ffffff;
+        }
+
+        .section-padding {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            text-align: center;
+            background: linear-gradient(to right, #1e293b, #4361ee);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            border-radius: 2px;
+        }
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 2rem auto 4rem;
+        }
+        
+       
+
+        /* Services Section */
+        .services-section {
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .services-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234361ee' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+        }
+
+        /* Modern Glass Service Card */
+        .service-card {
+            background: rgba(255,255,255,0.7);
+            border-radius: 22px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
+            backdrop-filter: blur(8px);
+            border: 1.5px solid rgba(67,97,238,0.08);
+            transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s;
+            position: relative;
+            overflow: hidden;
+            min-height: 420px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px) scale(1.03);
+            box-shadow: 0 16px 40px 0 rgba(67,97,238,0.12);
+        }
+
+        .service-icon {
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, #4361ee 0%, #6c5ce7 100%);
+            color: #fff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.7rem;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 4px 16px rgba(67,97,238,0.10);
+            transition: transform 0.4s cubic-bezier(.4,2,.6,1);
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotate(-8deg) scale(1.12);
+            background: linear-gradient(135deg, #6c5ce7 0%, #4361ee 100%);
+        }
+
+        .service-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            margin-bottom: 0.7rem;
+            color: #2d3436;
+            letter-spacing: 0.5px;
+            text-align: center;
+        }
+
+        .service-description {
+            color: #636e72;
+            margin-bottom: 1.2rem;
+            text-align: center;
+            font-size: 1.02rem;
+        }
+
+        .service-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1.2rem;
+            text-align: left;
+            width: 100%;
+        }
+
+        .service-features li {
+            padding: 0.45rem 0 0.45rem 1.8rem;
+            position: relative;
+            font-size: 0.98rem;
+            color: #495057;
+        }
+
+        .service-features li i {
+            position: absolute;
+            left: 0.5rem;
+            color: #4361ee;
+            font-size: 1.1rem;
+        }
+
+        .service-link {
+            margin-top: auto;
+            display: inline-flex;
+            align-items: center;
+            color: #4361ee;
+            font-weight: 600;
+            text-decoration: none;
+            gap: 0.5rem;
+            border-radius: 20px;
+            padding: 0.5rem 1.2rem;
+            background: rgba(67,97,238,0.07);
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .service-link:hover {
+            background: #4361ee;
+            color: #fff;
+        }
+
+        @media (max-width: 991px) {
+            .service-card { min-height: 440px; }
+        }
+
+        @media (max-width: 767px) {
+            .service-card { min-height: 0; }
+        }
+
+        /* Process Section */
+        .process-section {
+            background-color: #f8fafc;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .process-timeline {
+            position: relative;
+        }
+
+        .process-timeline::before {
+            content: '';
+            position: absolute;
+            top: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 2px;
+            background: var(--border-light);
+            z-index: 0;
+        }
+
+        .process-step {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: var(--shadow-sm);
+            transition: all 0.3s ease;
+            height: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .process-step:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .process-number {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-color);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .process-step:hover .process-number {
+            transform: scale(1.1);
+            background: var(--primary-dark);
+        }
+
+        .process-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .process-description {
+            color: var(--text-light);
+        }
+        
+        .process-features {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .process-features span {
+            background: rgba(67, 97, 238, 0.1);
+            color: var(--primary-color);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .process-features span i {
+            margin-right: 5px;
+            font-size: 0.8rem;
+        }
+
+        /* Industry Solutions Section */
+        .industry-section {
+            background-color: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .industry-card {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.5s ease;
+            height: 250px;
+            margin-bottom: 30px;
+        }
+
+        .industry-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .industry-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: all 0.5s ease;
+        }
+
+        .industry-card:hover .industry-bg {
+            transform: scale(1.1);
+        }
+
+        .industry-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.2) 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .industry-card:hover .industry-overlay {
+            background: linear-gradient(to top, rgba(67, 97, 238, 0.8) 0%, rgba(67, 97, 238, 0.4) 100%);
+        }
+
+        .industry-title {
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .industry-description {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            opacity: 0;
+        }
+
+        .industry-card:hover .industry-description {
+            max-height: 100px;
+            opacity: 1;
+        }
+
+        .industry-link {
+            color: white;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .industry-link:hover {
+            gap: 0.8rem;
+            color: white;
+        }
+
+        /* Digital Guardian Section */
+        .digital-guardian {
+            background: linear-gradient(135deg,rgb(255, 255, 255) 0%,rgb(121, 162, 220) 100%);
+            color: black;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .digital-guardian::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%234361ee' fill-opacity='0.05'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.4;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cg fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Cpath opacity='.5' d='M96 95h4v1h-4v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4h-9v4h-1v-4H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15v-9H0v-1h15V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h9V0h1v15h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9h4v1h-4v9zm-1 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm9-10v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-10 0v-9h-9v9h9zm-9-10h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9zm10 0h9v-9h-9v9z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.1;
         }
-        
-        .hero-content {
+
+        .guardian-content {
             position: relative;
-            z-index: 2;
-            color: #1e293b;
+            z-index: 1;
         }
-        
-        .hero-title {
+
+        .guardian-title {
             font-size: 2.8rem;
-            font-weight: 800;
-            line-height: 1.2;
-            margin-bottom: 1.2rem;
-            background: linear-gradient(to right, #1e293b, #4361ee);
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(to right, #ffffff, #93c5fd);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            animation: fadeInUp 0.8s ease;
         }
-        
-        .hero-subtitle {
+
+        .guardian-description {
+            color: rgba(255, 255, 255, 0.8);
             font-size: 1.1rem;
-            margin-bottom: 1.8rem;
-            color: #64748b;
-            max-width: 550px;
-            animation: fadeInUp 0.8s ease 0.2s both;
-        }
-        
-        .feature-row {
-            display: flex;
-            gap: 15px;
             margin-bottom: 2rem;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.3s both;
+            max-width: 600px;
         }
-        
-        .feature-item {
-            background: white;
-            padding: 12px 18px;
-            border-radius: 10px;
+
+        .guardian-features {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem;
+        }
+
+        .guardian-features li {
+            padding: 0.8rem 0;
             display: flex;
             align-items: center;
-            gap: 10px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            border-left: 3px solid #4361ee;
+            gap: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.8);
         }
-        
-        .feature-item:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+
+        .guardian-features li:last-child {
+            border-bottom: none;
         }
-        
-        .feature-icon {
-            width: 36px;
-            height: 36px;
+
+        .guardian-features i {
+            width: 40px;
+            height: 40px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #93c5fd;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #4361ee;
-            color: white;
-            border-radius: 8px;
-            font-size: 1.1rem;
+            border-radius: 50%;
+            font-size: 1.2rem;
         }
-        
-        .feature-text {
-            font-weight: 500;
-            color: #334155;
-        }
-        
-        .cta-row {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 2rem;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.4s both;
-        }
-        
-        .cta-primary {
-            background: #4361ee;
-            color: white;
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            border: none;
-            box-shadow: 0 4px 12px rgba(67, 97, 238, 0.2);
-        }
-        
-        .cta-primary:hover {
-            background: #3a56d4;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(67, 97, 238, 0.3);
-            color: white;
-        }
-        
-        .cta-secondary {
-            background: white;
-            color: #4361ee;
-            padding: 10px 24px;
-            border-radius: 8px;
-            font-weight: 600;
-            text-decoration: none;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            border: 1px solid #e2e8f0;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
-        }
-        
-        .cta-secondary:hover {
-            background: #f8fafc;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.05);
-            color: #3a56d4;
-            border-color: #cbd5e1;
-        }
-        
-        .stats-row {
-            display: flex;
-            gap: 25px;
-            flex-wrap: wrap;
-            animation: fadeInUp 0.8s ease 0.5s both;
-        }
-        
-        .stat-box {
-            background: white;
-            padding: 12px 20px;
-            border-radius: 10px;
-            text-align: center;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            min-width: 120px;
-            border-bottom: 3px solid #4361ee;
-        }
-        
-        .stat-number {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: #4361ee;
-            margin-bottom: 2px;
-            line-height: 1;
-        }
-        
-        .stat-label {
-            color: #64748b;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-        
-        .hero-image-wrapper {
+
+        .guardian-image {
             position: relative;
-            z-index: 2;
-            animation: fadeInLeft 0.8s ease;
-            display: flex;
-            justify-content: center;
         }
-        
-        .hero-image-wrapper img {
-            border-radius: 12px;
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+
+        .guardian-image img {
             max-width: 100%;
-            height: auto;
-            border: 5px solid white;
+            border-radius: 20px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
         }
-        
-        .badge-container {
-            position: absolute;
-            bottom: -15px;
-            right: 20px;
-            background: #4361ee;
+
+        /* IT Solutions Showcase */
+        .solutions-showcase {
+            background-color: #f8fafc;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .showcase-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: var(--shadow-md);
+            transition: all 0.5s ease;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .showcase-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .showcase-image {
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .showcase-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.5s ease;
+        }
+
+        .showcase-card:hover .showcase-image img {
+            transform: scale(1.1);
+        }
+
+        .showcase-content {
+            padding: 2rem;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .showcase-title {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+        }
+
+        .showcase-description {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            flex-grow: 1;
+        }
+
+        .showcase-link {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            margin-top: auto;
+        }
+
+        .showcase-link:hover {
+            color: var(--primary-dark);
+            gap: 0.8rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 8px 15px;
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.2;
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+
+        .cta-description {
+            font-size: 1.1rem;
+            margin-bottom: 2rem;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-white {
+            background: white;
+            color: var(--primary-color);
+            padding: 1rem 2rem;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 0.9rem;
-            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .btn-white:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            color: var(--primary-dark);
+        }
+
+        .btn-outline-white {
+            background: transparent;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s ease;
+            border: 2px solid white;
+        }
+
+        .btn-outline-white:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+            color: white;
+        }
+
+        /* Parallax Sections */
+        .parallax-section {
+            position: relative;
+            height: 400px;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
             display: flex;
             align-items: center;
-            gap: 8px;
+            justify-content: center;
+            color: white;
+            text-align: center;
         }
-        
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+
+        .parallax-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(30, 41, 59, 0.7);
         }
-        
-        @keyframes fadeInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(15px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
+
+        .parallax-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 0 2rem;
         }
-        
+
+        .parallax-title {
+            font-size: 3rem;
+            font-weight: 800;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .parallax-description {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Responsive Styles */
         @media (max-width: 991px) {
-            .light-hero {
-                min-height: auto;
-                padding: 40px 0;
+            .section-padding {
+                padding: 70px 0;
             }
-            
+
+            .hero-section {
+                min-height: auto;
+                padding: 100px 0 70px;
+            }
+
             .hero-title {
+                font-size: 3rem;
+            }
+
+            .hero-image {
+                margin-top: 3rem;
+            }
+
+            .process-container::before {
+                display: none;
+            }
+
+            .parallax-section {
+                background-attachment: scroll;
+                height: 350px;
+            }
+
+            .parallax-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        @media (max-width: 767px) {
+            .section-padding {
+                padding: 50px 0;
+            }
+
+            .section-title {
                 font-size: 2.2rem;
             }
-            
-            .hero-image-wrapper {
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .btn-primary, .btn-secondary, .btn-white, .btn-outline-white {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .guardian-title {
+                font-size: 2.2rem;
+            }
+
+            .guardian-image {
                 margin-top: 2rem;
+            }
+
+            .parallax-section {
+                height: 300px;
+            }
+
+            .parallax-title {
+                font-size: 2rem;
+            }
+
+            .parallax-description {
+                font-size: 1rem;
+            }
+
+            .cta-title {
+                font-size: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                gap: 1rem;
             }
         }
     </style>
 </head>
 
 <body>
+    <?php include 'header.php'; ?>
 
-
-
-
-
-<?php include 'header.php'; ?>
-
-
-<!-- Hero Section -->
-<!-- <section class="hero">
-    <div class="container">
-        <div class="hero-content" data-aos="fade-right">
-            <h1>Professional IT Support Services for Businesses & Individuals</h1>
-            <p class="subtitle">Get instant help for all your technology problems from certified IT experts available
-                24/7</p>
-
-            <div class="feature-list">
-                <div class="feature-item">
-                    <span class="icon">⚡</span>
-                    <span>On-site and remote support options</span>
-                </div>
-                <div class="feature-item">
-                    <span class="icon">🛡️</span>
-                    <span>Data security and privacy guaranteed</span>
-                </div>
-                <div class="feature-item">
-                    <span class="icon">💰</span>
-                    <span>Affordable pricing with no hidden charges</span>
-                </div>
-            </div>
-
-            <div class="cta-container">
-                <a href="/views/free-consultation.php" class="primary-btn">Get Instant Help Now</a>
-                <a href="/services" class="secondary-btn">Explore Services</a>
-            </div>
-
-            <div class="stats">
-                <div class="stat-item">
-                    <div class="number">5000+</div>
-                    <div class="label">Issues Resolved</div>
-                </div>
-                <div class="stat-item">
-                    <div class="number">98%</div>
-                    <div class="label">Success Rate</div>
-                </div>
-                <div class="stat-item">
-                    <div class="number">24/7</div>
-                    <div class="label">Support Available</div>
-                </div>
-            </div>
-        </div>
-        <div class="hero-image" data-aos="fade-left">
-            <img src="/assets/hero.png" alt="IT support professionals helping clients with computer problems"
-                loading="lazy">
-        </div>
-    </div>
-</section> -->
-<!-- Light Modern Hero Section -->
-<section class="light-hero">
+  <!-- Hero Section -->
+<section class="hero-section" id="hero">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
                 <div class="hero-content">
-                    <h1 class="hero-title">Professional IT Support Services</h1>
-                    <p class="hero-subtitle">Get instant help for all your technology problems from certified IT experts available 24/7</p>
-                    
-                    <div class="feature-row">
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fas fa-bolt"></i>
-                            </div>
-                            <span class="feature-text">On-site & remote support</span>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fas fa-shield-alt"></i>
-                            </div>
-                            <span class="feature-text">Data security guaranteed</span>
-                        </div>
-                        <div class="feature-item">
-                            <div class="feature-icon">
-                                <i class="fas fa-tags"></i>
-                            </div>
-                            <span class="feature-text">No hidden charges</span>
-                        </div>
+                    <!-- Trust badge -->
+                    <div class="trust-badge">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>Trusted by 500+ Businesses</span>
                     </div>
                     
-                    <div class="cta-row">
-                        <a href="/views/free-consultation.php" class="cta-primary">
-                            <i class="fas fa-headset"></i> Get Help Now
+                    <!-- Main heading -->
+                    <h1 class="hero-title">
+                        Your Trusted <span class="highlight">IT Solutions</span> Partner
+                    </h1>
+                    
+                    <p class="hero-subtitle">
+                        We provide comprehensive IT services including cloud solutions, cybersecurity, 
+                        network management, and software development to drive your business forward.
+                    </p>
+                    
+                    <!-- CTA Buttons -->
+                    <div class="hero-cta">
+                        <a href="#contact" class="btn btn-primary">
+                            <i class="fas fa-headset"></i> Get Support Now
                         </a>
-                        <a href="/views/service.php" class="cta-secondary">
-                            <i class="fas fa-th-list"></i> Our Services
+                        <a href="#services" class="btn btn-outline">
+                            <i class="fas fa-th"></i> Our Services
                         </a>
                     </div>
                     
-                    <div class="stats-row">
-                        <div class="stat-box">
-                            <div class="stat-number">5000+</div>
-                            <div class="stat-label">Issues Solved</div>
+                    <!-- Key Metrics -->
+                    <div class="metrics">
+                        <div class="metric-item">
+                            <div class="metric-value">24/7</div>
+                            <div class="metric-label">Support</div>
                         </div>
-                        <div class="stat-box">
-                            <div class="stat-number">98%</div>
-                            <div class="stat-label">Success Rate</div>
+                        <div class="metric-item">
+                            <div class="metric-value">99%</div>
+                            <div class="metric-label">Satisfaction</div>
                         </div>
-                        <div class="stat-box">
-                            <div class="stat-number">24/7</div>
-                            <div class="stat-label">Support</div>
+                        <div class="metric-item">
+                            <div class="metric-value">30min</div>
+                            <div class="metric-label">Response Time</div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="col-lg-6">
-                <div class="hero-image-wrapper">
-                    <img src="/assets/hero.png" alt="IT support professionals helping clients" class="img-fluid">
-                    <div class="badge-container">
-                        <i class="fas fa-certificate"></i> Certified Experts
+                <div class="hero-image">
+                    <!-- Main IT image -->
+                    <img src="../assets/hero.png" alt="IT professionals working" class="main-img">
+                    
+                    <!-- Floating tech elements -->
+                    <div class="tech-element cloud">
+                        <i class="fas fa-cloud"></i>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Services Section -->
-<section class="services py-5 bg-light">
-    <div class="container">
-        <div class="section-header text-center mb-5" data-aos="fade-right">
-            <h2 class="display-5 fw-bold">Comprehensive IT Support Solutions</h2>
-            <p class="lead text-muted">We provide end-to-end technology solutions tailored to your specific needs,
-                ensuring maximum uptime and productivity for your business operations.</p>
-        </div>
-
-        <div class="row g-4">
-            <!-- Hardware Support Card -->
-            <div class="col-md-6 col-lg-4" data-aos="fade-up">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body p-4 text-center">
-                        <div class="icon-wrapper bg-primary bg-opacity-10 text-primary rounded-circle mx-auto mb-4">
-                            <i class="fas fa-desktop fa-2x"></i>
-                        </div>
-                        <h3 class="h4 mb-3">Hardware Support</h3>
-                        <p class="mb-4">Professional diagnosis and repair services for all computer hardware components
-                            including motherboards, processors, RAM, hard drives, and peripherals. Our Dell, HP, and
-                            Lenovo certified technicians ensure your equipment gets manufacturer-approved service.</p>
-
-                        <div class="text-start mb-4">
-                            <h4 class="h6 text-primary">Key Services:</h4>
-                            <ul class="list-unstyled">
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Laptop/Desktop
-                                    Repair</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Component
-                                    Replacement</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Preventive
-                                    Maintenance</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Data Recovery
-                                    Services</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Warranty Claim
-                                    Assistance</li>
-                            </ul>
-                        </div>
-
-                        <div class="mt-auto pt-3 border-top">
-                            <p class="small text-muted mb-2">Average response time: <strong class="text-dark">30
-                                    minutes</strong></p>
-                            <a href="hardware_support.php" class="btn btn-sm btn-outline-primary w-100">View Hardware
-                                Packages</a>
-                        </div>
+                    <div class="tech-element shield">
+                        <i class="fas fa-shield-alt"></i>
                     </div>
-                </div>
-            </div>
-
-            <!-- Software Support Card -->
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body p-4 text-center">
-                        <div class="icon-wrapper bg-success bg-opacity-10 text-success rounded-circle mx-auto mb-4">
-                            <i class="fas fa-code fa-2x"></i>
-                        </div>
-                        <h3 class="h4 mb-3">Software Support</h3>
-                        <p class="mb-4">Comprehensive software solutions including installation, configuration,
-                            troubleshooting, and optimization for operating systems, business applications, and
-                            specialized software packages. Our Microsoft Certified Professionals ensure compatibility
-                            and performance.</p>
-
-                        <div class="text-start mb-4">
-                            <h4 class="h6 text-success">Key Services:</h4>
-                            <ul class="list-unstyled">
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Virus/Malware
-                                    Removal</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> OS Installation &
-                                    Upgrade</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Driver Issues
-                                    Resolution</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Application
-                                    Configuration</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Software License
-                                    Management</li>
-                            </ul>
-                        </div>
-
-                        <div class="mt-auto pt-3 border-top">
-                            <p class="small text-muted mb-2">Supported platforms: <strong class="text-dark">Windows,
-                                    macOS, Linux</strong></p>
-                            <a href="/software-support" class="btn btn-sm btn-outline-success w-100">Explore Software
-                                Solutions</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Network Support Card -->
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="card h-100 border-0 shadow-sm">
-                    <div class="card-body p-4 text-center">
-                        <div class="icon-wrapper bg-info bg-opacity-10 text-info rounded-circle mx-auto mb-4">
-                            <i class="fas fa-network-wired fa-2x"></i>
-                        </div>
-                        <h3 class="h4 mb-3">Network Support</h3>
-                        <p class="mb-4">Complete networking solutions including setup, configuration, security, and
-                            troubleshooting for wired and wireless networks, VPNs, and enterprise network
-                            infrastructure. Our Cisco and CompTIA Network+ certified engineers deliver enterprise-grade
-                            solutions.</p>
-
-                        <div class="text-start mb-4">
-                            <h4 class="h6 text-info">Key Services:</h4>
-                            <ul class="list-unstyled">
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Wi-Fi Setup &
-                                    Optimization</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Network Security
-                                    Audits</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Server
-                                    Configuration</li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Cloud Integration
-                                </li>
-                                <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Business
-                                    Continuity Planning</li>
-                            </ul>
-                        </div>
-
-                        <div class="mt-auto pt-3 border-top">
-                            <p class="small text-muted mb-2">Supported vendors: <strong class="text-dark">Cisco,
-                                    Ubiquiti, MikroTik</strong></p>
-                            <a href="/network-support" class="btn btn-sm btn-outline-info w-100">Network Service
-                                Plans</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="text-center mt-5" data-aos="fade-up">
-            <div class="d-inline-block bg-primary bg-opacity-10 px-4 py-3 rounded-3">
-                <p class="mb-0"><i class="fas fa-headset me-2 text-primary"></i> <strong>Need help choosing the right
-                        service?</strong> Call our experts at <a href="tel:+917703823008" class="text-primary">+91 77038 23008</a></p>
-            </div>
-        </div>
-    </div>
-</section>
-
-<style>
-    /* Custom Styles for Services Section */
-    .services {
-        position: relative;
-        overflow: hidden;
-    }
-
-    .icon-wrapper {
-        width: 80px;
-        height: 80px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-    }
-
-    .service-card:hover .icon-wrapper {
-        transform: scale(1.1);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-    }
-
-    .service-card {
-        transition: transform 0.3s ease;
-    }
-
-    .service-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .list-unstyled li {
-        position: relative;
-        padding-left: 1.5rem;
-    }
-
-    .list-unstyled li i {
-        position: absolute;
-        left: 0;
-        top: 0.25rem;
-    }
-</style>
-
-
-
-
-
-
-<!-- About Section -->
-<section class="about">
-    <div class="container">
-        <div class="about-content" data-aos="fade-right">
-            <h2>About IT Sahayata</h2>
-            <p>Founded in 2015, IT Sahayata has grown to become one of the most trusted names in technical support
-                services across India. Our team of Microsoft Certified, CompTIA A+ certified technicians brings an
-                average of 8 years of hands-on experience in solving complex IT challenges.</p>
-
-            <p>We pride ourselves on our customer-first approach, ensuring that every solution we provide is tailored to
-                your specific requirements and budget constraints. Whether you're a small business owner, a corporate
-                enterprise, or an individual user, we have the expertise to address your technology needs.</p>
-
-            <div class="mission-vision">
-                <div class="mv-item">
-                    <h4>Our Mission</h4>
-                    <p>To provide reliable, affordable, and accessible IT support to all users, helping them maximize
-                        their technology investments.</p>
-                </div>
-                <div class="mv-item">
-                    <h4>Our Vision</h4>
-                    <p>To become India's most trusted IT support partner through exceptional service and technical
-                        excellence.</p>
-                </div>
-            </div>
-
-            <a href="/about" class="primary-btn">Our Full Story</a>
-        </div>
-        <div class="about-image" data-aos="fade-left">
-            <img src="/assets/about.png" alt="IT Sahayata team working on computer systems" loading="lazy">
-        </div>
-    </div>
-</section>
-
-
-<!-- Modern Process Section -->
-<section class="process-section py-5 position-relative">
-    <!-- Decorative elements -->
-    <div class="position-absolute top-0 start-0 w-100 h-100 overflow-hidden z-0">
-        <div class="process-circle circle-1"></div>
-        <div class="process-circle circle-2"></div>
-    </div>
-
-    <div class="container position-relative z-1">
-        <!-- Section Header -->
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="display-5 fw-bold mb-3 text-gradient">How We Solve IT Problems</h2>
-            <p class="lead text-muted mx-auto" style="max-width: 600px">A streamlined approach that gets your systems
-                back on track quickly</p>
-        </div>
-
-        <!-- Process Steps -->
-        <div class="process-steps">
-            <!-- Step 1 -->
-            <div class="step-card" data-aos="fade-up">
-                <div class="step-header">
-                    <div class="step-number">1</div>
-                    <div class="step-icon">
-                        <i class="fas fa-search"></i>
-                    </div>
-                </div>
-                <h3 class="step-title">Diagnose</h3>
-                <div class="step-content">
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Hardware Diagnostics</span>
-                    </div>
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Software Analysis</span>
-                    </div>
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Network Scanning</span>
-                    </div>
-                </div>
-                <div class="step-time">
-                    <i class="fas fa-clock"></i>
-                    <small>15-30 min avg.</small>
-                </div>
-            </div>
-
-            <!-- Step 2 -->
-            <div class="step-card" data-aos="fade-up" data-aos-delay="100">
-                <div class="step-header">
-                    <div class="step-number">2</div>
-                    <div class="step-icon">
-                        <i class="fas fa-lightbulb"></i>
-                    </div>
-                </div>
-                <h3 class="step-title">Plan</h3>
-                <div class="step-content">
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Solution Options</span>
-                    </div>
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Cost Analysis</span>
-                    </div>
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Implementation Plan</span>
-                    </div>
-                </div>
-                <div class="step-time">
-                    <i class="fas fa-clock"></i>
-                    <small>30-60 min avg.</small>
-                </div>
-            </div>
-
-            <!-- Step 3 -->
-            <div class="step-card" data-aos="fade-up" data-aos-delay="200">
-                <div class="step-header">
-                    <div class="step-number">3</div>
-                    <div class="step-icon">
-                        <i class="fas fa-tools"></i>
-                    </div>
-                </div>
-                <h3 class="step-title">Fix</h3>
-                <div class="step-content">
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Remote Support</span>
-                    </div>
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>On-Site Repair</span>
-                    </div>
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Real-Time Updates</span>
-                    </div>
-                </div>
-                <div class="step-time">
-                    <i class="fas fa-clock"></i>
-                    <small>1-3 hours avg.</small>
-                </div>
-            </div>
-
-            <!-- Step 4 -->
-            <div class="step-card" data-aos="fade-up" data-aos-delay="300">
-                <div class="step-header">
-                    <div class="step-number">4</div>
-                    <div class="step-icon">
-                        <i class="fas fa-check-double"></i>
-                    </div>
-                </div>
-                <h3 class="step-title">Verify</h3>
-                <div class="step-content">
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>System Testing</span>
-                    </div>
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>User Verification</span>
-                    </div>
-                    <div class="step-item">
-                        <i class="fas fa-check-circle"></i>
-                        <span>Prevention Tips</span>
-                    </div>
-                </div>
-                <div class="step-time">
-                    <i class="fas fa-clock"></i>
-                    <small>7-day follow-up</small>
-                </div>
-            </div>
-        </div>
-
-        <!-- CTA -->
-        <div class="text-center mt-5" data-aos="fade-up">
-            <a href="#contact" class="btn btn-primary btn-lg px-4 py-3">
-                <i class="fas fa-play-circle me-2"></i> Get This Process Started
-            </a>
-        </div>
-    </div>
-</section>
-
-<!-- /moder process css -->
-<style>
-    /* Modern Process Section Styles */
-    .process-section {
-        background: linear-gradient(135deg, #f9fbfd 0%, #f1f5f9 100%);
-    }
-
-    .process-circle {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(37, 99, 235, 0.03);
-    }
-
-    .circle-1 {
-        width: 300px;
-        height: 300px;
-        top: -150px;
-        right: -150px;
-    }
-
-    .circle-2 {
-        width: 400px;
-        height: 400px;
-        bottom: -200px;
-        left: -200px;
-    }
-
-    .text-gradient {
-        background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        display: inline-block;
-    }
-
-    .process-steps {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-        gap: 20px;
-        margin: 0 auto;
-        max-width: 1100px;
-    }
-
-    .step-card {
-        background: white;
-        border-radius: 12px;
-        padding: 25px;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-        border-top: 4px solid #2563eb;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .step-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(37, 99, 235, 0.1);
-    }
-
-    .step-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 15px;
-    }
-
-    .step-number {
-        width: 36px;
-        height: 36px;
-        background: #2563eb;
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: bold;
-        margin-right: 15px;
-        font-size: 1.1rem;
-    }
-
-    .step-icon {
-        width: 40px;
-        height: 40px;
-        background: rgba(37, 99, 235, 0.1);
-        color: #2563eb;
-        border-radius: 10px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.1rem;
-    }
-
-    .step-title {
-        font-size: 1.3rem;
-        font-weight: 600;
-        margin-bottom: 15px;
-        color: #1e3a8a;
-    }
-
-    .step-content {
-        margin-bottom: 15px;
-    }
-
-    .step-item {
-        display: flex;
-        align-items: center;
-        margin-bottom: 10px;
-        font-size: 0.95rem;
-    }
-
-    .step-item i {
-        color: #10b981;
-        margin-right: 10px;
-        font-size: 0.9rem;
-    }
-
-    .step-time {
-        display: flex;
-        align-items: center;
-        color: #64748b;
-        font-size: 0.85rem;
-        margin-top: 10px;
-    }
-
-    .step-time i {
-        margin-right: 8px;
-        color: #64748b;
-    }
-
-    @media (max-width: 768px) {
-        .process-steps {
-            grid-template-columns: 1fr;
-            max-width: 400px;
-        }
-    }
-</style>
-
-
-
-
-<!-- Enhanced Industry Solutions Section -->
-<section class="industry-solutions py-5 position-relative overflow-hidden">
-    <!-- Decorative elements -->
-    <div class="position-absolute top-0 start-0 w-100 h-100 z-0">
-        <div class="industry-circle circle-1"></div>
-        <div class="industry-circle circle-2"></div>
-    </div>
-
-    <div class="container position-relative z-1">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-8 text-center" data-aos="fade-up">
-                <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill">
-                    <i class="fas fa-industry me-2"></i> Industry Specialization
-                </span>
-                <h2 class="display-5 fw-bold mb-3">Tailored <span class="text-gradient">IT Solutions</span> For Your
-                    Industry</h2>
-                <p class="lead text-muted">We deliver specialized technology support designed for your sector's unique
-                    requirements and compliance standards.</p>
-            </div>
-        </div>
-
-        <div class="row g-4">
-            <!-- Healthcare Card -->
-            <div class="col-md-6 col-lg-4" data-aos="fade-up">
-                <div class="industry-card healthcare">
-                    <div class="card-header">
-                        <div class="icon-wrapper bg-danger bg-opacity-10 text-danger">
-                            <i class="fas fa-heartbeat"></i>
-                        </div>
-                        <h3>Healthcare IT</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>HIPAA-compliant solutions ensuring patient data security and medical system reliability.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check-circle text-success"></i> EMR/EHR system support</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Medical device integration</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Telemedicine setup</li>
-                            <li><i class="fas fa-check-circle text-success"></i> PHI security compliance</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-danger btn-sm">
-                            <i class="fas fa-arrow-right me-1"></i> Healthcare Solutions
-                        </a>
-                    </div>
-                    <div class="watermark">
-                        <i class="fas fa-hospital"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Education Card -->
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="industry-card education">
-                    <div class="card-header">
-                        <div class="icon-wrapper bg-primary bg-opacity-10 text-primary">
-                            <i class="fas fa-graduation-cap"></i>
-                        </div>
-                        <h3>Education Technology</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Enhancing learning environments with reliable, scalable education technology solutions.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check-circle text-success"></i> Classroom tech setup</li>
-                            <li><i class="fas fa-check-circle text-success"></i> LMS implementation</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Student data systems</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Digital lab management</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-primary btn-sm">
-                            <i class="fas fa-arrow-right me-1"></i> Education Solutions
-                        </a>
-                    </div>
-                    <div class="watermark">
-                        <i class="fas fa-school"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Finance Card -->
-            <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="industry-card finance">
-                    <div class="card-header">
-                        <div class="icon-wrapper bg-success bg-opacity-10 text-success">
-                            <i class="fas fa-chart-line"></i>
-                        </div>
-                        <h3>Financial IT</h3>
-                    </div>
-                    <div class="card-body">
-                        <p>Secure, compliant technology solutions for financial institutions and accounting firms.</p>
-                        <ul class="feature-list">
-                            <li><i class="fas fa-check-circle text-success"></i> Financial software support</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Secure transaction systems</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Compliance management</li>
-                            <li><i class="fas fa-check-circle text-success"></i> Data encryption services</li>
-                        </ul>
-                    </div>
-                    <div class="card-footer">
-                        <a href="#" class="btn btn-success btn-sm">
-                            <i class="fas fa-arrow-right me-1"></i> Finance Solutions
-                        </a>
-                    </div>
-                    <div class="watermark">
-                        <i class="fas fa-coins"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- View All Button -->
-        <div class="text-center mt-5" data-aos="fade-up">
-            <a href="#" class="btn btn-outline-primary px-4">
-                <i class="fas fa-building me-2"></i> View All Industries We Serve
-            </a>
-        </div>
-    </div>
-</section>
-
-<style>
-    /* Industry Solutions Custom Styles */
-    .industry-solutions {
-        background-color: #f8fafc;
-    }
-
-    .industry-circle {
-        position: absolute;
-        border-radius: 50%;
-        background: rgba(37, 99, 235, 0.03);
-    }
-
-    .circle-1 {
-        width: 300px;
-        height: 300px;
-        top: -150px;
-        right: -150px;
-    }
-
-    .circle-2 {
-        width: 400px;
-        height: 400px;
-        bottom: -200px;
-        left: -200px;
-    }
-
-    .text-gradient {
-        background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-        display: inline-block;
-    }
-
-    .industry-card {
-        background: white;
-        border-radius: 12px;
-        overflow: hidden;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-        position: relative;
-        height: 100%;
-        border-top: 4px solid;
-    }
-
-    .industry-card.healthcare {
-        border-color: #dc3545;
-    }
-
-    .industry-card.education {
-        border-color: #0d6efd;
-    }
-
-    .industry-card.finance {
-        border-color: #198754;
-    }
-
-    .industry-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-header {
-        padding: 25px 25px 15px;
-        position: relative;
-    }
-
-    .card-header h3 {
-        font-size: 1.4rem;
-        font-weight: 600;
-        margin-top: 15px;
-        margin-bottom: 0;
-    }
-
-    .icon-wrapper {
-        width: 60px;
-        height: 60px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5rem;
-    }
-
-    .card-body {
-        padding: 0 25px 15px;
-    }
-
-    .card-body p {
-        color: #64748b;
-        margin-bottom: 15px;
-    }
-
-    .feature-list {
-        list-style: none;
-        padding-left: 0;
-        margin-bottom: 0;
-    }
-
-    .feature-list li {
-        margin-bottom: 10px;
-        padding-left: 25px;
-        position: relative;
-    }
-
-    .feature-list i {
-        position: absolute;
-        left: 0;
-        top: 4px;
-    }
-
-    .card-footer {
-        padding: 15px 25px 25px;
-    }
-
-    .watermark {
-        position: absolute;
-        right: 20px;
-        bottom: 20px;
-        font-size: 5rem;
-        opacity: 0.05;
-        z-index: 1;
-    }
-
-    @media (max-width: 768px) {
-        .watermark {
-            font-size: 4rem;
-            right: 10px;
-            bottom: 10px;
-        }
-
-        .card-header,
-        .card-body,
-        .card-footer {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-    }
-</style>
-
-<!-- Digital Guardian Section -->
-<section class="digital-guardian py-5 position-relative overflow-hidden">
-    <!-- Animated Background Elements -->
-    <div class="position-absolute top-0 start-0 w-100 h-100 z-0">
-        <!-- <div class="guardian-shape shape-1"></div> -->
-        <div class="guardian-shape shape-2"></div>
-        <div class="guardian-shape shape-3"></div>
-    </div>
-
-    <div class="container position-relative z-1">
-        <div class="row align-items-center">
-            <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
-                <div class="guardian-illustration p-4">
-                    <img src="assets/digi_protect.gif" alt="IT Sahayata Digital Protection" class="img-fluid" loading="lazy">
-                </div>
-            </div>
-            
-            <div class="col-lg-6" data-aos="fade-left">
-                <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill">
-                    <i class="fas fa-shield-alt me-2"></i> Your Digital Guardian
-                </span>
-                <h2 class="display-5 fw-bold mb-4">IT Sahayata - <span class="text-gradient">Your 24x7 Tech Shield</span></h2>
-                <p class="lead mb-4">When technology fails you, we stand guard. Round-the-clock protection for your digital world.</p>
-                
-                <div class="guardian-features mb-5">
-                    <div class="feature-card">
-                        <div class="feature-icon bg-danger bg-opacity-10 text-danger">
-                            <i class="fas fa-bolt"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h4>Instant Response</h4>
-                            <p>Average response time under 30 minutes for critical issues</p>
-                        </div>
+                    <div class="tech-element server">
+                        <i class="fas fa-server"></i>
                     </div>
                     
-                    <div class="feature-card">
-                        <div class="feature-icon bg-success bg-opacity-10 text-success">
-                            <i class="fas fa-user-shield"></i>
+                    <!-- Client logos -->
+                    <div class="client-logos">
+                        <div class="logo-item">
+                            <img src="https://purepng.com/public/uploads/large/purepng.com-microsoft-logo-iconlogobrand-logoiconslogos-251519939091wmudn.png" alt="Microsoft Partner">
                         </div>
-                        <div class="feature-content">
-                            <h4>Expert Guardians</h4>
-                            <p>10+ years experienced technicians on every case</p>
+                        <div class="logo-item">
+                            <img src="https://tse4.mm.bing.net/th/id/OIP.cAALDaDujKm4Og8WiOOm2wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Cisco Partner">
                         </div>
-                    </div>
-                    
-                    <div class="feature-card">
-                        <div class="feature-icon bg-warning bg-opacity-10 text-warning">
-                            <i class="fas fa-rupee-sign"></i>
-                        </div>
-                        <div class="feature-content">
-                            <h4>No Surprise Costs</h4>
-                            <p>Transparent pricing with no hidden charges</p>
+                        <div class="logo-item">
+                            <img src="https://tse1.mm.bing.net/th/id/OIP.GfRMa4L8EDf-NWt5dZyJuwHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" alt="AWS Partner">
                         </div>
                     </div>
-                </div>
-                
-                <div class="guardian-cta">
-                    <a href="#contact" class="btn btn-primary btn-lg px-4 me-3">
-                        <i class="fas fa-phone-alt me-2"></i> Call for Immediate Help
-                    </a>
-                    <a href="#" class="btn btn-outline-primary btn-lg px-4">
-                        <i class="fas fa-comments me-2"></i> Chat with Expert
-                    </a>
                 </div>
             </div>
         </div>
@@ -1210,693 +865,811 @@ session_start();
 </section>
 
 <style>
-    /* Digital Guardian Styles */
-    .digital-guardian {
-        background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-    }
-    
-    .guardian-shape {
-        position: absolute;
-        opacity: 0.05;
-    }
-    
-    .shape-1 {
-        width: 300px;
-        height: 300px;
-        background: #2563eb;
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        top: -50px;
-        right: -50px;
-        animation: float 8s ease-in-out infinite;
-    }
-    
-    .shape-2 {
-        width: 200px;
-        height: 200px;
-        background: #10b981;
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        bottom: -50px;
-        left: -50px;
-        animation: float 10s ease-in-out infinite;
-    }
-    
-    .shape-3 {
-        width: 150px;
-        height: 150px;
-        background: #f59e0b;
-        border-radius: 50%;
-        top: 40%;
-        left: 30%;
-        animation: pulse 4s ease infinite;
-    }
-    
-    .guardian-illustration {
-        position: relative;
-        border-radius: 20px;
-        background: white;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    }
-    
-    .text-gradient {
-        background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
-    
-    .guardian-features {
-        margin-top: 2rem;
-    }
-    
-    .feature-card {
-        display: flex;
-        align-items: flex-start;
-        margin-bottom: 1.5rem;
-        padding: 1rem;
-        border-radius: 12px;
-        transition: all 0.3s ease;
-    }
-    
-    .feature-card:hover {
-        background: white;
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        transform: translateX(5px);
-    }
-    
-    .feature-icon {
-        width: 50px;
-        height: 50px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.2rem;
-        margin-right: 1rem;
-        flex-shrink: 0;
-    }
-    
-    .feature-content h4 {
-        font-size: 1.1rem;
-        margin-bottom: 0.3rem;
-        color: #1e293b;
-    }
-    
-    .feature-content p {
-        font-size: 0.9rem;
-        color: #64748b;
-        margin-bottom: 0;
-    }
-    
-    .guardian-cta {
-        margin-top: 2rem;
-    }
-    
-    @keyframes float {
-        0% { transform: translateY(0px); }
-        50% { transform: translateY(-20px); }
-        100% { transform: translateY(0px); }
-    }
-    
-    @keyframes pulse {
-        0% { transform: scale(1); opacity: 0.05; }
-        50% { transform: scale(1.1); opacity: 0.1; }
-        100% { transform: scale(1); opacity: 0.05; }
-    }
-    
-    @media (max-width: 768px) {
-        .guardian-cta {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-        
-        .guardian-cta .btn {
-            width: 100%;
-        }
-    }
-</style>
+/* Hero Section - Light Theme */
+.hero-section {
+    padding: 100px 0;
+    background-color: #f8fafc;
+    position: relative;
+    overflow: hidden;
+}
 
-<!-- IT Solutions Showcase Section -->
-<section class="solutions-showcase py-5 bg-light position-relative">
-    <!-- Decorative elements -->
-    <div class="position-absolute top-0 start-0 w-100 h-100 z-0">
-        <!-- <div class="solutions-shape shape-1"></div> -->
-        <div class="solutions-shape shape-2"></div>
-    </div>
-    
-    <div class="container position-relative z-1">
-        <div class="row justify-content-center mb-5">
-            <div class="col-lg-10 text-center" data-aos="fade-up">
-                <span class="badge bg-primary bg-opacity-10 text-primary mb-3 px-3 py-2 rounded-pill">
-                    <i class="fas fa-laptop-code me-2"></i> Our IT Solutions
-                </span>
-                <h2 class="display-5 fw-bold mb-3">Transform Your Business With <span class="text-gradient">IT Sahayata</span></h2>
-                <p class="lead text-muted mx-auto" style="max-width: 700px">Comprehensive IT support services designed to keep your business running smoothly 24/7</p>
-            </div>
-        </div>
-        
-        <div class="row g-4">
-            <!-- Solution 1 -->
-            <div class="col-lg-4" data-aos="fade-up">
-                <div class="solution-card h-100 bg-white rounded-4 p-4 shadow-sm">
-                    <div class="solution-header mb-4">
-                        <div class="icon-wrapper bg-primary bg-opacity-10 rounded-3 p-3 mb-3" style="width: 60px">
-                            <i class="fas fa-desktop fa-lg text-primary"></i>
-                        </div>
-                        <h3 class="h5 mb-1">Hardware Support</h3>
-                        <p class="small text-muted">Diagnostics, Repair & Maintenance</p>
-                    </div>
-                    <div class="solution-body">
-                        <p class="mb-4">Expert hardware troubleshooting and repair services for desktops, laptops, and peripherals with same-day solutions.</p>
-                        <div class="features">
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Component-level diagnostics</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>On-site and remote support</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Preventive maintenance</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="solution-footer mt-4 pt-3 border-top">
-                        <a href="/hardware-support" class="btn btn-sm btn-outline-primary w-100">
-                            <i class="fas fa-arrow-right me-1"></i> Explore Hardware Services
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Solution 2 -->
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="100">
-                <div class="solution-card h-100 bg-white rounded-4 p-4 shadow-sm">
-                    <div class="solution-header mb-4">
-                        <div class="icon-wrapper bg-success bg-opacity-10 rounded-3 p-3 mb-3" style="width: 60px">
-                            <i class="fas fa-code fa-lg text-success"></i>
-                        </div>
-                        <h3 class="h5 mb-1">Software Solutions</h3>
-                        <p class="small text-muted">Installation & Troubleshooting</p>
-                    </div>
-                    <div class="solution-body">
-                        <p class="mb-4">Comprehensive software support including installation, configuration, and troubleshooting for all major platforms.</p>
-                        <div class="features">
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Virus/malware removal</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>OS installation & upgrades</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Application support</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="solution-footer mt-4 pt-3 border-top">
-                        <a href="/software-support" class="btn btn-sm btn-outline-success w-100">
-                            <i class="fas fa-arrow-right me-1"></i> Explore Software Services
-                        </a>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- Solution 3 -->
-            <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
-                <div class="solution-card h-100 bg-white rounded-4 p-4 shadow-sm">
-                    <div class="solution-header mb-4">
-                        <div class="icon-wrapper bg-info bg-opacity-10 rounded-3 p-3 mb-3" style="width: 60px">
-                            <i class="fas fa-network-wired fa-lg text-info"></i>
-                        </div>
-                        <h3 class="h5 mb-1">Network Services</h3>
-                        <p class="small text-muted">Setup & Security Solutions</p>
-                    </div>
-                    <div class="solution-body">
-                        <p class="mb-4">Complete networking solutions for businesses of all sizes with 99.9% uptime guarantee.</p>
-                        <div class="features">
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Wi-Fi setup & optimization</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Network security audits</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle text-success me-2"></i>
-                                <span>Server configuration</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="solution-footer mt-4 pt-3 border-top">
-                        <a href="/network-support" class="btn btn-sm btn-outline-info w-100">
-                            <i class="fas fa-arrow-right me-1"></i> Explore Network Services
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- CTA -->
-        <div class="text-center mt-5" data-aos="fade-up">
-            <div class="cta-card bg-white p-4 p-lg-5 rounded-4 shadow-sm d-inline-block">
-                <h3 class="h2 mb-4">Need <span class="text-primary">Custom IT Solutions</span>?</h3>
-                <p class="lead mb-4 mx-auto" style="max-width: 600px">Our experts can design a complete IT support package tailored to your business needs</p>
-                <div class="d-flex flex-column flex-sm-row justify-content-center gap-3">
-                    <a href="/views/free-consultation.php" class="btn btn-primary btn-lg px-4">
-                        <i class="fas fa-headset me-2"></i> Get Free Consultation
-                    </a>
-                    <a href="tel:+917703823008" class="btn btn-outline-primary btn-lg px-4">
-                        <i class="fas fa-phone-alt me-2"></i> Call: +91 77038 23008
-                    </a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+/* Content styles */
+.hero-content {
+    position: relative;
+    z-index: 2;
+}
 
-<style>
-    /* Solutions Showcase Styles */
-    .solutions-showcase {
-        background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-    }
-    
-    .solutions-shape {
-        position: absolute;
-        opacity: 0.03;
-    }
-    
-    .shape-1 {
-        width: 300px;
-        height: 300px;
-        background: #2563eb;
-        border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-        top: -50px;
-        right: -50px;
-    }
-    
-    .shape-2 {
-        width: 400px;
-        height: 400px;
-        background: #10b981;
-        border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-        bottom: -200px;
-        left: -200px;
-    }
-    
-    .text-gradient {
-        background: linear-gradient(90deg, #2563eb 0%, #3b82f6 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-    }
-    
-    .solution-card {
-        transition: all 0.3s ease;
-        border-top: 4px solid #2563eb;
-    }
-    
-    .solution-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
-    }
-    
-    .solution-header .icon-wrapper {
-        transition: transform 0.3s ease;
-    }
-    
-    .solution-card:hover .icon-wrapper {
-        transform: rotate(10deg) scale(1.1);
-    }
-    
-    .features {
-        margin-top: 1.5rem;
-    }
-    
-    .feature-item {
-        margin-bottom: 0.8rem;
-        font-size: 0.9rem;
-    }
-    
-    .solution-footer {
-        margin-top: auto;
-    }
-    
-    .cta-card {
-        border: 1px solid rgba(37, 99, 235, 0.1);
-        background: white;
-    }
-    
-    @media (max-width: 768px) {
-        .d-flex {
-            flex-direction: column;
-        }
-        
-        .btn {
-            width: 100%;
-        }
-    }
-</style>
+.trust-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #e0e7ff;
+    color: #4338ca;
+    padding: 8px 16px;
+    border-radius: 50px;
+    font-weight: 600;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+}
 
-<!-- CSS Styles -->
-<style>
-    /* Base Styles */
-    :root {
-        --primary: #2563eb;
-        --primary-dark: #1d4ed8;
-        --secondary:rgb(52, 109, 232);;
-        --dark: #1e293b;
-        --light: #f8fafc;
-        --gray: #64748b;
-        --success: #10b981;
-    }
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: #1e293b;
+}
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
+.highlight {
+    color: #4338ca;
+    position: relative;
+}
 
-    body {
-        font-family: 'Inter', sans-serif;
-        line-height: 1.6;
-        color: var(--dark);
-    }
+.highlight::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 8px;
+    background-color: #c7d2fe;
+    z-index: -1;
+    border-radius: 4px;
+}
 
-    .container {
-        width: 90%;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
+.hero-subtitle {
+    font-size: 1.1rem;
+    color: #64748b;
+    margin-bottom: 2rem;
+    max-width: 500px;
+    line-height: 1.6;
+}
 
-    section {
-        padding: 80px 0;
-    }
+/* Button styles */
+.hero-cta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
 
-    h1,
-    h2,
-    h3,
-    h4 {
-        font-weight: 700;
-        line-height: 1.2;
-        margin-bottom: 1rem;
-    }
+.btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
 
-    h1 {
+.btn-primary {
+    background-color: #4338ca;
+    color: white;
+    border: 2px solid #4338ca;
+}
+
+.btn-primary:hover {
+    background-color: #3730a3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(67, 56, 202, 0.2);
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: #4338ca;
+    border: 2px solid #4338ca;
+}
+
+.btn-outline:hover {
+    background-color: #e0e7ff;
+    transform: translateY(-2px);
+}
+
+/* Metrics */
+.metrics {
+    display: flex;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.metric-item {
+    text-align: center;
+}
+
+.metric-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #4338ca;
+    margin-bottom: 4px;
+}
+
+.metric-label {
+    font-size: 0.9rem;
+    color: #64748b;
+}
+
+/* Hero image */
+.hero-image {
+    position: relative;
+    padding: 20px;
+}
+
+.main-img {
+    width: 100%;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+/* Tech elements */
+.tech-element {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #4338ca;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 3;
+    animation: float 6s ease-in-out infinite;
+}
+
+.cloud {
+    top: 20px;
+    left: 20px;
+    animation-delay: 0s;
+}
+
+.shield {
+    bottom: 40px;
+    right: 40px;
+    animation-delay: 1s;
+}
+
+.server {
+    top: 40px;
+    right: 20px;
+    animation-delay: 2s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-15px); }
+}
+
+/* Client logos */
+.client-logos {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+    justify-content: center;
+    background: white;
+    padding: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    position: relative;
+    z-index: 2;
+}
+
+.logo-item img {
+    height: 30px;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.logo-item:hover img {
+    opacity: 1;
+}
+
+/* Responsive styles */
+@media (max-width: 1199px) {
+    .hero-title {
         font-size: 2.5rem;
     }
+}
 
-    h2 {
-        font-size: 2rem;
-        margin-bottom: 1.5rem;
+@media (max-width: 991px) {
+    .hero-section {
+        padding: 80px 0;
     }
-
-    h3 {
-        font-size: 1.5rem;
-    }
-
-    p {
-        margin-bottom: 1rem;
-        color: var(--gray);
-    }
-
-    a {
-        text-decoration: none;
-        color: var(--primary);
-    }
-
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-
-    /* Button Styles */
-    .primary-btn {
-        display: inline-block;
-        background: var(--primary);
-        color: white;
-        padding: 12px 24px;
-        border-radius: 6px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .primary-btn:hover {
-        background: var(--primary-dark);
-        transform: translateY(-2px);
-    }
-
-    .secondary-btn {
-        display: inline-block;
-        border: 2px solid var(--primary);
-        color: var(--primary);
-        padding: 10px 22px;
-        border-radius: 6px;
-        font-weight: 600;
-        transition: all 0.3s ease;
-    }
-
-    .secondary-btn:hover {
-        background: var(--primary);
-        color: white;
-    }
-
-    /* Hero Section */
-    .hero {
-        background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
-        padding: 100px 0;
-    }
-
-    .hero .container {
-        display: flex;
-        align-items: center;
-        gap: 40px;
-    }
-
-    .hero-content {
-        flex: 1;
-    }
-
+    
     .hero-image {
-        flex: 1;
+        margin-top: 50px;
     }
-
-    .hero h1 {
-        font-size: 3rem;
-        margin-bottom: 1.5rem;
-        color: var(--dark);
+    
+    .metrics {
+        justify-content: center;
     }
+}
 
-    .subtitle {
-        font-size: 1.25rem;
-        margin-bottom: 2rem;
-        color: var(--gray);
+@media (max-width: 767px) {
+    .hero-title {
+        font-size: 2rem;
     }
-
-    .feature-list {
-        margin: 2rem 0;
+    
+    .hero-cta {
+        flex-direction: column;
     }
-
-    .feature-item {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-bottom: 12px;
-    }
-
-    .feature-item .icon {
+    
+    .tech-element {
+        width: 50px;
+        height: 50px;
         font-size: 1.2rem;
     }
+}
 
-    .cta-container {
-        display: flex;
-        gap: 15px;
-        margin: 2rem 0;
+@media (max-width: 575px) {
+    .hero-title {
+        font-size: 1.8rem;
     }
-
-    .stats {
-        display: flex;
-        gap: 30px;
-        margin-top: 3rem;
+    
+    .metrics {
+        gap: 1rem;
     }
-
-    .stat-item {
-        text-align: center;
+    
+    .metric-value {
+        font-size: 1.2rem;
     }
-
-    .stat-item .number {
-        font-size: 2rem;
-        font-weight: 700;
-        color: var(--primary);
-    }
-
-    .stat-item .label {
-        font-size: 0.9rem;
-        color: var(--gray);
-    }
-
-    /* Services Section */
-    .services {
-        background: white;
-    }
-
-    .section-header {
-        text-align: center;
-        margin-bottom: 3rem;
-    }
-
-    .section-description {
-        max-width: 700px;
-        margin: 0 auto;
-    }
-
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-    }
-
-    .service-card {
-        background: white;
-        border-radius: 10px;
-        padding: 30px;
-        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-        transition: transform 0.3s ease;
-    }
-
-    .service-card:hover {
-        transform: translateY(-5px);
-    }
-
-    .service-icon {
-        width: 60px;
-        height: 60px;
-        background: #e0e7ff;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-bottom: 1.5rem;
-    }
-
-    .service-icon img {
-        width: 30px;
-        height: 30px;
-    }
-
-    .service-features {
-        margin: 1.5rem 0;
-        padding-left: 20px;
-    }
-
-    .service-features li {
-        margin-bottom: 8px;
-    }
-
-    .learn-more {
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    /* About Section */
-    .about {
-        background: #f8fafc;
-    }
-
-    .about .container {
-        display: flex;
-        align-items: center;
-        gap: 50px;
-    }
-
-    .about-content {
-        flex: 1;
-    }
-
-    .about-image {
-        flex: 1;
-        border-radius: 10px;
-        overflow: hidden;
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-    }
-
-    .mission-vision {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
-        margin: 2rem 0;
-    }
-
-    .mv-item {
-        background: white;
-        padding: 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    }
-
-    .mv-item h4 {
-        color: var(--primary);
-        margin-bottom: 0.5rem;
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 992px) {
-
-        .hero .container,
-        .about .container {
-            flex-direction: column;
-        }
-
-        .hero-content,
-        .about-content {
-            order: 1;
-            text-align: center;
-        }
-
-        .hero-image,
-        .about-image {
-            order: 2;
-        }
-
-        .feature-item {
-            justify-content: center;
-        }
-
-        .cta-container {
-            justify-content: center;
-        }
-
-        .mission-vision {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    @media (max-width: 768px) {
-        section {
-            padding: 60px 0;
-        }
-
-        h1 {
-            font-size: 2rem;
-        }
-
-        h2 {
-            font-size: 1.75rem;
-        }
-
-        .cta-container {
-            flex-direction: column;
-        }
-    }
+}
 </style>
 
+<script>
+// Simple animation trigger
+document.addEventListener('DOMContentLoaded', function() {
+    const techElements = document.querySelectorAll('.tech-element');
+    
+    techElements.forEach((element, index) => {
+        element.style.animationDelay = `${index * 0.5}s`;
+    });
+});
+</script>
 
-<?php include 'footer.php'; ?>
+    <!-- Services Section -->
+    <section id="services" class="section-padding">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Our Comprehensive IT Services</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">IT Sahayata offers end-to-end technology solutions to address all your business needs - from hardware support to custom software development.</p>
+            
+            <div class="row g-4">
+                <!-- 1. Hardware Support -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <h3 class="service-title">Hardware Support</h3>
+                        <p class="service-description">Expert diagnosis and repair services for all your computer hardware issues, from desktops to servers.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Computer & laptop repairs</li>
+                            <li><i class="fas fa-check-circle"></i> Server maintenance</li>
+                            <li><i class="fas fa-check-circle"></i> Hardware upgrades & optimization</li>
+                        </ul>
+                        <a href="/services/hardware-support" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 2. Software Support -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-cogs"></i>
+                        </div>
+                        <h3 class="service-title">Software Support</h3>
+                        <p class="service-description">Comprehensive software troubleshooting, installation, and maintenance services for optimal performance.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> OS installation & updates</li>
+                            <li><i class="fas fa-check-circle"></i> Software troubleshooting</li>
+                            <li><i class="fas fa-check-circle"></i> Application support & training</li>
+                        </ul>
+                        <a href="/services/software-support" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 3. Network Solutions -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-network-wired"></i>
+                        </div>
+                        <h3 class="service-title">Network Solutions</h3>
+                        <p class="service-description">Design, implementation, and management of secure and efficient network infrastructure for businesses.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Network design & setup</li>
+                            <li><i class="fas fa-check-circle"></i> Wi-Fi optimization</li>
+                            <li><i class="fas fa-check-circle"></i> Network security & monitoring</li>
+                        </ul>
+                        <a href="/services/network-solutions" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 4. Cloud Services -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <h3 class="service-title">Cloud Services</h3>
+                        <p class="service-description">Seamless migration, management, and optimization of cloud infrastructure for enhanced flexibility and scalability.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Cloud migration & setup</li>
+                            <li><i class="fas fa-check-circle"></i> SaaS implementation</li>
+                            <li><i class="fas fa-check-circle"></i> Cloud security & backup</li>
+                        </ul>
+                        <a href="/services/cloud-services" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 5. Cybersecurity -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3 class="service-title">Cybersecurity</h3>
+                        <p class="service-description">Comprehensive security solutions to protect your business from evolving cyber threats and data breaches.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Security audits & assessments</li>
+                            <li><i class="fas fa-check-circle"></i> Threat detection & prevention</li>
+                            <li><i class="fas fa-check-circle"></i> Data encryption & protection</li>
+                        </ul>
+                        <a href="/services/cybersecurity" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 6. Data Management -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-database"></i>
+                        </div>
+                        <h3 class="service-title">Data Management</h3>
+                        <p class="service-description">Effective data storage, backup, recovery, and management solutions to safeguard your valuable information.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Data backup & recovery</li>
+                            <li><i class="fas fa-check-circle"></i> Storage solutions</li>
+                            <li><i class="fas fa-check-circle"></i> Data migration & archiving</li>
+                        </ul>
+                        <a href="/services/data-management" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 7. Software Development -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h3 class="service-title">Software Development</h3>
+                        <p class="service-description">Custom software solutions designed to streamline your business processes and enhance operational efficiency.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Custom application development</li>
+                            <li><i class="fas fa-check-circle"></i> API integration</li>
+                            <li><i class="fas fa-check-circle"></i> Legacy system modernization</li>
+                        </ul>
+                        <a href="/services/software-development" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 8. Website Development -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="800">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-laptop-code"></i>
+                        </div>
+                        <h3 class="service-title">Website Development</h3>
+                        <p class="service-description">Professional, responsive websites that enhance your online presence and drive customer engagement.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> Responsive web design</li>
+                            <li><i class="fas fa-check-circle"></i> E-commerce solutions</li>
+                            <li><i class="fas fa-check-circle"></i> CMS development</li>
+                        </ul>
+                        <a href="/services/website-development" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+                
+                <!-- 9. IT Consulting -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="900">
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <i class="fas fa-lightbulb"></i>
+                        </div>
+                        <h3 class="service-title">IT Consulting</h3>
+                        <p class="service-description">Strategic technology guidance to help your business leverage IT for growth, efficiency, and competitive advantage.</p>
+                        <ul class="service-features">
+                            <li><i class="fas fa-check-circle"></i> IT strategy development</li>
+                            <li><i class="fas fa-check-circle"></i> Digital transformation</li>
+                            <li><i class="fas fa-check-circle"></i> Technology roadmapping</li>
+                        </ul>
+                        <a href="/services/it-consulting" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parallax Section -->
+    <section class="parallax-section" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070')">
+        <div class="parallax-overlay"></div>
+        <div class="parallax-content">
+            <h2 class="parallax-title" data-aos="fade-up">Technology Solutions That Drive Success</h2>
+            <p class="parallax-description" data-aos="fade-up" data-aos-delay="100">Our expert team delivers innovative IT solutions that help businesses thrive in the digital age.</p>
+            <a href="/views/free-consultation.php" class="btn-primary" data-aos="fade-up" data-aos-delay="200" style="
+    padding: 10px;
+    border-radius: 10px;
+    text-decoration: none;
+">
+                <i class="fas fa-headset"></i> Schedule a Consultation
+            </a>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section class="process-section section-padding bg-light" id="process">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Our Streamlined Support Process</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">At IT Sahayata, we follow a systematic approach to ensure efficient resolution of your IT challenges and implementation of technology solutions.</p>
+            
+            <div class="process-timeline">
+                <div class="row">
+                    <!-- Step 1 -->
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                        <div class="process-step">
+                            <div class="process-number">1</div>
+                            <div class="process-content">
+                                <h3 class="process-title">Initial Consultation</h3>
+                                <p class="process-description">We begin by understanding your specific needs, challenges, and objectives through a comprehensive consultation with our expert team.</p>
+                                <div class="process-features">
+                                    <span><i class="fas fa-check-circle"></i> Needs assessment</span>
+                                    <span><i class="fas fa-check-circle"></i> Challenge identification</span>
+                                    <span><i class="fas fa-check-circle"></i> Priority setting</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 2 -->
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                        <div class="process-step">
+                            <div class="process-number">2</div>
+                            <div class="process-content">
+                                <h3 class="process-title">Solution Design</h3>
+                                <p class="process-description">Our technical experts develop a customized solution tailored to your specific requirements, considering both immediate needs and long-term goals.</p>
+                                <div class="process-features">
+                                    <span><i class="fas fa-check-circle"></i> Custom solution development</span>
+                                    <span><i class="fas fa-check-circle"></i> Technology selection</span>
+                                    <span><i class="fas fa-check-circle"></i> Cost-benefit analysis</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 3 -->
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                        <div class="process-step">
+                            <div class="process-number">3</div>
+                            <div class="process-content">
+                                <h3 class="process-title">Implementation</h3>
+                                <p class="process-description">We execute the solution with minimal disruption to your operations, ensuring all systems are properly configured and optimized for peak performance.</p>
+                                <div class="process-features">
+                                    <span><i class="fas fa-check-circle"></i> Scheduled deployment</span>
+                                    <span><i class="fas fa-check-circle"></i> Minimal downtime</span>
+                                    <span><i class="fas fa-check-circle"></i> Real-time monitoring</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 4 -->
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                        <div class="process-step">
+                            <div class="process-number">4</div>
+                            <div class="process-content">
+                                <h3 class="process-title">Testing & Quality Assurance</h3>
+                                <p class="process-description">Rigorous testing ensures all implemented solutions work flawlessly and meet the highest standards of performance, security, and reliability.</p>
+                                <div class="process-features">
+                                    <span><i class="fas fa-check-circle"></i> Comprehensive testing</span>
+                                    <span><i class="fas fa-check-circle"></i> Performance validation</span>
+                                    <span><i class="fas fa-check-circle"></i> Security verification</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 5 -->
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                        <div class="process-step">
+                            <div class="process-number">5</div>
+                            <div class="process-content">
+                                <h3 class="process-title">Training & Knowledge Transfer</h3>
+                                <p class="process-description">We provide comprehensive training to ensure your team can effectively use and manage the new systems and technologies with confidence.</p>
+                                <div class="process-features">
+                                    <span><i class="fas fa-check-circle"></i> User training sessions</span>
+                                    <span><i class="fas fa-check-circle"></i> Documentation provision</span>
+                                    <span><i class="fas fa-check-circle"></i> Best practices sharing</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Step 6 -->
+                    <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                        <div class="process-step">
+                            <div class="process-number">6</div>
+                            <div class="process-content">
+                                <h3 class="process-title">Ongoing Support & Optimization</h3>
+                                <p class="process-description">Our relationship continues with proactive monitoring, maintenance, and support to ensure long-term success and continuous improvement of your IT systems.</p>
+                                <div class="process-features">
+                                    <span><i class="fas fa-check-circle"></i> 24/7 monitoring</span>
+                                    <span><i class="fas fa-check-circle"></i> Regular maintenance</span>
+                                    <span><i class="fas fa-check-circle"></i> Performance optimization</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="text-center mt-5" data-aos="fade-up" data-aos-delay="700">
+                <a href="/support-process" class="btn btn-primary btn-lg">Learn More About Our Process</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Industry Solutions Section -->
+    <section class="industry-section section-padding" id="industries">
+        <div class="container">
+            <h2 class="section-title" data-aos="fade-up">Industry Solutions</h2>
+            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">We provide specialized IT solutions tailored to the unique needs of various industries, helping businesses overcome specific challenges.</p>
+            
+            <div class="row">
+                <!-- Healthcare -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+                    <div class="industry-card">
+                        <div class="industry-bg" style="background-image: url('https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?q=80&w=2070')"></div>
+                        <div class="industry-overlay">
+                            <h3 class="industry-title">Healthcare</h3>
+                            <p class="industry-description">Secure solutions for patient data management, telemedicine platforms, and healthcare compliance.</p>
+                            <a href="#" class="industry-link">Explore Solutions <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Education -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
+                    <div class="industry-card">
+                        <div class="industry-bg" style="background-image: url('https://images.unsplash.com/photo-1523240795612-9a054b0db644?q=80&w=2070')"></div>
+                        <div class="industry-overlay">
+                            <h3 class="industry-title">Education</h3>
+                            <p class="industry-description">Digital learning environments, campus networks, and student information systems.</p>
+                            <a href="#" class="industry-link">Explore Solutions <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Finance -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
+                    <div class="industry-card">
+                        <div class="industry-bg" style="background-image: url('https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=2015')"></div>
+                        <div class="industry-overlay">
+                            <h3 class="industry-title">Finance</h3>
+                            <p class="industry-description">Secure banking systems, compliance solutions, and financial data protection.</p>
+                            <a href="#" class="industry-link">Explore Solutions <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Retail -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
+                    <div class="industry-card">
+                        <div class="industry-bg" style="background-image: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=2070')"></div>
+                        <div class="industry-overlay">
+                            <h3 class="industry-title">Retail</h3>
+                            <p class="industry-description">POS systems, inventory management, and e-commerce solutions.</p>
+                            <a href="#" class="industry-link">Explore Solutions <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Manufacturing -->
+                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
+                    <div class="industry-card">
+                        <div class="industry-bg" style="background-image: url('https://images.unsplash.com/photo-1581091226033-d5c48150dbaa?q=80&w=2070')"></div>
+                        <div class="industry-overlay">
+                            <h3 class="industry-title">Manufacturing</h3>
+                            <p class="industry-description">Industrial automation, supply chain management, and IoT solutions.</p>
+                            <a href="#" class="industry-link">Explore Solutions <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                             <!-- Hospitality -->
+                             <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
+                    <div class="industry-card">
+                        <div class="industry-bg" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?q=80&w=2070')"></div>
+                        <div class="industry-overlay">
+                            <h3 class="industry-title">Hospitality</h3>
+                            <p class="industry-description">POS systems, guest management software, and network solutions.</p>
+                            <a href="#" class="industry-link">Explore Solutions <i class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Digital Guardian Section -->
+    <section class="digital-guardian py-5" data-aos="fade-up">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6 mb-4 mb-lg-0">
+                    <div class="digital-guardian-content" data-aos="fade-right">
+                        <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-3">Digital Protection</span>
+                        <h2 class="display-5 fw-bold mb-4">Your Digital Guardian Against Cyber Threats</h2>
+                        <p class="lead text-muted mb-4">We provide comprehensive cybersecurity solutions to protect your business from evolving digital threats. Our multi-layered approach ensures your data, systems, and networks remain secure.</p>
+                        
+                        <div class="security-features mb-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="security-icon me-3 bg-success bg-opacity-10 text-success rounded-circle p-3">
+                                    <i class="fas fa-shield-alt"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Advanced Threat Protection</h5>
+                                    <p class="text-muted mb-0">Real-time monitoring and prevention against malware, ransomware, and zero-day attacks</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="security-icon me-3 bg-danger bg-opacity-10 text-danger rounded-circle p-3">
+                                    <i class="fas fa-lock"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Data Encryption</h5>
+                                    <p class="text-muted mb-0">End-to-end encryption for sensitive data both at rest and in transit</p>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center">
+                                <div class="security-icon me-3 bg-warning bg-opacity-10 text-warning rounded-circle p-3">
+                                    <i class="fas fa-user-shield"></i>
+                                </div>
+                                <div>
+                                    <h5 class="mb-1">Security Training</h5>
+                                    <p class="text-muted mb-0">Comprehensive security awareness training for your team</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <a href="#" class="btn btn-primary btn-lg px-4 me-2">Get Protected Now</a>
+                        <a href="#" class="btn btn-outline-secondary btn-lg px-4">Learn More</a>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="digital-guardian-image text-center" data-aos="fade-left">
+                        <img src="/assets/digi_protect.gif" alt="Digital Security Protection" class="img-fluid rounded-4 shadow-lg">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- IT Solutions Showcase -->
+    <section class="solutions-showcase py-5 bg-light">
+        <div class="container">
+            <div class="text-center mb-5" data-aos="fade-up">
+                <span class="badge bg-primary bg-opacity-10 text-primary px-3 py-2 rounded-pill mb-3">Our Expertise</span>
+                <h2 class="display-5 fw-bold">Comprehensive IT Solutions</h2>
+                <p class="lead text-muted mx-auto" style="max-width: 700px;">From hardware support to software development, we provide end-to-end IT solutions tailored to your specific needs.</p>
+            </div>
+
+            <div class="row g-4">
+                <!-- Software Development -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up">
+                    <div class="solution-card h-100 bg-white rounded-4 p-4 shadow-sm border-top border-primary border-4">
+                        <div class="solution-icon mb-4 bg-primary bg-opacity-10 text-primary rounded-circle p-3 d-inline-block">
+                            <i class="fas fa-code fa-2x"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Software Development</h3>
+                        <p class="text-muted mb-4">Custom software solutions designed to streamline your business processes and enhance productivity.</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Custom Application Development</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> API Integration Services</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Legacy System Modernization</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-primary">Explore Development Services</a>
+                    </div>
+                </div>
+
+                <!-- Website Development -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="100">
+                    <div class="solution-card h-100 bg-white rounded-4 p-4 shadow-sm border-top border-success border-4">
+                        <div class="solution-icon mb-4 bg-success bg-opacity-10 text-success rounded-circle p-3 d-inline-block">
+                            <i class="fas fa-laptop-code fa-2x"></i>
+                        </div>
+                        <h3 class="h4 mb-3">Website Development</h3>
+                        <p class="text-muted mb-4">Professional, responsive websites that engage visitors and convert them into customers.</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Responsive Web Design</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> E-commerce Solutions</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> CMS Development</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-success">View Web Services</a>
+                    </div>
+                </div>
+
+                <!-- App Development -->
+                <div class="col-md-6 col-lg-4" data-aos="fade-up" data-aos-delay="200">
+                    <div class="solution-card h-100 bg-white rounded-4 p-4 shadow-sm border-top border-info border-4">
+                        <div class="solution-icon mb-4 bg-info bg-opacity-10 text-info rounded-circle p-3 d-inline-block">
+                            <i class="fas fa-mobile-alt fa-2x"></i>
+                        </div>
+                        <h3 class="h4 mb-3">App Development</h3>
+                        <p class="text-muted mb-4">Native and cross-platform mobile applications that deliver exceptional user experiences.</p>
+                        <ul class="list-unstyled mb-4">
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> iOS & Android Development</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Cross-Platform Solutions</li>
+                            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> App Maintenance & Support</li>
+                        </ul>
+                        <a href="#" class="btn btn-outline-info">Discover App Services</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section py-5 position-relative overflow-hidden">
+        <div class="container position-relative">
+            <div class="row justify-content-center">
+                <div class="col-lg-10">
+                    <div class="cta-card bg-primary text-white p-5 rounded-4 shadow-lg" data-aos="fade-up">
+                        <div class="row align-items-center">
+                            <div class="col-lg-8 mb-4 mb-lg-0">
+                                <h2 class="display-5 fw-bold mb-3">Ready to transform your IT infrastructure?</h2>
+                                <p class="lead mb-0">Schedule a free consultation with our experts and discover how we can help your business thrive in the digital age.</p>
+                            </div>
+                            <div class="col-lg-4 text-lg-end">
+                                <a href="/views/free-consultation.php" class="btn btn-light btn-lg px-4 fw-semibold" >Get Free Consultation</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Decorative elements -->
+        <div class="position-absolute top-0 end-0 d-none d-lg-block" style="transform: translate(20%, -30%)">
+            <div class="bg-warning opacity-10 rounded-circle" style="width: 300px; height: 300px;"></div>
+        </div>
+        <div class="position-absolute bottom-0 start-0 d-none d-lg-block" style="transform: translate(-20%, 30%)">
+            <div class="bg-info opacity-10 rounded-circle" style="width: 250px; height: 250px;"></div>
+        </div>
+    </section>
+
+    <?php include 'footer.php'; ?>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    
+    <!-- Lenis Smooth Scroll -->
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.19/bundled/lenis.min.js"></script>
+    
+    <!-- Initialize Scripts -->
+    <script>
+    // Initialize AOS
+    AOS.init({
+        duration: 800,
+        easing: 'ease-in-out',
+        once: true,
+        mirror: false,
+        disable: window.innerWidth < 768 // Disable on mobile for better performance
+    });
+
+</script>
+</body>
+</html>

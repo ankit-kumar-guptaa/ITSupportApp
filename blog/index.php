@@ -368,10 +368,10 @@ $posts = $stmt->fetchAll();
                             <?php endif; ?>
                             <div class="card-body d-flex flex-column">
                                 <h5 class="card-title">
-                                    <!-- <a href="/blog/post.php?id=<?php echo $post['id']; ?>" class="text-decoration-none text-dark">
+                                    <a href="/blog/post.php?id=<?php echo $post['id']; ?>" class="text-decoration-none text-dark">
                                         <?php echo htmlspecialchars($post['title']); ?>
-                                    </a> -->
-                                    <a href="/blog/<?php echo $post['id']; ?>/<?php echo urlencode(str_replace(' ', '-', strtolower($post['title']))); ?>" class="text-decoration-none text-dark">
+                                    </a>
+                                    <a href="/blog/post.php?id=<?php echo $post['id']; ?>/<?php echo urlencode(str_replace(' ', '-', strtolower($post['title']))); ?>" class="text-decoration-none text-dark">
     <?php echo htmlspecialchars($post['title']); ?>
 </a>
                                 </h5>

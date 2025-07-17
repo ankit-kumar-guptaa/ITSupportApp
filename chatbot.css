@@ -1,21 +1,21 @@
 /* IT Sahayata Chatbot - Modern & Creative Design 2.0 */
 :root {
-  --primary-color: #8a49f7;
+  --primary-color1: #8a49f7;
   --primary-light: #a67ff9;
-  --primary-dark: #7038d5;
-  --secondary-color: #2b73e6;
+  --primary-dark1: #7038d5;
+  --secondary-color1: #2b73e6;
   --secondary-light: #4a8bef;
-  --secondary-dark: #1a62d5;
+  --secondary-dark1: #1a62d5;
   --accent-color: #ff6b6b;
   --accent-dark: #ff4f4f;
-  --text-light: #ffffff;
-  --text-dark: #333333;
+  --text-light1: #ffffff;
+  --text-dark1: #333333;
   --text-muted: #6c757d;
-  --bg-light: #ffffff;
-  --bg-gray: #f8fafd;
-  --border-light: #e3eaf5;
-  --shadow-light: rgba(18, 69, 168, 0.15);
-  --shadow-medium: rgba(18, 69, 168, 0.25);
+  --bg-light1: #ffffff;
+  --bg-gray1: #f8fafd;
+  --border-light1: #e3eaf5;
+  --shadow-light1: rgba(18, 69, 168, 0.15);
+  --shadow-medium1: rgba(18, 69, 168, 0.25);
   --shadow-dark: rgba(18, 69, 168, 0.35);
   --success-color: #4CAF50;
   --success-dark: #45a049;
@@ -34,11 +34,11 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: var(--text-light);
+  background: linear-gradient(135deg, var(--primary-color1), var(--secondary-color1));
+  color: var(--text-light1);
   padding: 12px 20px;
   border-radius: var(--border-radius-xl);
-  box-shadow: 0 4px 20px var(--shadow-medium), 0 0 0 2px rgba(138, 73, 247, 0.1);
+  box-shadow: 0 4px 20px var(--shadow-medium1), 0 0 0 2px rgba(138, 73, 247, 0.1);
   cursor: pointer;
   font-family: var(--font-main);
   font-size: 18px;
@@ -58,7 +58,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+  background: linear-gradient(135deg, var(--secondary-color1), var(--primary-color1));
   opacity: 0;
   transition: opacity var(--transition-fast);
   z-index: -1;
@@ -117,9 +117,9 @@
 #itsahayata-chatbot-box {
   width: 350px;
   max-width: 96vw;
-  background: var(--bg-light);
+  background: var(--bg-light1);
   border-radius: var(--border-radius-lg);
-  box-shadow: 0 10px 40px var(--shadow-medium), 0 0 0 1px rgba(138, 73, 247, 0.1);
+  box-shadow: 0 10px 40px var(--shadow-medium1), 0 0 0 1px rgba(138, 73, 247, 0.1);
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -136,8 +136,8 @@
 
 /* Chatbot Header */
 #itsahayata-chatbot-header {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: var(--text-light);
+  background: linear-gradient(135deg, var(--primary-color1), var(--secondary-color1));
+  color: var(--text-light1);
   padding: 16px 20px;
   display: flex;
   align-items: center;
@@ -180,7 +180,7 @@
   left: 0;
   width: 0;
   height: 2px;
-  background: var(--text-light);
+  background: var(--text-light1);
   transition: width 0.3s ease;
 }
 
@@ -194,7 +194,7 @@
   opacity: 0.85;
   background: none;
   border: none;
-  color: var(--text-light);
+  color: var(--text-light1);
   width: 32px;
   height: 32px;
   display: flex;
@@ -228,7 +228,7 @@
 
 /* Messages Container */
 #itsahayata-chatbot-messages {
-  background: var(--bg-gray);
+  background: var(--bg-gray1);
   min-height: 250px;
   max-height: 350px;
   overflow-y: auto;
@@ -250,7 +250,7 @@
   left: 0;
   right: 0;
   height: 30px;
-  background: linear-gradient(to bottom, var(--bg-gray), transparent);
+  background: linear-gradient(to bottom, var(--bg-gray1), transparent);
   pointer-events: none;
   z-index: 1;
   opacity: 0.8;
@@ -278,14 +278,14 @@
 /* Message Bubbles */
 .itsahayata-msg-user {
   align-self: flex-end;
-  background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-  color: var(--text-light);
+  background: linear-gradient(135deg, var(--secondary-color1), var(--primary-color1));
+  color: var(--text-light1);
   padding: 12px 18px;
   border-radius: 18px 18px 4px 18px;
   max-width: 80%;
   word-break: break-word;
   font-size: 15px;
-  box-shadow: 0 3px 10px var(--shadow-light);
+  box-shadow: 0 3px 10px var(--shadow-light1);
   animation: msgIn 0.3s ease-out;
   position: relative;
   transform-origin: bottom right;
@@ -295,7 +295,7 @@
 
 .itsahayata-msg-user:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px var(--shadow-medium);
+  box-shadow: 0 5px 15px var(--shadow-medium1);
 }
 
 .itsahayata-msg-user::after {
@@ -305,22 +305,22 @@
   right: 12px;
   width: 10px;
   height: 10px;
-  background: linear-gradient(135deg, var(--secondary-dark), var(--primary-dark));
+  background: linear-gradient(135deg, var(--secondary-dark1), var(--primary-dark1));
   border-radius: 50%;
   opacity: 0.5;
 }
 
 .itsahayata-msg-bot {
   align-self: flex-start;
-  background: var(--bg-light);
-  color: var(--text-dark);
+  background: var(--bg-light1);
+  color: var(--text-dark1);
   padding: 12px 18px;
   border-radius: 18px 18px 18px 4px;
   max-width: 85%;
   word-break: break-word;
   font-size: 15px;
-  box-shadow: 0 3px 10px var(--shadow-light);
-  border: 1px solid var(--border-light);
+  box-shadow: 0 3px 10px var(--shadow-light1);
+  border: 1px solid var(--border-light1);
   animation: msgIn 0.3s ease-out;
   line-height: 1.5;
   transform-origin: bottom left;
@@ -330,7 +330,7 @@
 
 .itsahayata-msg-bot:hover {
   transform: translateY(-2px);
-  box-shadow: 0 5px 15px var(--shadow-medium);
+  box-shadow: 0 5px 15px var(--shadow-medium1);
 }
 
 .itsahayata-msg-bot::after {
@@ -340,8 +340,8 @@
   left: 12px;
   width: 10px;
   height: 10px;
-  background: var(--bg-light);
-  border: 1px solid var(--border-light);
+  background: var(--bg-light1);
+  border: 1px solid var(--border-light1);
   border-radius: 50%;
   opacity: 0.5;
 }
@@ -352,7 +352,7 @@
 }
 
 .itsahayata-msg-thinking {
-  color: var(--primary-dark);
+  color: var(--primary-dark1);
   font-style: italic;
   font-size: 14px;
   padding: 10px 16px;
@@ -361,7 +361,7 @@
   align-self: flex-start;
   position: relative;
   box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border-light1);
   display: flex;
   align-items: center;
   gap: 8px;
@@ -371,7 +371,7 @@
   content: '';
   width: 12px;
   height: 12px;
-  background: var(--primary-color);
+  background: var(--primary-color1);
   border-radius: 50%;
   display: inline-block;
   animation: thinkingDot 1.4s infinite ease-in-out both;
@@ -386,8 +386,8 @@
   height: 10px;
   background: white;
   transform: rotate(45deg);
-  border-right: 1px solid var(--border-light);
-  border-bottom: 1px solid var(--border-light);
+  border-right: 1px solid var(--border-light1);
+  border-bottom: 1px solid var(--border-light1);
 }
 
 @keyframes thinkingDot {
@@ -399,9 +399,9 @@
 #itsahayata-chatbot-inputform {
   display: flex;
   gap: 8px;
-  background: var(--bg-light);
+  background: var(--bg-light1);
   padding: 14px 16px;
-  border-top: 1px solid var(--border-light);
+  border-top: 1px solid var(--border-light1);
   position: relative;
   transition: all var(--transition-normal);
 }
@@ -422,30 +422,30 @@
 }
 
 #itsahayata-chatbot-inputform:focus-within {
-  background: var(--bg-gray);
+  background: var(--bg-gray1);
 }
 
 #itsahayata-chatbot-input {
   flex: 1;
   border-radius: var(--border-radius-md);
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border-light1);
   font-size: 15px;
   padding: 12px 16px;
   outline: none;
-  background: var(--bg-gray);
+  background: var(--bg-gray1);
   transition: all var(--transition-fast);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 #itsahayata-chatbot-input:focus {
-  border-color: var(--primary-color);
-  background: var(--bg-light);
+  border-color: var(--primary-color1);
+  background: var(--bg-light1);
   box-shadow: 0 0 0 3px rgba(138, 73, 247, 0.1);
 }
 
 #itsahayata-chatbot-sendbtn {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-  color: var(--text-light);
+  background: linear-gradient(135deg, var(--primary-color1), var(--secondary-color1));
+  color: var(--text-light1);
   padding: 10px 16px;
   border-radius: var(--border-radius-md);
   font-weight: 500;
@@ -453,7 +453,7 @@
   border: none;
   cursor: pointer;
   transition: all var(--transition-fast);
-  box-shadow: 0 2px 5px var(--shadow-light);
+  box-shadow: 0 2px 5px var(--shadow-light1);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -478,7 +478,7 @@
 
 #itsahayata-chatbot-sendbtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px var(--shadow-medium);
+  box-shadow: 0 4px 8px var(--shadow-medium1);
 }
 
 #itsahayata-chatbot-sendbtn:hover::before {
@@ -500,11 +500,11 @@
 #itsahayata-chatbot-brand {
   padding: 10px 8px 8px;
   text-align: center;
-  color: var(--primary-dark);
+  color: var(--primary-dark1);
   font-size: 13px;
   opacity: 0.75;
   letter-spacing: 0.5px;
-  background: var(--bg-light);
+  background: var(--bg-light1);
   position: relative;
   transition: opacity 0.3s ease;
 }
@@ -521,7 +521,7 @@
   transform: translateX(-50%);
   width: 40px;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(90deg, var(--primary-color1), var(--secondary-color1));
   border-radius: 3px;
   opacity: 0.2;
 }
@@ -529,7 +529,7 @@
 /* User Registration Form */
 #itsahayata-registration-form {
   padding: 15px;
-  background: var(--bg-gray);
+  background: var(--bg-gray1);
   max-height: 320px;
   overflow-y: auto;
   transition: all var(--transition-normal);
@@ -553,7 +553,7 @@
 }
 
 #itsahayata-user-form {
-  background: var(--bg-light);
+  background: var(--bg-light1);
   border-radius: var(--border-radius-lg);
   padding: 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
@@ -581,7 +581,7 @@
 #itsahayata-user-form h3 {
   margin-top: 0;
   margin-bottom: 12px;
-  color: var(--primary-color);
+  color: var(--primary-color1);
   font-size: 16px;
   text-align: center;
   font-weight: 600;
@@ -594,7 +594,7 @@
   position: absolute;
   width: 50px;
   height: 3px;
-  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(90deg, var(--primary-color1), var(--secondary-color1));
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
@@ -610,7 +610,7 @@
   display: block;
   margin-bottom: 4px;
   font-size: 13px;
-  color: var(--primary-dark);
+  color: var(--primary-dark1);
   font-weight: 500;
   transition: all var(--transition-fast);
 }
@@ -619,17 +619,17 @@
 .form-group textarea {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid var(--border-light);
+  border: 1px solid var(--border-light1);
   border-radius: var(--border-radius-md);
   font-size: 13px;
   transition: all var(--transition-fast);
-  background-color: var(--bg-light);
+  background-color: var(--bg-light1);
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.02);
 }
 
 .form-group input:focus,
 .form-group textarea:focus {
-  border-color: var(--primary-color);
+  border-color: var(--primary-color1);
   box-shadow: 0 0 0 3px rgba(138, 73, 247, 0.1);
   outline: none;
 }
@@ -640,7 +640,7 @@
 }
 
 #itsahayata-submit-details {
-  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+  background: linear-gradient(135deg, var(--primary-color1), var(--secondary-color1));
   color: white;
   border: none;
   padding: 10px;
@@ -719,7 +719,7 @@
 .itsahayata-promo-link {
   display: inline-block;
   margin-top: 8px;
-  color: var(--primary-color);
+  color: var(--primary-color1);
   font-weight: 500;
   text-decoration: none;
   transition: all 0.2s ease;
@@ -737,7 +737,7 @@
 }
 
 .itsahayata-promo-link:hover {
-  color: var(--secondary-color);
+  color: var(--secondary-color1);
   text-decoration: underline;
 }
 

@@ -280,6 +280,265 @@
  <!-- CHATBOT WIDGET -->
  <div id="itsahayata-chatbot-root"></div>
   <script src="../chatbot.js"></script>
+
+
+
+  <!-- Modern AI Chat Widget -->
+<div class="ai-helper-widget">
+    <!-- Collapsed State (Always Visible) -->
+    <div class="ai-collapsed">
+        <div class="ai-icon">
+            <i class="fas fa-robot"></i>
+            <span class="ai-pulse"></span>
+        </div>
+        <div class="ai-badge">IT Sahayta AI</div>
+    </div>
+    
+    <!-- Expanded State -->
+    <div class="ai-expanded">
+        <div class="ai-header">
+            <h3><i class="fas fa-bolt"></i> IT Sahayta AI</h3>
+            <div class="ai-status">
+                <span class="status-dot"></span>
+                <span>Ready to help</span>
+            </div>
+        </div>
+        
+        <div class="ai-content">
+            <p>Need instant IT support? I can help with:</p>
+            <ul class="ai-features">
+                <li><i class="fas fa-check-circle"></i> Troubleshooting</li>
+                <li><i class="fas fa-check-circle"></i> Technical issues</li>
+                <li><i class="fas fa-check-circle"></i> System errors</li>
+                <li><i class="fas fa-check-circle"></i> Network problems</li>
+            </ul>
+        </div>
+        
+        <a href="/views/ai_chat.php" class="ai-chat-btn">
+            <i class="fas fa-comment-dots"></i> Chat Now
+        </a>
+    </div>
+</div>
+
+<style>
+/* Modern AI Widget Styles */
+.ai-helper-widget {
+    position: fixed;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 9999;
+    font-family: 'Inter', sans-serif;
+    display: flex;
+    transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+/* Collapsed State (Always Visible) */
+.ai-collapsed {
+    width: 60px;
+    height: 60px;
+    background: linear-gradient(135deg, #6b48ff 0%, #00ddeb 100%);
+    border-radius: 0 15px 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: 2px 0 15px rgba(0,0,0,0.15);
+    position: relative;
+    z-index: 2;
+}
+
+.ai-icon {
+    color: white;
+    font-size: 24px;
+    position: relative;
+}
+
+.ai-pulse {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 12px;
+    height: 12px;
+    background: #ff4d4d;
+    border-radius: 50%;
+    animation: pulse 1.5s infinite;
+}
+
+.ai-badge {
+    position: absolute;
+    right: -85px;
+    top: 50%;
+    transform: translateY(-50%) rotate(90deg);
+    transform-origin: left top;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    white-space: nowrap;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+
+.ai-collapsed:hover .ai-badge {
+    opacity: 1;
+    right: -75px;
+}
+
+/* Expanded State */
+.ai-expanded {
+    width: 280px;
+    background: white;
+    border-radius: 0 15px 15px 0;
+    box-shadow: 2px 0 25px rgba(0,0,0,0.1);
+    padding: 20px;
+    margin-left: -280px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    border-left: 5px solid #6b48ff;
+}
+
+.ai-helper-widget:hover .ai-expanded {
+    margin-left: 0;
+    opacity: 1;
+}
+
+.ai-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.ai-header h3 {
+    margin: 0;
+    color: #2d3748;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.ai-header h3 i {
+    color: #6b48ff;
+}
+
+.ai-status {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    background: #10b981;
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+}
+
+.ai-content {
+    margin-bottom: 20px;
+}
+
+.ai-content p {
+    margin: 0 0 12px 0;
+    color: #4b5563;
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+.ai-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.ai-features li {
+    padding: 6px 0;
+    color: #3f3f46;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.ai-features li:hover {
+    color: #6b48ff;
+    transform: translateX(5px);
+}
+
+.ai-features li i {
+    color: #6b48ff;
+    font-size: 12px;
+}
+
+.ai-chat-btn {
+    display: block;
+    text-align: center;
+    padding: 12px;
+    background: linear-gradient(to right, #6b48ff, #00ddeb);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(107, 72, 255, 0.2);
+}
+
+.ai-chat-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(107, 72, 255, 0.3);
+}
+
+.ai-chat-btn i {
+    margin-right: 8px;
+}
+
+/* Animations */
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.1); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .ai-expanded {
+        width: 240px;
+        margin-left: -240px;
+    }
+    
+    .ai-content p {
+        font-size: 13px;
+    }
+    
+    .ai-features li {
+        font-size: 12px;
+    }
+}
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const aiWidget = document.querySelector('.ai-helper-widget');
+    
+    // Show expanded panel briefly on page load
+    setTimeout(() => {
+        aiWidget.classList.add('peek');
+        setTimeout(() => {
+            aiWidget.classList.remove('peek');
+        }, 3000);
+    }, 1500);
+});
+</script>
     <!-- AOS JS -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
