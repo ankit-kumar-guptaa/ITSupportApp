@@ -88,128 +88,7 @@ session_start();
         
        
 
-        /* Services Section */
-        .services-section {
-            background-color: #ffffff;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .services-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%234361ee' fill-opacity='0.05'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-            opacity: 0.5;
-        }
-
-        /* Modern Glass Service Card */
-        .service-card {
-            background: rgba(255,255,255,0.7);
-            border-radius: 22px;
-            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.10);
-            backdrop-filter: blur(8px);
-            border: 1.5px solid rgba(67,97,238,0.08);
-            transition: transform 0.25s cubic-bezier(.4,2,.6,1), box-shadow 0.25s;
-            position: relative;
-            overflow: hidden;
-            min-height: 420px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .service-card:hover {
-            transform: translateY(-10px) scale(1.03);
-            box-shadow: 0 16px 40px 0 rgba(67,97,238,0.12);
-        }
-
-        .service-icon {
-            width: 90px;
-            height: 90px;
-            background: linear-gradient(135deg, #4361ee 0%, #6c5ce7 100%);
-            color: #fff;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.7rem;
-            margin: 0 auto 1.5rem;
-            box-shadow: 0 4px 16px rgba(67,97,238,0.10);
-            transition: transform 0.4s cubic-bezier(.4,2,.6,1);
-        }
-
-        .service-card:hover .service-icon {
-            transform: rotate(-8deg) scale(1.12);
-            background: linear-gradient(135deg, #6c5ce7 0%, #4361ee 100%);
-        }
-
-        .service-title {
-            font-size: 1.35rem;
-            font-weight: 700;
-            margin-bottom: 0.7rem;
-            color: #2d3436;
-            letter-spacing: 0.5px;
-            text-align: center;
-        }
-
-        .service-description {
-            color: #636e72;
-            margin-bottom: 1.2rem;
-            text-align: center;
-            font-size: 1.02rem;
-        }
-
-        .service-features {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 1.2rem;
-            text-align: left;
-            width: 100%;
-        }
-
-        .service-features li {
-            padding: 0.45rem 0 0.45rem 1.8rem;
-            position: relative;
-            font-size: 0.98rem;
-            color: #495057;
-        }
-
-        .service-features li i {
-            position: absolute;
-            left: 0.5rem;
-            color: #4361ee;
-            font-size: 1.1rem;
-        }
-
-        .service-link {
-            margin-top: auto;
-            display: inline-flex;
-            align-items: center;
-            color: #4361ee;
-            font-weight: 600;
-            text-decoration: none;
-            gap: 0.5rem;
-            border-radius: 20px;
-            padding: 0.5rem 1.2rem;
-            background: rgba(67,97,238,0.07);
-            transition: background 0.2s, color 0.2s;
-        }
-
-        .service-link:hover {
-            background: #4361ee;
-            color: #fff;
-        }
-
-        @media (max-width: 991px) {
-            .service-card { min-height: 440px; }
-        }
-
-        @media (max-width: 767px) {
-            .service-card { min-height: 0; }
-        }
+     
 
         /* Process Section */
         .process-section {
@@ -1130,169 +1009,679 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 </script>
 
-    <!-- Services Section -->
-    <section id="services" class="section-padding">
-        <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Our Comprehensive IT Services</h2>
-            <p class="section-subtitle" data-aos="fade-up" data-aos-delay="100">IT Sahayata offers end-to-end technology solutions to address all your business needs - from hardware support to custom software development.</p>
-            
-            <div class="row g-4">
-                <!-- 1. Hardware Support -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-desktop"></i>
-                        </div>
-                        <h3 class="service-title">Hardware Support</h3>
-                        <p class="service-description">Expert diagnosis and repair services for all your computer hardware issues, from desktops to servers.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> Computer & laptop repairs</li>
-                            <li><i class="fas fa-check-circle"></i> Server maintenance</li>
-                            <li><i class="fas fa-check-circle"></i> Hardware upgrades & optimization</li>
-                        </ul>
-                        <a href="/services/hardware-support" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+   <!-- NEXT-GEN IT SERVICES SECTION -->
+<section id="services" class="next-gen-services">
+    <!-- Floating Tech Elements -->
+    <div class="tech-elements">
+        <div class="element-1"></div>
+        <div class="element-2"></div>
+        <div class="element-3"></div>
+    </div>
+
+    <div class="container">
+        <!-- Section Header -->
+        <div class="section-header">
+            <span class="section-tag">Innovative Solutions</span>
+            <h2>
+                <span class="gradient-text">Premium IT Services</span>  
+                <br> 
+                For Your Business Growth
+            </h2>
+            <div class="divider">
+                <span class="line"></span>
+                <span class="dot"></span>
+                <span class="line"></span>
+            </div>
+            <p class="section-desc">
+                We provide cutting-edge IT solutions to optimize performance, enhance security, and drive digital transformation.
+            </p>
+        </div>
+
+        <!-- SERVICES GRID -->
+        <div class="services-grid">
+            <!-- 1. Hardware Support -->
+            <div class="service-card" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="card-bg"></div>
+                <div class="card-content">
+                    <div class="service-icon">
+                        <i class="fas fa-desktop"></i>
+                        <div class="icon-pulse"></div>
                     </div>
+                    <h3>Hardware Support</h3>
+                    <p>Expert diagnosis & repair for desktops, laptops, and servers.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Computer & laptop repairs</li>
+                        <li><i class="fas fa-check-circle"></i> Server maintenance</li>
+                        <li><i class="fas fa-check-circle"></i> Hardware upgrades</li>
+                    </ul>
+                    <a href="/views/hardware_support.php" class="explore-btn">
+                        <span>Explore Service</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                
-                <!-- 2. Software Support -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-cogs"></i>
-                        </div>
-                        <h3 class="service-title">Software Support</h3>
-                        <p class="service-description">Comprehensive software troubleshooting, installation, and maintenance services for optimal performance.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> OS installation & updates</li>
-                            <li><i class="fas fa-check-circle"></i> Software troubleshooting</li>
-                            <li><i class="fas fa-check-circle"></i> Application support & training</li>
-                        </ul>
-                        <a href="/services/software-support" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 2. Software Support -->
+            <div class="service-card" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="card-bg"></div>
+                <div class="card-content">
+                    <div class="service-icon">
+                        <i class="fas fa-cogs"></i>
+                        <div class="icon-pulse"></div>
                     </div>
+                    <h3>Software Support</h3>
+                    <p>Installation, troubleshooting & optimization for all software.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> OS installation</li>
+                        <li><i class="fas fa-check-circle"></i> Software troubleshooting</li>
+                        <li><i class="fas fa-check-circle"></i> Application training</li>
+                    </ul>
+                    <a href="/views/software_support.php" class="explore-btn">
+                        <span>Explore Service</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                
-                <!-- 3. Network Solutions -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="300">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-network-wired"></i>
-                        </div>
-                        <h3 class="service-title">Network Solutions</h3>
-                        <p class="service-description">Design, implementation, and management of secure and efficient network infrastructure for businesses.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> Network design & setup</li>
-                            <li><i class="fas fa-check-circle"></i> Wi-Fi optimization</li>
-                            <li><i class="fas fa-check-circle"></i> Network security & monitoring</li>
-                        </ul>
-                        <a href="/services/network-solutions" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 3. Network Solutions -->
+            <div class="service-card" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="card-bg"></div>
+                <div class="card-content">
+                    <div class="service-icon">
+                        <i class="fas fa-network-wired"></i>
+                        <div class="icon-pulse"></div>
                     </div>
+                    <h3>Network Solutions</h3>
+                    <p>Secure & scalable network infrastructure for businesses.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Network setup</li>
+                        <li><i class="fas fa-check-circle"></i> Wi-Fi optimization</li>
+                        <li><i class="fas fa-check-circle"></i> Security monitoring</li>
+                    </ul>
+                    <a href="/views/network-solutions.php" class="explore-btn">
+                        <span>Explore Service</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                
-                <!-- 4. Cloud Services -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="400">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-cloud"></i>
-                        </div>
-                        <h3 class="service-title">Cloud Services</h3>
-                        <p class="service-description">Seamless migration, management, and optimization of cloud infrastructure for enhanced flexibility and scalability.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> Cloud migration & setup</li>
-                            <li><i class="fas fa-check-circle"></i> SaaS implementation</li>
-                            <li><i class="fas fa-check-circle"></i> Cloud security & backup</li>
-                        </ul>
-                        <a href="/services/cloud-services" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 4. Cloud Services -->
+            <div class="service-card" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="card-bg"></div>
+                <div class="card-content">
+                    <div class="service-icon">
+                        <i class="fas fa-cloud"></i>
+                        <div class="icon-pulse"></div>
+                        <span class="service-badge trending">Trending</span>
                     </div>
+                    <h3>Cloud Services</h3>
+                    <p>Seamless cloud migration, management & security.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Cloud migration</li>
+                        <li><i class="fas fa-check-circle"></i> SaaS implementation</li>
+                        <li><i class="fas fa-check-circle"></i> Cloud backup</li>
+                    </ul>
+                    <a href="/views/cloud_services.php" class="explore-btn">
+                        <span>Explore Service</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                
-                <!-- 5. Cybersecurity -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="500">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-shield-alt"></i>
-                        </div>
-                        <h3 class="service-title">Cybersecurity</h3>
-                        <p class="service-description">Comprehensive security solutions to protect your business from evolving cyber threats and data breaches.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> Security audits & assessments</li>
-                            <li><i class="fas fa-check-circle"></i> Threat detection & prevention</li>
-                            <li><i class="fas fa-check-circle"></i> Data encryption & protection</li>
-                        </ul>
-                        <a href="/services/cybersecurity" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 5. Cybersecurity -->
+            <div class="service-card" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="card-bg"></div>
+                <div class="card-content">
+                    <div class="service-icon">
+                        <i class="fas fa-shield-alt"></i>
+                        <div class="icon-pulse"></div>
+                        <span class="service-badge premium">Premium</span>
                     </div>
+                    <h3>Cybersecurity</h3>
+                    <p>Protection against cyber threats & data breaches.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Security audits</li>
+                        <li><i class="fas fa-check-circle"></i> Threat detection</li>
+                        <li><i class="fas fa-check-circle"></i> Data encryption</li>
+                    </ul>
+                    <a href="/views/cybersecurity.php" class="explore-btn">
+                        <span>Explore Service</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                
-                <!-- 6. Data Management -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="600">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-database"></i>
-                        </div>
-                        <h3 class="service-title">Data Management</h3>
-                        <p class="service-description">Effective data storage, backup, recovery, and management solutions to safeguard your valuable information.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> Data backup & recovery</li>
-                            <li><i class="fas fa-check-circle"></i> Storage solutions</li>
-                            <li><i class="fas fa-check-circle"></i> Data migration & archiving</li>
-                        </ul>
-                        <a href="/services/data-management" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 6. Data Management -->
+            <div class="service-card" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="card-bg"></div>
+                <div class="card-content">
+                    <div class="service-icon">
+                        <i class="fas fa-database"></i>
+                        <div class="icon-pulse"></div>
                     </div>
+                    <h3>Data Management</h3>
+                    <p>Secure storage, backup & recovery solutions.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Data backup</li>
+                        <li><i class="fas fa-check-circle"></i> Storage solutions</li>
+                        <li><i class="fas fa-check-circle"></i> Data migration</li>
+                    </ul>
+                    <a href="/views/data_management.php" class="explore-btn">
+                        <span>Explore Service</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                
-                <!-- 7. Software Development -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="700">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-code"></i>
-                        </div>
-                        <h3 class="service-title">Software Development</h3>
-                        <p class="service-description">Custom software solutions designed to streamline your business processes and enhance operational efficiency.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> Custom application development</li>
-                            <li><i class="fas fa-check-circle"></i> API integration</li>
-                            <li><i class="fas fa-check-circle"></i> Legacy system modernization</li>
-                        </ul>
-                        <a href="/services/software-development" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 7. Software Development -->
+            <div class="service-card" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="card-bg"></div>
+                <div class="card-content">
+                    <div class="service-icon">
+                        <i class="fas fa-code"></i>
+                        <div class="icon-pulse"></div>
+                        <span class="service-badge hot">Hot</span>
                     </div>
+                    <h3>Software Development</h3>
+                    <p>Custom solutions for business automation.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Custom applications</li>
+                        <li><i class="fas fa-check-circle"></i> API integration</li>
+                        <li><i class="fas fa-check-circle"></i> System modernization</li>
+                    </ul>
+                    <a href="/views/software_development.php" class="explore-btn">
+                        <span>Explore Service</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                
-                <!-- 8. Website Development -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="800">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-laptop-code"></i>
-                        </div>
-                        <h3 class="service-title">Website Development</h3>
-                        <p class="service-description">Professional, responsive websites that enhance your online presence and drive customer engagement.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> Responsive web design</li>
-                            <li><i class="fas fa-check-circle"></i> E-commerce solutions</li>
-                            <li><i class="fas fa-check-circle"></i> CMS development</li>
-                        </ul>
-                        <a href="/services/website-development" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 8. Website Development -->
+            <div class="service-card" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="card-bg"></div>
+                <div class="card-content">
+                    <div class="service-icon">
+                        <i class="fas fa-laptop-code"></i>
+                        <div class="icon-pulse"></div>
                     </div>
+                    <h3>Website Development</h3>
+                    <p>Professional, responsive websites for businesses.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> Responsive design</li>
+                        <li><i class="fas fa-check-circle"></i> E-commerce solutions</li>
+                        <li><i class="fas fa-check-circle"></i> CMS development</li>
+                    </ul>
+                    <a href="/views/website_development.php" class="explore-btn">
+                        <span>Explore Service</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
-                
-                <!-- 9. IT Consulting -->
-                <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="900">
-                    <div class="service-card">
-                        <div class="service-icon">
-                            <i class="fas fa-lightbulb"></i>
-                        </div>
-                        <h3 class="service-title">IT Consulting</h3>
-                        <p class="service-description">Strategic technology guidance to help your business leverage IT for growth, efficiency, and competitive advantage.</p>
-                        <ul class="service-features">
-                            <li><i class="fas fa-check-circle"></i> IT strategy development</li>
-                            <li><i class="fas fa-check-circle"></i> Digital transformation</li>
-                            <li><i class="fas fa-check-circle"></i> Technology roadmapping</li>
-                        </ul>
-                        <a href="/services/it-consulting" class="service-link">Learn More <i class="fas fa-arrow-right"></i></a>
+            </div>
+
+            <!-- 9. IT Consulting -->
+            <div class="service-card" data-tilt data-tilt-glare data-tilt-max-glare="0.2">
+                <div class="card-bg"></div>
+                <div class="card-content">
+                    <div class="service-icon">
+                        <i class="fas fa-lightbulb"></i>
+                        <div class="icon-pulse"></div>
+                        <span class="service-badge expert">Expert</span>
                     </div>
+                    <h3>IT Consulting</h3>
+                    <p>Strategic IT planning for business growth.</p>
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle"></i> IT strategy</li>
+                        <li><i class="fas fa-check-circle"></i> Digital transformation</li>
+                        <li><i class="fas fa-check-circle"></i> Technology roadmaps</li>
+                    </ul>
+                    <a href="/views/it_consulting.php" class="explore-btn">
+                        <span>Explore Service</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
-    </section>
 
+        <!-- CTA SECTION -->
+        <div class="cta-section">
+            <h3>Need Custom IT Solutions?</h3>
+            <p>Get in touch for a free consultation!</p>
+            <div class="cta-buttons">
+                <a href="/views/free-consultation.php" class="cta-btn primary">
+                    <i class="fas fa-calendar-check"></i> Book Now
+                </a>
+                <a href="tel:+919876543210" class="cta-btn secondary">
+                    <i class="fas fa-phone-alt"></i> Call Us
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    /* LIGHT THEME SERVICES STYLING */
+.next-gen-services {
+    padding: 100px 0;
+    background: #f9fafb;
+    position: relative;
+    overflow: hidden;
+}
+
+.tech-elements {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    z-index: 0;
+}
+
+.element-1, .element-2, .element-3 {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(99, 102, 241, 0.05);
+    filter: blur(60px);
+}
+
+.element-1 {
+    width: 300px;
+    height: 300px;
+    top: -100px;
+    left: -100px;
+    animation: float 15s infinite ease-in-out;
+}
+
+.element-2 {
+    width: 400px;
+    height: 400px;
+    bottom: -150px;
+    right: -100px;
+    animation: float 20s infinite ease-in-out reverse;
+}
+
+.element-3 {
+    width: 200px;
+    height: 200px;
+    top: 50%;
+    left: 30%;
+    animation: float 12s infinite ease-in-out;
+}
+
+@keyframes float {
+    0%, 100% { transform: translate(0, 0); }
+    25% { transform: translate(20px, 20px); }
+    50% { transform: translate(0, 30px); }
+    75% { transform: translate(-20px, 10px); }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.section-tag {
+    display: inline-block;
+    background: rgba(99, 102, 241, 0.1);
+    color: #6366F1;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    font-size: 48px;
+    font-weight: 800;
+    color: #1e293b;
+    line-height: 1.2;
+    margin-bottom: 20px;
+}
+
+.gradient-text {
+    background: linear-gradient(90deg, #6366F1, #8B5CF6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
+}
+
+.line {
+    width: 50px;
+    height: 2px;
+    background: linear-gradient(90deg, #6366F1, #8B5CF6);
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    background: #8B5CF6;
+    border-radius: 50%;
+    box-shadow: 0 0 15px rgba(139, 92, 246, 0.3);
+}
+
+.section-desc {
+    color: #64748b;
+    font-size: 18px;
+    max-width: 700px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+/* SERVICES GRID STYLING */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 25px;
+    margin-bottom: 60px;
+}
+
+.service-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 30px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(99, 102, 241, 0.1);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+    transition: all 0.4s ease;
+    transform-style: preserve-3d;
+}
+
+.service-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(99, 102, 241, 0.1);
+    border-color: rgba(99, 102, 241, 0.3);
+}
+
+.card-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(99, 102, 241, 0.03), rgba(139, 92, 246, 0.03));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: -1;
+}
+
+.service-card:hover .card-bg {
+    opacity: 1;
+}
+
+.card-content {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.service-icon {
+    width: 70px;
+    height: 70px;
+    border-radius: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 25px;
+    position: relative;
+    color: white;
+    font-size: 28px;
+    background: linear-gradient(135deg, #6366F1, #8B5CF6);
+    box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);
+}
+
+.icon-pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: 18px;
+    background: rgba(255, 255, 255, 0.3);
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); opacity: 1; }
+    70% { transform: scale(1.3); opacity: 0; }
+    100% { transform: scale(1); opacity: 0; }
+}
+
+.service-badge {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: white;
+    z-index: 2;
+}
+
+.service-badge.trending {
+    background: linear-gradient(135deg, #EC4899, #F43F5E);
+}
+
+.service-badge.premium {
+    background: linear-gradient(135deg, #F59E0B, #EF4444);
+}
+
+.service-badge.hot {
+    background: linear-gradient(135deg, #10B981, #3B82F6);
+}
+
+.service-badge.expert {
+    background: linear-gradient(135deg, #8B5CF6, #6366F1);
+}
+
+.service-card h3 {
+    font-size: 22px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 15px;
+}
+
+.service-card p {
+    color: #64748b;
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.features {
+    margin-bottom: 25px;
+}
+
+.features li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    color: #475569;
+    font-size: 14px;
+}
+
+.features i {
+    color: #8B5CF6;
+    font-size: 14px;
+}
+
+.explore-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #6366F1;
+    font-weight: 600;
+    font-size: 15px;
+    margin-top: auto;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.explore-btn:hover {
+    color: #8B5CF6;
+    gap: 12px;
+}
+
+.explore-btn i {
+    transition: transform 0.3s ease;
+}
+
+.explore-btn:hover i {
+    transform: translateX(5px);
+}
+
+/* CTA SECTION STYLING */
+.cta-section {
+    background: linear-gradient(135deg, #6366F1, #8B5CF6);
+    border-radius: 16px;
+    padding: 50px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 20px 40px rgba(99, 102, 241, 0.2);
+}
+
+.cta-section::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cta-section::after {
+    content: '';
+    position: absolute;
+    bottom: -100px;
+    left: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.cta-section h3 {
+    font-size: 32px;
+    font-weight: 700;
+    color: white;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-section p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 16px;
+    margin-bottom: 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.cta-btn {
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.cta-btn.primary {
+    background: white;
+    color: #6366F1;
+}
+
+.cta-btn.primary:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 20px rgba(255, 255, 255, 0.2);
+}
+
+.cta-btn.secondary {
+    background: rgba(255, 255, 255, 0.2);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.cta-btn.secondary:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-3px);
+}
+
+/* RESPONSIVE DESIGN */
+@media (max-width: 1024px) {
+    .services-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    }
+}
+
+@media (max-width: 768px) {
+    .section-header h2 {
+        font-size: 36px;
+    }
+    
+    .cta-section {
+        padding: 40px 20px;
+    }
+    
+    .cta-buttons {
+        flex-direction: column;
+    }
+    
+    .cta-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-header h2 {
+        font-size: 28px;
+    }
+    
+    .services-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .service-card {
+        padding: 25px;
+    }
+}
+</style>
     <!-- Parallax Section -->
     <section class="parallax-section" style="background-image: url('https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=2070')">
         <div class="parallax-overlay"></div>
@@ -1543,8 +1932,8 @@ document.addEventListener('DOMContentLoaded', function() {
                             </div>
                         </div>
                         
-                        <a href="#" class="btn btn-primary btn-lg px-4 me-2">Get Protected Now</a>
-                        <a href="#" class="btn btn-outline-secondary btn-lg px-4">Learn More</a>
+                        <!-- <a href="#" class="btn btn-primary btn-lg px-4 me-2">Get Protected Now</a>
+                        <a href="#" class="btn btn-outline-secondary btn-lg px-4">Learn More</a> -->
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -1579,7 +1968,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> API Integration Services</li>
                             <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Legacy System Modernization</li>
                         </ul>
-                        <a href="#" class="btn btn-outline-primary">Explore Development Services</a>
+                        <a href="/views/software_development.php" class="btn btn-outline-primary">Explore Development Services</a>
                     </div>
                 </div>
 
@@ -1596,7 +1985,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> E-commerce Solutions</li>
                             <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> CMS Development</li>
                         </ul>
-                        <a href="#" class="btn btn-outline-success">View Web Services</a>
+                        <a href="/views/website_development.php" class="btn btn-outline-success">View Web Services</a>
                     </div>
                 </div>
 
@@ -1613,7 +2002,7 @@ document.addEventListener('DOMContentLoaded', function() {
                             <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> Cross-Platform Solutions</li>
                             <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i> App Maintenance & Support</li>
                         </ul>
-                        <a href="#" class="btn btn-outline-info">Discover App Services</a>
+                        <a href="/views/software_development.php" class="btn btn-outline-info">Discover App Services</a>
                     </div>
                 </div>
             </div>
@@ -1650,9 +2039,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     <?php include 'footer.php'; ?>
 
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    
+  
     <!-- AOS Animation Library -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     

@@ -861,14 +861,14 @@ session_start();
                 <p class="hero-subtitle">Our AI assistant provides instant tech support 24/7. From hardware issues to software bugs, get expert solutions in seconds.</p>
                 
                 <a href="#ai-chat" class="hero-cta">
-                    Chat with IT Expert <i class="fas fa-comment-dots ml-2"></i>
+                    Chat with IT Expert <i class="fas fa-comment-dots ml-2" style="padding-left: 5px;"></i>
                 </a>
             </div>
             
             <div class="col-lg-6" data-aos="fade-left">
                 <div class="hero-image">
                     <div class="hero-image-inner">
-                        <img src="https://images.unsplash.com/photo-1614680376573-df3480f0c6ff?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="AI Chat Assistant" class="img-fluid">
+                        <img src="../assets/it-ai.png" alt="AI Chat Assistant" class="img-fluid">
                     </div>
                 </div>
             </div>

@@ -19,50 +19,62 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 <style>
     :root {
-        --primary: #4361ee;
-        --primary-light: #e0e7ff;
-        --secondary: #3f37c9;
-        --dark: #1e293b;
-        --light: #f8fafc;
-        --gray: #94a3b8;
-        --danger: #ef4444;
-        --success: #10b981;
+        --ocean-blue: #4361ee;
+        --deep-purple: #7209b7;
+        --vibrant-pink: #f72585;
+        --fresh-mint: #4cc9f0;
+        --dark-space: #1a1a2e;
+        --cosmic-gray: #16213e;
+        --pure-white: #ffffff;
+        --soft-gray: #e5e5e5;
+        --alert-red: #f44336;
+        --success-green: #4caf50;
+        --electric-blue: #4895ef;
+        --neon-purple: #b5179e;
     }
 
     /* Header Styles */
     .navbar {
-        padding: 0.5rem 0;
-        background: white !important;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        padding: 1rem 0;
+        background: var(--pure-white) !important;
+        box-shadow: 0 4px 30px rgba(0, 0, 0, 0.08);
         font-family: 'Poppins', sans-serif;
-        position: sticky;
+        position: fixed;
         top: 0;
+        width: 100%;
         z-index: 1000;
-        transition: all 0.3s ease;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     }
     
     .navbar.scrolled {
-        padding: 0.3rem 0;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        padding: 0.7rem 0;
+        background: rgba(255, 255, 255, 0.98) !important;
+        backdrop-filter: blur(10px);
     }
 
     .navbar-container {
-        width: 100%;
-        /* max-width: 1320px; */
+        max-width: 1400px;
         margin: 0 auto;
-        padding: 0 1.5rem;
+        padding: 0 2rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
     }
 
+    /* Logo Styles */
     .navbar-brand {
         display: flex;
         align-items: center;
+        transition: all 0.3s ease;
+        z-index: 1001;
+    }
+
+    .navbar-brand:hover {
+        transform: translateY(-2px);
     }
 
     .navbar-brand img {
-        height: 70px; /* बड़ा लोगो */
+        height: 60px;
         transition: all 0.3s ease;
     }
     
@@ -70,18 +82,17 @@ $current_page = basename($_SERVER['PHP_SELF']);
         height: 50px;
     }
 
-    /* नेविगेशन सेंटर में रखने के लिए */
+    /* Navigation Center */
     .navbar-center {
         display: flex;
-        align-items: center;
-        justify-content: center;
         flex-grow: 1;
+        justify-content: center;
     }
 
     .navbar-nav {
         display: flex;
         align-items: center;
-        gap: 0.5rem; /* मेन्यू आइटम्स के बीच गैप बढ़ाया */
+        gap: 0.2rem;
         margin: 0;
         padding: 0;
         list-style: none;
@@ -89,187 +100,210 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     .nav-item {
         position: relative;
-        white-space: nowrap; /* टेक्स्ट को एक लाइन में रखने के लिए */
     }
 
     .nav-link {
         font-weight: 500;
-        color: var(--dark) !important;
-        padding: 0.7rem 0.8rem !important; /* पैडिंग कम की */
+        color: var(--dark-space) !important;
+        padding: 0.8rem 1.2rem !important;
         position: relative;
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         align-items: center;
         text-decoration: none;
-        font-size: 1rem; /* फॉन्ट साइज़ थोड़ा कम किया */
+        font-size: 0.95rem;
+        border-radius: 12px;
     }
 
-    .nav-link:before {
+    .nav-link::before {
         content: '';
         position: absolute;
         bottom: 0;
-        left: 0.8rem;
-        right: 0.8rem;
-        height: 3px;
-        background: var(--primary);
+        left: 1.2rem;
+        right: 1.2rem;
+        height: 2px;
+        background: linear-gradient(90deg, var(--ocean-blue), var(--neon-purple));
         transform: scaleX(0);
+        transform-origin: center;
         transition: transform 0.3s ease;
-        border-radius: 3px;
     }
 
-    .nav-link:hover:before,
-    .nav-link.active:before {
+    .nav-link:hover::before,
+    .nav-link.active::before {
         transform: scaleX(1);
     }
 
+    .nav-link:hover {
+        color: var(--ocean-blue) !important;
+    }
+
     .nav-link.active {
-        color: var(--primary) !important;
+        color: var(--ocean-blue) !important;
         font-weight: 600;
     }
 
-    .dropdown-menu {
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        padding: 0.5rem 0;
-        margin-top: 0.5rem !important;
-        min-width: 220px;
-        animation: fadeIn 0.3s ease;
+    /* Right side buttons */
+    .navbar-right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
     }
 
-    .dropdown-item {
-        padding: 0.6rem 1.5rem !important;
-        border-radius: 8px;
-        margin: 0.2rem 0.5rem;
-        transition: all 0.2s ease;
+    /* User Dropdown */
+    .user-dropdown {
+        position: relative;
+    }
+
+    .user-btn {
         display: flex;
         align-items: center;
         gap: 0.5rem;
-    }
-
-    .dropdown-item:hover {
-        background: var(--primary-light);
-        color: var(--primary) !important;
-        transform: translateX(3px);
-    }
-
-    .dropdown-header {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: var(--gray) !important;
-        padding: 0.5rem 1.5rem !important;
-        font-weight: 600;
-    }
-
-    .user-avatar {
-        width: 38px;
-        height: 38px;
-        border-radius: 50%;
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
-        color: white;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-        margin-right: 10px;
-        transition: all 0.3s ease;
-        box-shadow: 0 3px 10px rgba(67, 97, 238, 0.2);
-    }
-    
-    .user-avatar:hover {
-        transform: scale(1.05);
-    }
-
-    .auth-buttons {
-        display: flex;
-        align-items: center;
-        gap: 0.75rem;
-    }
-
-    .btn-login {
-        background: linear-gradient(135deg, var(--primary), var(--secondary));
+        background: linear-gradient(135deg, var(--ocean-blue), var(--deep-purple));
         color: white !important;
-        border-radius: 8px;
-        padding: 0.6rem 1.2rem !important;
+        padding: 0.6rem 1.2rem;
+        border-radius: 50px;
         font-weight: 500;
-        border: none;
         transition: all 0.3s ease;
         box-shadow: 0 4px 15px rgba(67, 97, 238, 0.2);
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
+        cursor: pointer;
+        border: none;
     }
 
-    .btn-login:hover {
+    .user-btn:hover {
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(67, 97, 238, 0.3);
     }
 
-    .btn-agent {
+    .user-avatar {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
         background: white;
-        color: var(--primary) !important;
-        border-radius: 8px;
-        padding: 0.6rem 1.2rem !important;
+        color: var(--ocean-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        right: 0;
+        top: 120%;
+        background: white;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+        padding: 0.5rem 0;
+        min-width: 220px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(10px);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        z-index: 1000;
+    }
+
+    .dropdown-menu.show {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+    }
+
+    .dropdown-item {
+        padding: 0.7rem 1.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.7rem;
+        color: var(--dark-space);
+        text-decoration: none;
+        transition: all 0.2s ease;
+    }
+
+    .dropdown-item:hover {
+        background: var(--soft-gray);
+        color: var(--ocean-blue);
+        padding-left: 1.7rem;
+    }
+
+    .dropdown-item i {
+        width: 20px;
+        color: var(--ocean-blue);
+    }
+
+    .dropdown-divider {
+        border-top: 1px solid var(--soft-gray);
+        margin: 0.5rem 0;
+    }
+
+    /* Mobile Dropdown Menu */
+    .mobile-dropdown-menu {
+        display: none;
+        width: 100%;
+        background: var(--soft-gray);
+        border-radius: 12px;
+        margin-top: 0.5rem;
+        padding: 0.5rem 0;
+    }
+
+    .mobile-dropdown-menu.show {
+        display: block;
+    }
+
+    /* Button Styles */
+    .btn {
+        padding: 0.7rem 1.5rem;
+        border-radius: 50px;
         font-weight: 500;
-        border: 1.5px solid var(--primary);
-        transition: all 0.3s ease;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         text-decoration: none;
         display: inline-flex;
         align-items: center;
         gap: 0.5rem;
+        font-size: 0.95rem;
+    }
+
+    .btn-login {
+        background: linear-gradient(135deg, var(--ocean-blue), var(--electric-blue));
+        color: white !important;
+        box-shadow: 0 4px 15px rgba(67, 97, 238, 0.2);
+    }
+
+    .btn-login:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(67, 97, 238, 0.3);
+    }
+
+    .btn-agent {
+        background: white;
+        color: var(--ocean-blue) !important;
+        border: 2px solid var(--ocean-blue);
     }
 
     .btn-agent:hover {
-        background: var(--primary-light);
-        transform: translateY(-2px);
-    }
-
-    /* Book Slot Button */
-    .btn-book {
-        background: linear-gradient(135deg, #10b981, #059669);
-        color: white !important;
-        border-radius: 8px;
-        padding: 0.6rem 1.2rem !important;
-        font-weight: 500;
-        border: none;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 15px rgba(16, 185, 129, 0.2);
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-    }
-    
-    .btn-book:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
+        background: var(--soft-gray);
     }
 
     /* Mobile Toggle Button */
     .navbar-toggler {
         border: none;
-        background: var(--primary-light);
-        width: 40px;
-        height: 40px;
-        border-radius: 8px;
+        background: linear-gradient(135deg, var(--ocean-blue), var(--electric-blue));
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
         display: none;
         align-items: center;
         justify-content: center;
-        color: var(--primary);
-        font-size: 1.25rem;
+        color: white;
+        font-size: 1.2rem;
         cursor: pointer;
         transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
+        z-index: 1001;
     }
     
     .navbar-toggler:hover {
-        background: rgba(67, 97, 238, 0.15);
-    }
-    
-    .navbar-toggler:focus {
-        box-shadow: none;
-        outline: none;
+        transform: scale(1.05);
+        box-shadow: 0 6px 15px rgba(67, 97, 238, 0.3);
     }
 
     /* Mobile Menu */
@@ -284,7 +318,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         opacity: 0;
         visibility: hidden;
         transition: all 0.3s ease;
-        backdrop-filter: blur(3px);
+        backdrop-filter: blur(5px);
     }
     
     .mobile-menu-overlay.active {
@@ -294,38 +328,77 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     .mobile-close-btn {
         position: absolute;
-        top: 1.25rem;
-        right: 1.25rem;
-        background: var(--primary-light);
-        border: none;
-        width: 36px;
-        height: 36px;
+        top: 1.5rem;
+        right: 1.5rem;
+        background: var(--alert-red);
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        color: var(--primary);
-        font-size: 1.25rem;
+        color: white;
+        font-size: 1.2rem;
         cursor: pointer;
         transition: all 0.3s ease;
         z-index: 1001;
+        border: none;
     }
     
     .mobile-close-btn:hover {
-        background: rgba(67, 97, 238, 0.2);
         transform: rotate(90deg);
     }
 
-    /* Animations */
-    @keyframes fadeIn {
-        from {
-            opacity: 0;
-            transform: translateY(10px);
-        }
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
+    /* Mobile User Button */
+    .mobile-user-btn {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--ocean-blue), var(--deep-purple));
+        color: white;
+        margin-right: 0.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
+        z-index: 1001;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .mobile-user-btn:hover {
+        transform: scale(1.05);
+    }
+    
+    .mobile-user-avatar {
+        font-weight: 600;
+        font-size: 1.1rem;
+    }
+    
+    /* Mobile Login Button */
+    .mobile-login-btn {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        width: 44px;
+        height: 44px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, var(--ocean-blue), var(--electric-blue));
+        color: white;
+        margin-right: 0.5rem;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 10px rgba(67, 97, 238, 0.2);
+        z-index: 1001;
+        text-decoration: none;
+    }
+    
+    .mobile-login-btn i {
+        font-size: 1.2rem;
+    }
+    
+    .mobile-login-btn:hover {
+        transform: scale(1.05);
     }
 
     /* Responsive Styles */
@@ -338,24 +411,41 @@ $current_page = basename($_SERVER['PHP_SELF']);
             justify-content: space-between;
         }
         
-        .navbar-nav {
-            flex-direction: row;
-        }
-        
-        .mobile-menu-header,
-        .mobile-menu-footer {
-            display: none;
+        .mobile-user-btn,
+        .mobile-login-btn,
+        .navbar-toggler {
+            display: none !important;
         }
     }
 
     @media (max-width: 991.98px) {
+        body {
+            padding-top: 80px;
+        }
+
         .navbar-container {
-            padding: 0 1rem;
+            padding: 0 1.5rem;
         }
         
         .navbar-brand img {
-            height: 45px;
+            height: 50px;
         }
+        
+        .navbar-center,
+        .navbar-right {
+            display: none !important;
+        }
+        
+        /* Show mobile buttons */
+        <?php if (isset($_SESSION['user_id'])): ?>
+        .mobile-user-btn {
+            display: flex !important;
+        }
+        <?php else: ?>
+        .mobile-login-btn {
+            display: flex !important;
+        }
+        <?php endif; ?>
         
         .navbar-toggler {
             display: flex;
@@ -365,14 +455,14 @@ $current_page = basename($_SERVER['PHP_SELF']);
             position: fixed;
             top: 0;
             right: 0;
-            width: 280px;
+            width: 320px;
             height: 100vh;
             background: white;
-            padding: 1.5rem;
+            padding: 2rem;
             z-index: 1000;
             transform: translateX(100%);
-            transition: transform 0.4s ease;
-            box-shadow: -5px 0 30px rgba(0, 0, 0, 0.1);
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: -10px 0 40px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             overflow-y: auto;
@@ -385,8 +475,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
         .navbar-nav {
             flex-direction: column;
             width: 100%;
-            margin: 1.5rem 0;
-            gap: 0.3rem;
+            margin: 2rem 0;
+            gap: 0.5rem;
         }
         
         .nav-item {
@@ -394,95 +484,89 @@ $current_page = basename($_SERVER['PHP_SELF']);
         }
         
         .nav-link {
-            padding: 0.8rem 1rem !important;
-            width: 100%;
-            border-radius: 8px;
+            padding: 1rem 1.5rem !important;
+            border-radius: 12px;
         }
         
         .nav-link:hover {
-            background: var(--primary-light);
+            background: var(--soft-gray);
         }
         
-        .nav-link:before {
+        .nav-link::before {
             display: none;
         }
         
-        .nav-link.active {
-            background: var(--primary-light);
-        }
-        
-        .dropdown-menu {
-            position: static !important;
-            float: none;
-            width: 100%;
-            box-shadow: none;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            margin-left: 1rem !important;
-            margin-top: 0.5rem !important;
-            margin-bottom: 0.5rem !important;
-            transform: none !important;
-        }
-        
-        .auth-buttons {
+        .mobile-auth-buttons {
+            display: flex;
             flex-direction: column;
             width: 100%;
-            gap: 0.75rem;
+            gap: 1rem;
             margin-top: auto;
         }
         
-        .btn-login, 
-        .btn-agent,
-        .btn-book {
+        .btn {
             width: 100%;
             justify-content: center;
+            padding: 1rem !important;
+            border-radius: 12px !important;
         }
         
         .mobile-menu-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--soft-gray);
             margin-bottom: 1rem;
         }
         
         .mobile-menu-title {
-            font-weight: 600;
-            color: var(--dark);
-            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--dark-space);
+            font-size: 1.3rem;
+            background: linear-gradient(90deg, var(--ocean-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
         
         .mobile-menu-footer {
             display: flex;
             flex-direction: column;
-            gap: 0.75rem;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
+            gap: 1rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--soft-gray);
         }
         
         .mobile-menu-contact {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: var(--dark);
+            gap: 1rem;
+            color: var(--dark-space);
             text-decoration: none;
-            padding: 0.5rem 0;
-            font-size: 0.9rem;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        
+        .mobile-menu-contact:hover {
+            background: var(--soft-gray);
+            color: var(--ocean-blue);
         }
         
         .mobile-menu-social {
             display: flex;
-            gap: 0.75rem;
-            margin-top: 0.5rem;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
         }
         
         .social-icon {
-            width: 36px;
-            height: 36px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
-            background: var(--primary-light);
-            color: var(--primary);
+            background: var(--soft-gray);
+            color: var(--ocean-blue);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -491,7 +575,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         }
         
         .social-icon:hover {
-            background: var(--primary);
+            background: var(--ocean-blue);
             color: white;
             transform: translateY(-3px);
         }
@@ -499,40 +583,31 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     @media (max-width: 767.98px) {
         .navbar-brand img {
-            height: 40px;
-        }
-        
-        .navbar-collapse {
-            width: 260px;
-        }
-    }
-
-    @media (max-width: 575.98px) {
-        .navbar-container {
-            padding: 0 0.75rem;
-        }
-        
-        .navbar-brand img {
-            height: 38px;
+            height: 46px;
         }
         
         .navbar-collapse {
             width: 100%;
         }
     }
+
+    /* Add body padding to prevent content hiding under fixed navbar */
+    body {
+        padding-top: 80px;
+    }
 </style>
 
 <!-- Mobile Menu Overlay -->
 <div class="mobile-menu-overlay"></div>
 
-<nav class="navbar navbar-expand-lg navbar-light sticky-top">
+<nav class="navbar navbar-expand-lg navbar-light">
     <div class="navbar-container">
-        <!-- लोगो शुरू में -->
+        <!-- Logo on left - larger on mobile -->
         <a class="navbar-brand" href="/">
             <img src="/assets/logo.svg" alt="IT Sahayta Logo" class="img-fluid">
         </a>
         
-        <!-- नेविगेशन सेंटर में -->
+        <!-- Navigation in center (Desktop only) -->
         <div class="navbar-center d-none d-lg-flex">
             <ul class="navbar-nav">
                 <li class="nav-item">
@@ -573,66 +648,74 @@ $current_page = basename($_SERVER['PHP_SELF']);
             </ul>
         </div>
         
-        <!-- बटन्स एंड में -->
-        <div class="auth-buttons d-none d-lg-flex">
+        <!-- Right side buttons (Desktop only) -->
+        <div class="navbar-right d-none d-lg-flex">
             <?php if (isset($_SESSION['user_id'])): ?>
-                <div class="dropdown">
-                    <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
+                <div class="user-dropdown">
+                    <button class="user-btn" id="userDropdownBtn">
                         <div class="user-avatar">
                             <?php echo strtoupper(substr($user_name, 0, 1)); ?>
                         </div>
-                        <span class="d-none d-lg-inline"><?php echo $user_name; ?></span>
-                    </a>
-                    <ul class="dropdown-menu dropdown-menu-end">
+                        <span><?php echo explode(' ', $user_name)[0]; ?></span>
+                        <i class="fas fa-chevron-down ml-1"></i>
+                    </button>
+                    <div class="dropdown-menu" id="userDropdownMenu">
                         <?php if ($_SESSION['role'] === 'user'): ?>
-                            <li><h6 class="dropdown-header">User Menu</h6></li>
-                            <li><a class="dropdown-item" href="/views/user_dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                            <li><a class="dropdown-item" href="/views/report_issue.php"><i class="fas fa-plus-circle me-2"></i>Report Issue</a></li>
-                            <li><a class="dropdown-item" href="/views/book_slot.php"><i class="fas fa-calendar-check me-2"></i>Book Slot</a></li>
-                            <li><a class="dropdown-item" href="/views/reported_issues.php"><i class="fas fa-tasks me-2"></i>Your Issues</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                            <a class="dropdown-item" href="/views/user_dashboard.php"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                            <a class="dropdown-item" href="/views/report_issue.php"><i class="fas fa-plus-circle"></i>Report Issue</a>
+                            <a class="dropdown-item" href="/views/book_slot.php"><i class="fas fa-calendar-check"></i>Book Slot</a>
+                            <a class="dropdown-item" href="/views/reported_issues.php"><i class="fas fa-tasks"></i>Your Issues</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
                         <?php elseif ($_SESSION['role'] === 'agent'): ?>
-                            <li><h6 class="dropdown-header">Agent Menu</h6></li>
-                            <li><a class="dropdown-item" href="/views/agent_dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                            <li><a class="dropdown-item" href="/views/agent_dashboard.php#issues"><i class="fas fa-clipboard-list me-2"></i>Assigned Issues</a></li>
-                            <li><a class="dropdown-item" href="/views/agent_dashboard.php#bookings"><i class="fas fa-calendar-day me-2"></i>Booked Slots</a></li>
-                            <li><a class="dropdown-item" href="/views/agent_dashboard.php#history"><i class="fas fa-history me-2"></i>History</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                            <a class="dropdown-item" href="/views/agent_dashboard.php"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                            <a class="dropdown-item" href="/views/agent_dashboard.php#issues"><i class="fas fa-clipboard-list"></i>Assigned Issues</a>
+                            <a class="dropdown-item" href="/views/agent_dashboard.php#bookings"><i class="fas fa-calendar-day"></i>Booked Slots</a>
+                            <a class="dropdown-item" href="/views/agent_dashboard.php#history"><i class="fas fa-history"></i>History</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
                         <?php elseif ($_SESSION['role'] === 'admin'): ?>
-                            <li><h6 class="dropdown-header">Admin Menu</h6></li>
-                            <li><a class="dropdown-item" href="/admin/dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                            <li><a class="dropdown-item" href="/admin/dashboard.php#agents"><i class="fas fa-users-cog me-2"></i>Manage Agents</a></li>
-                            <li><a class="dropdown-item" href="/admin/admin_bookings.php"><i class="fas fa-calendar-alt me-2"></i>Manage Bookings</a></li>
-                            <li><hr class="dropdown-divider"></li>
-                            <li><a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
+                            <a class="dropdown-item" href="/admin/dashboard.php"><i class="fas fa-tachometer-alt"></i>Dashboard</a>
+                            <a class="dropdown-item" href="/admin/dashboard.php#agents"><i class="fas fa-users-cog"></i>Manage Agents</a>
+                            <a class="dropdown-item" href="/admin/admin_bookings.php"><i class="fas fa-calendar-alt"></i>Manage Bookings</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt"></i>Logout</a>
                         <?php endif; ?>
-                    </ul>
+                    </div>
                 </div>
             <?php else: ?>
                 <a href="/views/login.php" class="btn btn-login">
-                    <i class="fas fa-user"></i> User Login
+                    <i class="fas fa-user"></i> Login
                 </a>
                 <a href="/views/agent_login.php" class="btn btn-agent">
-                    <i class="fas fa-headset"></i> Agent Login
-                </a>
-                <a href="/views/book_slot.php" class="btn btn-book">
-                    <i class="fas fa-calendar-check"></i> Book Slot
+                    <i class="fas fa-headset"></i> Agent
                 </a>
             <?php endif; ?>
         </div>
         
-        <!-- मोबाइल टॉगल बटन -->
-        <button class="navbar-toggler" type="button" aria-label="Toggle navigation">
+        <!-- Mobile User Button or Login Button -->
+        <?php if (isset($_SESSION['user_id'])): ?>
+            <button class="mobile-user-btn" id="mobileUserBtn">
+                <div class="mobile-user-avatar">
+                    <?php echo strtoupper(substr($user_name, 0, 1)); ?>
+                </div>
+            </button>
+        <?php else: ?>
+            <a href="/views/login.php" class="mobile-login-btn">
+                <i class="fas fa-user"></i>
+            </a>
+        <?php endif; ?>
+        
+        <!-- Mobile Toggle Button -->
+        <button class="navbar-toggler" type="button" id="navbarToggler">
             <i class="fas fa-bars"></i>
         </button>
         
-        <!-- मोबाइल मेन्यू -->
+        <!-- Mobile Menu -->
         <div class="navbar-collapse" id="navbarContent">
             <div class="mobile-menu-header d-lg-none">
                 <div class="mobile-menu-title">IT Sahayta</div>
-                <button class="mobile-close-btn">
+                <button class="mobile-close-btn" id="mobileCloseBtn">
                     <i class="fas fa-times"></i>
                 </button>
             </div>
@@ -675,51 +758,35 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </li>
             </ul>
             
-            <div class="auth-buttons d-lg-none">
+            <div class="mobile-auth-buttons d-lg-none">
                 <?php if (isset($_SESSION['user_id'])): ?>
-                    <div class="dropdown">
-                        <a class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
-                            <div class="user-avatar">
-                                <?php echo strtoupper(substr($user_name, 0, 1)); ?>
-                            </div>
-                            <span><?php echo $user_name; ?></span>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <?php if ($_SESSION['role'] === 'user'): ?>
-                                <li><h6 class="dropdown-header">User Menu</h6></li>
-                                <li><a class="dropdown-item" href="/views/user_dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                                <li><a class="dropdown-item" href="/views/report_issue.php"><i class="fas fa-plus-circle me-2"></i>Report Issue</a></li>
-                                <li><a class="dropdown-item" href="/views/book_slot.php"><i class="fas fa-calendar-check me-2"></i>Book Slot</a></li>
-                                <li><a class="dropdown-item" href="/views/reported_issues.php"><i class="fas fa-tasks me-2"></i>Your Issues</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                            <?php elseif ($_SESSION['role'] === 'agent'): ?>
-                                <li><h6 class="dropdown-header">Agent Menu</h6></li>
-                                <li><a class="dropdown-item" href="/views/agent_dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                                <li><a class="dropdown-item" href="/views/agent_dashboard.php#issues"><i class="fas fa-clipboard-list me-2"></i>Assigned Issues</a></li>
-                                <li><a class="dropdown-item" href="/views/agent_dashboard.php#bookings"><i class="fas fa-calendar-day me-2"></i>Booked Slots</a></li>
-                                <li><a class="dropdown-item" href="/views/agent_dashboard.php#history"><i class="fas fa-history me-2"></i>History</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                            <?php elseif ($_SESSION['role'] === 'admin'): ?>
-                                <li><h6 class="dropdown-header">Admin Menu</h6></li>
-                                <li><a class="dropdown-item" href="/admin/dashboard.php"><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a></li>
-                                <li><a class="dropdown-item" href="/admin/dashboard.php#agents"><i class="fas fa-users-cog me-2"></i>Manage Agents</a></li>
-                                <li><a class="dropdown-item" href="/admin/admin_bookings.php"><i class="fas fa-calendar-alt me-2"></i>Manage Bookings</a></li>
-                                <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="/views/logout.php"><i class="fas fa-sign-out-alt me-2"></i>Logout</a></li>
-                            <?php endif; ?>
-                        </ul>
+                    <div class="w-100">
+                        <button class="btn btn-login w-100 mb-2" id="mobileDropdownToggle">
+                            <i class="fas fa-user-circle me-2"></i> My Account
+                            <i class="fas fa-chevron-down ms-2"></i>
+                        </button>
+                        <div class="mobile-dropdown-menu" id="mobileDropdownMenu">
+                            <a href="/views/user_dashboard.php" class="dropdown-item">
+                                <i class="fas fa-tachometer-alt me-2"></i> Dashboard
+                            </a>
+                            <a href="/views/report_issue.php" class="dropdown-item">
+                                <i class="fas fa-plus-circle me-2"></i> Report Issue
+                            </a>
+                            <a href="/views/book_slot.php" class="dropdown-item">
+                                <i class="fas fa-calendar-check me-2"></i> Book Slot
+                            </a>
+                            <a href="/views/reported_issues.php" class="dropdown-item">
+                                <i class="fas fa-tasks me-2"></i> Your Issues
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a href="/views/logout.php" class="dropdown-item">
+                                <i class="fas fa-sign-out-alt me-2"></i> Logout
+                            </a>
+                        </div>
                     </div>
                 <?php else: ?>
-                    <a href="/views/login.php" class="btn btn-login">
-                        <i class="fas fa-user"></i> User Login
-                    </a>
                     <a href="/views/agent_login.php" class="btn btn-agent">
                         <i class="fas fa-headset"></i> Agent Login
-                    </a>
-                    <a href="/views/book_slot.php" class="btn btn-book">
-                        <i class="fas fa-calendar-check"></i> Book Slot
                     </a>
                 <?php endif; ?>
             </div>
@@ -742,14 +809,24 @@ $current_page = basename($_SERVER['PHP_SELF']);
     </div>
 </nav>
 
-<!-- JavaScript for Mobile Menu and Scroll Effects -->
+<!-- JavaScript for Dropdown and Mobile Menu -->
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        const navbarToggler = document.querySelector('.navbar-toggler');
-        const navbarCollapse = document.querySelector('.navbar-collapse');
-        const mobileCloseBtn = document.querySelector('.mobile-close-btn');
+        // Mobile menu elements
+        const navbarToggler = document.getElementById('navbarToggler');
+        const navbarCollapse = document.getElementById('navbarContent');
+        const mobileCloseBtn = document.getElementById('mobileCloseBtn');
         const mobileMenuOverlay = document.querySelector('.mobile-menu-overlay');
         const navbar = document.querySelector('.navbar');
+        const mobileUserBtn = document.getElementById('mobileUserBtn');
+        
+        // User dropdown elements
+        const userDropdownBtn = document.getElementById('userDropdownBtn');
+        const userDropdownMenu = document.getElementById('userDropdownMenu');
+        
+        // Mobile dropdown elements
+        const mobileDropdownToggle = document.getElementById('mobileDropdownToggle');
+        const mobileDropdownMenu = document.getElementById('mobileDropdownMenu');
         
         // Toggle mobile menu
         navbarToggler.addEventListener('click', function() {
@@ -768,6 +845,39 @@ $current_page = basename($_SERVER['PHP_SELF']);
         mobileCloseBtn.addEventListener('click', closeMenu);
         mobileMenuOverlay.addEventListener('click', closeMenu);
         
+        // Mobile user button click - show mobile menu
+        if(mobileUserBtn) {
+            mobileUserBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                navbarCollapse.classList.add('show');
+                mobileMenuOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            });
+        }
+        
+        // User dropdown toggle (desktop)
+        if(userDropdownBtn && userDropdownMenu) {
+            userDropdownBtn.addEventListener('click', function(e) {
+                e.preventDefault();
+                userDropdownMenu.classList.toggle('show');
+            });
+            
+            // Close dropdown when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!userDropdownBtn.contains(e.target) && !userDropdownMenu.contains(e.target)) {
+                    userDropdownMenu.classList.remove('show');
+                }
+            });
+        }
+        
+        // Mobile dropdown toggle
+        if(mobileDropdownToggle && mobileDropdownMenu) {
+            mobileDropdownToggle.addEventListener('click', function(e) {
+                e.preventDefault();
+                mobileDropdownMenu.classList.toggle('show');
+            });
+        }
+        
         // Close menu when clicking on nav links
         document.querySelectorAll('.nav-link').forEach(link => {
             link.addEventListener('click', function() {
@@ -784,22 +894,6 @@ $current_page = basename($_SERVER['PHP_SELF']);
             } else {
                 navbar.classList.remove('scrolled');
             }
-        });
-        
-        // Handle dropdown menus on mobile
-        const dropdownToggles = document.querySelectorAll('.dropdown-toggle');
-        dropdownToggles.forEach(toggle => {
-            toggle.addEventListener('click', function(e) {
-                if (window.innerWidth < 992) {
-                    e.preventDefault();
-                    const dropdownMenu = this.nextElementSibling;
-                    if (dropdownMenu.classList.contains('show')) {
-                        dropdownMenu.classList.remove('show');
-                    } else {
-                        dropdownMenu.classList.add('show');
-                    }
-                }
-            });
         });
     });
 </script>

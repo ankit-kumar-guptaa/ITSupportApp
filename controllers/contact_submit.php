@@ -19,7 +19,7 @@ $smtpHost = 'smtp.hostinger.com';
 $smtpUsername = 'no-reply@itsahayata.com';
 $smtpPassword = 'Support@1925';
 $smtpPort = 587; // Use 465 for SSL or 587 for TLS
-$adminEmail = 'admin@itsahayata.com';
+$adminEmail = 'theankitkumarg@gmail.com';
 
 // Connect to the database
 try {

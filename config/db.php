@@ -1,8 +1,12 @@
 <?php
-$host = 'localhost';
-$dbname = 'itsupport_db';
-$username = 'root';
-$password = '';
+$host = '82.197.82.121';
+$dbname = 'u634223065_itsahayata_db';
+$username = 'u634223065_itsahayata_db';
+$password = 'Ankit@1925@';
+// $host = 'localhost';
+// $dbname = 'itsupport_db';
+// $username = 'root';
+// $password = '';
 
 
 // $host = 'localhost';

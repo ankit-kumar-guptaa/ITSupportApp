@@ -283,7 +283,7 @@
             <div class="row align-items-center">
                 <div class="col-lg-6 mb-5 mb-lg-0">
                     <div class="position-relative">
-                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80" 
+                        <img src="../assets/about1.jpg" 
                              alt="IT Sahayata Team" 
                              class="img-fluid rounded-4 shadow floating">
                         <div class="position-absolute bottom-0 start-0 bg-white p-3 rounded-3 shadow m-4">
@@ -401,10 +401,10 @@
                     <div class="g20-gallery">
                         <!-- Replace these with your actual G20 images -->
                         <div class="g20-img">
-                            <img src="https://media.licdn.com/dms/image/v2/D4D22AQEO4q6WP-HI0Q/feedshare-shrink_800/feedshare-shrink_800/0/1694801332644?e=1749081600&v=beta&t=17MjazCta4ufllvbFbooDeiwOjrjpMQ2j9tp6IVz--Y" alt="IT Sahayata at G20">
+                            <img src="../assets/g20-1.jpg" alt="IT Sahayata at G20">
                         </div>
                         <div class="g20-img">
-                            <img src="https://media.licdn.com/dms/image/v2/D4D22AQF1PuR-bsOptw/feedshare-shrink_2048_1536/feedshare-shrink_2048_1536/0/1694801837838?e=1749081600&v=beta&t=h4xRG3MKCaRVXJWQ2BjrwoDL1OuIqouQ-RpK2US-W0U" alt="Our Team at G20">
+                            <img src="../assets/g20-2.jpg" alt="Our Team at G20">
                         </div>
                     </div>
                 </div>
