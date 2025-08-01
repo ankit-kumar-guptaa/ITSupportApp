@@ -1071,6 +1071,7 @@ session_start();
 <div class="bg-particles" id="bgParticles"></div>
 
 <?php include 'header.php'; ?>
+   <?php include 'loader.php'; ?>
 
 <!-- Enhanced AI Hero Section -->
 <section class="ai-hero-section">

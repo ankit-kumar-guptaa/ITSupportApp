@@ -11,7 +11,7 @@
 <body>
 
 <?php include 'header.php'; ?>
-
+   <?php include 'loader.php'; ?>
 <!-- Modern Contact Section -->
 <section class="modern-contact-section">
     <div class="contact-container">

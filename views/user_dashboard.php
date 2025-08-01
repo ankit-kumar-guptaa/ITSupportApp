@@ -42,1881 +42,2058 @@ $reported_issues = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta name="description" content="Access your user dashboard at IT Sahayta to manage your profile, report issues, and track your IT support requests.">
     <?php include "assets.php"?>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-</head>
-<body>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 
-<?php include 'header.php'; ?>
-<main>
-    <section class="dashboard-section">
-        <div class="dashboard-container">
-            <div class="dashboard-header">
-                <div class="user-welcome">
-                    <div class="user-avatar">
-                        <i class="fas fa-user-circle"></i>
-                    </div>
-                    <div class="welcome-text">
-                        <h2>Welcome, <?php echo htmlspecialchars($userData['name']); ?>!</h2>
-                        <p class="user-role"><i class="fas fa-shield-alt"></i> User Account</p>
-                    </div>
-                </div>
-                
-                <div class="dashboard-actions">
-                    <a href="/views/report_issue.php" class="action-button report-btn">
-                        <i class="fas fa-plus-circle"></i> Report New Issue
-                    </a>
-                </div>
-            </div>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-            <?php if (isset($_GET['success']) || isset($_GET['error'])): ?>
-                <div class="notification-container">
-                    <?php if (isset($_GET['success'])): ?>
-                        <div class="notification success">
-                            <i class="fas fa-check-circle"></i>
-                            <p><?php echo htmlspecialchars($_GET['success']); ?></p>
-                            <button class="close-notification"><i class="fas fa-times"></i></button>
-                        </div>
-                    <?php endif; ?>
-                    
-                    <?php if (isset($_GET['error'])): ?>
-                        <div class="notification error">
-                            <i class="fas fa-exclamation-circle"></i>
-                            <p><?php echo htmlspecialchars($_GET['error']); ?></p>
-                            <button class="close-notification"><i class="fas fa-times"></i></button>
-                        </div>
-                    <?php endif; ?>
-                </div>
-            <?php endif; ?>
+        :root {
+            --primary: #3b82f6;
+            --primary-dark: #2563eb;
+            --primary-light: #60a5fa;
+            --secondary: #10b981;
+            --secondary-light: #34d399;
+            --accent: #8b5cf6;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --success: #10b981;
+            --info: #06b6d4;
             
-            <div class="dashboard-stats">
-                <div class="stat-card">
-                    <div class="stat-icon">
-                        <i class="fas fa-ticket-alt"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3><?php echo $total_issues; ?></h3>
-                        <p>Total Issues</p>
-                    </div>
-                </div>
-                
-                <?php
-                // Count issues by status
-                $pending = 0;
-                $inProgress = 0;
-                $resolved = 0;
-                
-                foreach ($reported_issues as $issue) {
-                    if ($issue['status'] == 'Pending') $pending++;
-                    if ($issue['status'] == 'In Progress') $inProgress++;
-                    if ($issue['status'] == 'Resolved') $resolved++;
-                }
-                ?>
-                
-                <div class="stat-card">
-                    <div class="stat-icon pending">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3><?php echo $pending; ?></h3>
-                        <p>Pending</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon progress">
-                        <i class="fas fa-spinner"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3><?php echo $inProgress; ?></h3>
-                        <p>In Progress</p>
-                    </div>
-                </div>
-                
-                <div class="stat-card">
-                    <div class="stat-icon resolved">
-                        <i class="fas fa-check-circle"></i>
-                    </div>
-                    <div class="stat-info">
-                        <h3><?php echo $resolved; ?></h3>
-                        <p>Resolved</p>
-                    </div>
-                </div>
-            </div>
-
-            <div class="dashboard-content">
-                <!-- Tabs Navigation -->
-                <div class="tabs-container">
-                    <div class="tabs-nav">
-                        <button class="tab-btn active" data-tab="details">
-                            <i class="fas fa-user"></i> Your Details
-                        </button>
-                        <button class="tab-btn" data-tab="update">
-                            <i class="fas fa-edit"></i> Update Profile
-                        </button>
-                        <button class="tab-btn" data-tab="issues">
-                            <i class="fas fa-ticket-alt"></i> Reported Issues
-                        </button>
-                        <button class="tab-btn" data-tab="settings">
-                            <i class="fas fa-cog"></i> Settings
-                        </button>
-                    </div>
-
-                    <!-- Tab Content: Your Details -->
-                    <div id="details" class="tab-content active">
-                        <div class="content-card">
-                            <div class="card-header">
-                                <h3><i class="fas fa-id-card"></i> Your Details</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="user-details">
-                                    <div class="detail-item">
-                                        <div class="detail-icon">
-                                            <i class="fas fa-user"></i>
-                                        </div>
-                                        <div class="detail-info">
-                                            <h4>Name</h4>
-                                            <p><?php echo htmlspecialchars($userData['name']); ?></p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="detail-item">
-                                        <div class="detail-icon">
-                                            <i class="fas fa-envelope"></i>
-                                        </div>
-                                        <div class="detail-info">
-                                            <h4>Email</h4>
-                                            <p><?php echo htmlspecialchars($userData['email'] ?? 'Not provided'); ?></p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="detail-item">
-                                        <div class="detail-icon">
-                                            <i class="fas fa-phone"></i>
-                                        </div>
-                                        <div class="detail-info">
-                                            <h4>Phone Number</h4>
-                                            <p><?php echo htmlspecialchars($userData['phone_number'] ?? 'Not provided'); ?></p>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="detail-item">
-                                        <div class="detail-icon">
-                                            <i class="fas fa-map-marker-alt"></i>
-                                        </div>
-                                        <div class="detail-info">
-                                            <h4>Address</h4>
-                                            <p><?php echo htmlspecialchars($userData['address'] ?? 'Not provided'); ?></p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab Content: Update Profile -->
-                    <div id="update" class="tab-content">
-                        <div class="content-card">
-                            <div class="card-header">
-                                <h3><i class="fas fa-envelope"></i> Update Email</h3>
-                            </div>
-                            <div class="card-body">
-                                <form action="/controllers/UserController.php?action=update_email_request" method="POST" class="form-modern">
-                                    <div class="form-group">
-                                        <label for="email">New Email</label>
-                                        <div class="input-with-icon">
-                                            <i class="fas fa-envelope"></i>
-                                            <input type="email" id="email" name="email" required placeholder="Enter new email" value="<?php echo htmlspecialchars($userData['email'] ?? ''); ?>">
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="form-button">
-                                        <i class="fas fa-paper-plane"></i> Send OTP
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        
-                        <div class="content-card">
-                            <div class="card-header">
-                                <h3><i class="fas fa-phone"></i> Update Phone Number</h3>
-                            </div>
-                            <div class="card-body">
-                                <form action="/controllers/UserController.php?action=update_phone" method="POST" class="form-modern">
-                                    <div class="form-group">
-                                        <label for="phone_number">New Phone Number</label>
-                                        <div class="input-with-icon">
-                                            <i class="fas fa-phone"></i>
-                                            <input type="text" id="phone_number" name="phone_number" required pattern="[0-9]{10}" placeholder="Enter 10-digit phone number" value="<?php echo htmlspecialchars($userData['phone_number'] ?? ''); ?>">
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="form-button">
-                                        <i class="fas fa-save"></i> Update
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        
-                        <div class="content-card">
-                            <div class="card-header">
-                                <h3><i class="fas fa-map-marker-alt"></i> Update Address</h3>
-                            </div>
-                            <div class="card-body">
-                                <form action="/controllers/UserController.php?action=update_address" method="POST" class="form-modern">
-                                    <div class="form-group">
-                                        <label for="address">New Address</label>
-                                        <div class="input-with-icon textarea">
-                                            <i class="fas fa-home"></i>
-                                            <textarea id="address" name="address" required placeholder="Enter new address"><?php echo htmlspecialchars($userData['address'] ?? ''); ?></textarea>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="form-button">
-                                        <i class="fas fa-save"></i> Update
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab Content: Reported Issues -->
-                    <div id="issues" class="tab-content">
-                        <div class="content-card">
-                            <div class="card-header">
-                                <h3><i class="fas fa-ticket-alt"></i> Your Reported Issues</h3>
-                            </div>
-                            <div class="card-body">
-                                <?php if (empty($reported_issues)): ?>
-                                    <div class="empty-state">
-                                        <i class="fas fa-ticket-alt fa-4x"></i>
-                                        <p>You haven't reported any issues yet.</p>
-                                        <a href="/views/report_issue.php" class="form-button">
-                                            <i class="fas fa-plus-circle"></i> Report Your First Issue
-                                        </a>
-                                    </div>
-                                <?php else: ?>
-                                    <div class="issues-container">
-                                        <?php foreach ($reported_issues as $issue): ?>
-                                            <div class="issue-card">
-                                                <div class="issue-header">
-                                                    <div class="issue-id">#<?php echo $issue['id']; ?></div>
-                                                    <?php 
-                                                        $status_class = '';
-                                                        $status_icon = '';
-                                                        switch($issue['status']) {
-                                                            case 'Pending':
-                                                                $status_class = 'status-pending';
-                                                                $status_icon = 'clock';
-                                                                break;
-                                                            case 'In Progress':
-                                                                $status_class = 'status-progress';
-                                                                $status_icon = 'spinner';
-                                                                break;
-                                                            case 'Resolved':
-                                                                $status_class = 'status-resolved';
-                                                                $status_icon = 'check-circle';
-                                                                break;
-                                                            default:
-                                                                $status_class = 'status-default';
-                                                                $status_icon = 'info-circle';
-                                                        }
-                                                    ?>
-                                                    <div class="status-badge <?php echo $status_class; ?>">
-                                                        <i class="fas fa-<?php echo $status_icon; ?>"></i> <?php echo htmlspecialchars($issue['status']); ?>
-                                                    </div>
-                                                </div>
-                                                <div class="issue-body">
-                                                    <div class="issue-category">
-                                                        <i class="fas fa-tag"></i> <?php echo htmlspecialchars($issue['category']); ?>
-                                                    </div>
-                                                    <div class="issue-description">
-                                                        <?php echo htmlspecialchars($issue['description']); ?>
-                                                    </div>
-                                                    
-                                                    <?php if (!empty($issue['image_path'])): ?>
-                                                        <div class="issue-attachment">
-                                                            <a href="<?php echo $issue['image_path']; ?>" target="_blank" class="image-preview">
-                                                                <img src="<?php echo $issue['image_path']; ?>" alt="Issue Image">
-                                                                <div class="preview-overlay">
-                                                                    <i class="fas fa-search-plus"></i>
-                                                                </div>
-                                                            </a>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                    
-                                                    <?php if (!empty($issue['attached_file'])): ?>
-                                                        <div class="issue-attachment">
-                                                            <a href="<?php echo $issue['attached_file']; ?>" target="_blank" class="file-link">
-                                                                <i class="fas fa-file-pdf"></i> View Attached File
-                                                            </a>
-                                                        </div>
-                                                    <?php endif; ?>
-                                                </div>
-                                                <div class="issue-footer">
-                                                    <div class="issue-date">
-                                                        <i class="fas fa-calendar-alt"></i> <?php echo date('Y-m-d H:i', strtotime($issue['created_at'])); ?>
-                                                    </div>
-                                                    <div class="issue-agent">
-                                                        <i class="fas fa-user-tie"></i> 
-                                                        <?php if ($issue['agent_id']): ?>
-                                                            <span class="agent-name"><?php echo htmlspecialchars($issue['agent_name']); ?></span>
-                                                            <span class="agent-phone"><?php echo htmlspecialchars($issue['agent_phone']); ?></span>
-                                                        <?php else: ?>
-                                                            <span class="no-agent">Not assigned yet</span>
-                                                        <?php endif; ?>
-                                                    </div>
-                                                </div>
-                                                
-                                                <?php if ($issue['status'] == 'Resolved'): ?>
-    <div class="feedback-section">
-        <?php
-        // Check if feedback already submitted
-        $stmt = $pdo->prepare("SELECT * FROM feedback WHERE issue_id = ? AND user_id = ?");
-        $stmt->execute([$issue['id'], $_SESSION['user_id']]);
-        $feedback = $stmt->fetch(PDO::FETCH_ASSOC);
-        ?>
-        
-        <?php if ($feedback): ?>
-            <div class="feedback-header">
-                <span><i class="fas fa-star"></i> Your Feedback</span>
-                <span><?php echo date('d M Y', strtotime($feedback['created_at'])); ?></span>
-            </div>
-            <div class="feedback-submitted">
-                <div class="feedback-rating">
-                    <?php for($i = 1; $i <= 5; $i++): ?>
-                        <?php if($i <= $feedback['rating']): ?>
-                            <i class="fas fa-star"></i>
-                        <?php else: ?>
-                            <i class="far fa-star"></i>
-                        <?php endif; ?>
-                    <?php endfor; ?>
-                </div>
-                
-                <div class="feedback-comments">
-                    <?php echo htmlspecialchars($feedback['comments']); ?>
-                </div>
-                
-                <div class="feedback-thanks">
-                    <i class="fas fa-check-circle"></i> Thank you! Your feedback is important to us
-                </div>
-            </div>
-        <?php else: ?>
-            <div class="feedback-header">
-                <span><i class="fas fa-star"></i> Please Share Your Feedback</span>
-            </div>
-            <form action="/controllers/UserController.php?action=submit_feedback" method="POST" class="feedback-form">
-                <input type="hidden" name="issue_id" value="<?php echo $issue['id']; ?>">
-                
-                <div class="rating-stars">
-                    <input type="radio" id="star5_<?php echo $issue['id']; ?>" name="rating" value="5" required />
-                    <label for="star5_<?php echo $issue['id']; ?>"></label>
-                    <input type="radio" id="star4_<?php echo $issue['id']; ?>" name="rating" value="4" />
-                    <label for="star4_<?php echo $issue['id']; ?>"></label>
-                    <input type="radio" id="star3_<?php echo $issue['id']; ?>" name="rating" value="3" />
-                    <label for="star3_<?php echo $issue['id']; ?>"></label>
-                    <input type="radio" id="star2_<?php echo $issue['id']; ?>" name="rating" value="2" />
-                    <label for="star2_<?php echo $issue['id']; ?>"></label>
-                    <input type="radio" id="star1_<?php echo $issue['id']; ?>" name="rating" value="1" />
-                    <label for="star1_<?php echo $issue['id']; ?>"></label>
-                </div>
-                
-                <div class="feedback-textarea">
-                    <textarea name="comments" placeholder="Tell us about your experience..." required></textarea>
-                    <div class="emoji-picker">
-                        <span class="emoji" onclick="addEmoji('😊')">😊</span>
-                        <span class="emoji" onclick="addEmoji('👍')">👍</span>
-                        <span class="emoji" onclick="addEmoji('🙏')">🙏</span>
-                    </div>
-                </div>
-                
-                <div class="feedback-submit">
-                    <button type="submit" class="feedback-btn">
-                        <i class="fas fa-paper-plane"></i> Submit Feedback
-                    </button>
-                </div>
-            </form>
-        <?php endif; ?>
-    </div>
-<?php endif; ?>
-                                            </div>
-                                        <?php endforeach; ?>
-                                    </div>
-                                <?php endif; ?>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tab Content: Settings -->
-                    <div id="settings" class="tab-content">
-                        <div class="content-card">
-                            <div class="card-header">
-                                <h3><i class="fas fa-lock"></i> Change Password</h3>
-                            </div>
-                            <div class="card-body">
-                                <form action="/controllers/UserController.php?action=change_password" method="POST" class="form-modern">
-                                    <div class="form-group">
-                                        <label for="current_password">Current Password</label>
-                                        <div class="input-with-icon">
-                                            <i class="fas fa-lock"></i>
-                                            <input type="password" id="current_password" name="current_password" required placeholder="Enter current password">
-                                            <button type="button" class="toggle-password">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="new_password">New Password</label>
-                                        <div class="input-with-icon">
-                                            <i class="fas fa-key"></i>
-                                            <input type="password" id="new_password" name="new_password" required placeholder="Enter new password">
-                                            <button type="button" class="toggle-password">
-                                                <i class="fas fa-eye"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                    <button type="submit" class="form-button">
-                                        <i class="fas fa-save"></i> Change Password
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                        
-                        <div class="content-card danger-zone">
-                            <div class="card-header">
-                                <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
-                            </div>
-                            <div class="card-body">
-                                <div class="warning-message">
-                                    <i class="fas fa-exclamation-circle"></i>
-                                    <p>Warning: This action cannot be undone. All your data, including reported issues, will be permanently deleted.</p>
-                                </div>
-                                <form action="/controllers/UserController.php?action=delete_account" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
-                                    <button type="submit" class="form-button danger">
-                                        <i class="fas fa-trash-alt"></i> Delete Account
-                                    </button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-</main>
-
-
-
-<style>
-    /* Main Dashboard Styles */
-    .dashboard-section {
-        padding: 30px 0;
-        background-color: #f0f4f8;
-        min-height: calc(100vh - 80px);
-        font-family: 'Poppins', sans-serif;
-    }
-
-    .dashboard-container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 20px;
-    }
-
-    /* Dashboard Header */
-    .dashboard-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        margin-bottom: 25px;
-        flex-wrap: wrap;
-        gap: 20px;
-        background: #ffffff;
-        padding: 20px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    }
-
-    .user-welcome {
-        display: flex;
-        align-items: center;
-    }
-
-    .user-avatar {
-        width: 70px;
-        height: 70px;
-        background: linear-gradient(135deg, #3498db, #1a5276);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 20px;
-        box-shadow: 0 5px 15px rgba(52, 152, 219, 0.3);
-        border: 3px solid #fff;
-    }
-
-    .user-avatar i {
-        font-size: 32px;
-        color: #fff;
-    }
-
-    .welcome-text h2 {
-        margin: 0 0 5px 0;
-        font-size: 26px;
-        color: #2c3e50;
-        font-weight: 600;
-    }
-
-    .user-role {
-        display: flex;
-        align-items: center;
-        margin: 0;
-        color: #7f8c8d;
-        font-size: 15px;
-    }
-
-    .user-role i {
-        margin-right: 5px;
-        color: #3498db;
-    }
-
-    .dashboard-actions {
-        display: flex;
-        gap: 10px;
-    }
-
-    .action-button {
-        display: inline-flex;
-        align-items: center;
-        padding: 12px 24px;
-        border-radius: 50px;
-        font-weight: 600;
-        text-decoration: none;
-        transition: all 0.3s ease;
-    }
-
-    .report-btn {
-        background: linear-gradient(135deg, #3498db, #2980b9);
-        color: white;
-        box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-    }
-
-    .report-btn:hover {
-        background: linear-gradient(135deg, #2980b9, #1a5276);
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
-    }
-
-    .action-button i {
-        margin-right: 8px;
-    }
-
-    /* Notification Styles */
-    .notification-container {
-        margin-bottom: 20px;
-    }
-
-    .notification {
-        display: flex;
-        align-items: center;
-        padding: 18px;
-        border-radius: 12px;
-        margin-bottom: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-    }
-
-    .notification.success {
-        background-color: #e8f5e9;
-        border-left: 4px solid #2ecc71;
-    }
-
-    .notification.error {
-        background-color: #ffebee;
-        border-left: 4px solid #e74c3c;
-    }
-
-    .notification i {
-        font-size: 22px;
-        margin-right: 15px;
-    }
-
-    .notification.success i {
-        color: #2ecc71;
-    }
-
-    .notification.error i {
-        color: #e74c3c;
-    }
-
-    .notification p {
-        margin: 0;
-        flex-grow: 1;
-        color: #333;
-        font-size: 15px;
-    }
-
-    .close-notification {
-        background: none;
-        border: none;
-        color: #95a5a6;
-        cursor: pointer;
-        font-size: 18px;
-        transition: all 0.3s ease;
-        width: 30px;
-        height: 30px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    .close-notification:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-        color: #2c3e50;
-    }
-
-    /* Stats Cards */
-    .dashboard-stats {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-        gap: 20px;
-        margin-bottom: 30px;
-    }
-
-    .stat-card {
-        background: #ffffff;
-        border-radius: 12px;
-        padding: 25px;
-        display: flex;
-        align-items: center;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        transition: all 0.3s ease;
-        border-bottom: 3px solid transparent;
-    }
-
-    .stat-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 20px;
-        background: linear-gradient(135deg, #3498db, #2980b9);
-        box-shadow: 0 5px 10px rgba(52, 152, 219, 0.2);
-    }
-
-    .stat-icon i {
-        font-size: 26px;
-        color: #fff;
-    }
-
-    .stat-icon.pending {
-        background: linear-gradient(135deg, #f39c12, #d35400);
-        box-shadow: 0 5px 10px rgba(243, 156, 18, 0.2);
-    }
-
-    .stat-icon.progress {
-        background: linear-gradient(135deg, #3498db, #2980b9);
-        box-shadow: 0 5px 10px rgba(52, 152, 219, 0.2);
-    }
-
-    .stat-icon.resolved {
-        background: linear-gradient(135deg, #2ecc71, #27ae60);
-        box-shadow: 0 5px 10px rgba(46, 204, 113, 0.2);
-    }
-
-    .stat-info h3 {
-        margin: 0 0 5px 0;
-        font-size: 28px;
-        font-weight: 700;
-        color: #2c3e50;
-    }
-
-    .stat-info p {
-        margin: 0;
-        color: #7f8c8d;
-        font-size: 15px;
-    }
-
-    .stat-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-    }
-
-    .stat-card:nth-child(1):hover {
-        border-bottom: 3px solid #3498db;
-    }
-
-    .stat-card:nth-child(2):hover {
-        border-bottom: 3px solid #f39c12;
-    }
-
-    .stat-card:nth-child(3):hover {
-        border-bottom: 3px solid #3498db;
-    }
-
-    .stat-card:nth-child(4):hover {
-        border-bottom: 3px solid #2ecc71;
-    }
-
-    /* Dashboard Content Styles */
-    .dashboard-content {
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        margin-top: 20px;
-        overflow: hidden;
-    }
-
-    /* Tabs Navigation */
-    .tabs-container {
-        width: 100%;
-    }
-
-    .tabs-nav {
-        display: flex;
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #e0e0e0;
-        overflow-x: auto;
-        scrollbar-width: thin;
-        border-top-left-radius: 12px;
-        border-top-right-radius: 12px;
-    }
-
-    .tabs-nav::-webkit-scrollbar {
-        height: 5px;
-    }
-
-    .tabs-nav::-webkit-scrollbar-thumb {
-        background-color: #bdc3c7;
-        border-radius: 5px;
-    }
-
-    .tab-btn {
-        padding: 18px 25px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: 500;
-        color: #7f8c8d;
-        transition: all 0.3s ease;
-        white-space: nowrap;
-        display: flex;
-        align-items: center;
-        position: relative;
-    }
-
-    .tab-btn i {
-        margin-right: 10px;
-        font-size: 18px;
-    }
-
-    .tab-btn:hover {
-        color: #3498db;
-        background-color: rgba(52, 152, 219, 0.05);
-    }
-
-    .tab-btn.active {
-        color: #3498db;
-        background-color: #fff;
-        font-weight: 600;
-    }
-
-    .tab-btn.active::after {
-        content: '';
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 3px;
-        background: linear-gradient(90deg, #3498db, #2980b9);
-        border-top-left-radius: 3px;
-        border-top-right-radius: 3px;
-    }
-
-    /* Tab Content */
-    .tab-content {
-        display: none;
-        padding: 25px;
-    }
-
-    .tab-content.active {
-        display: block;
-        animation: fadeIn 0.5s ease;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; transform: translateY(10px); }
-        to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* Content Card */
-    .content-card {
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        margin-bottom: 25px;
-        overflow: hidden;
-        transition: all 0.3s ease;
-    }
-
-    .content-card:hover {
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .card-header {
-        padding: 18px 25px;
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #eee;
-    }
-
-    .card-header h3 {
-        margin: 0;
-        font-size: 18px;
-        color: #2c3e50;
-        display: flex;
-        align-items: center;
-        font-weight: 600;
-    }
-
-    .card-header h3 i {
-        margin-right: 12px;
-        color: #3498db;
-        font-size: 20px;
-    }
-
-    .card-body {
-        padding: 25px;
-    }
-
-    /* User Details */
-    .user-details {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-        gap: 20px;
-    }
-
-    .detail-item {
-        display: flex;
-        align-items: flex-start;
-        padding: 20px;
-        background-color: #f8f9fa;
-        border-radius: 12px;
-        transition: all 0.3s ease;
-        border-left: 3px solid transparent;
-    }
-
-    .detail-item:hover {
-        background-color: #f0f4f8;
-        transform: translateY(-3px);
-        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-        border-left: 3px solid #3498db;
-    }
-
-    .detail-icon {
-        width: 45px;
-        height: 45px;
-        background: linear-gradient(135deg, #3498db, #2980b9);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin-right: 15px;
-        flex-shrink: 0;
-        box-shadow: 0 4px 10px rgba(52, 152, 219, 0.2);
-    }
-
-    .detail-icon i {
-        color: #fff;
-        font-size: 18px;
-    }
-
-    .detail-info h4 {
-        margin: 0 0 8px 0;
-        font-size: 15px;
-        color: #7f8c8d;
-        font-weight: 500;
-    }
-
-    .detail-info p {
-        margin: 0;
-        font-size: 18px;
-        color: #2c3e50;
-        word-break: break-word;
-        font-weight: 500;
-    }
-
-    /* Form Styles */
-    .form-modern {
-        max-width: 100%;
-    }
-
-    .form-group {
-        margin-bottom: 25px;
-    }
-
-    .form-group label {
-        display: block;
-        margin-bottom: 10px;
-        font-weight: 500;
-        color: #2c3e50;
-        font-size: 15px;
-    }
-
-    .input-with-icon {
-        position: relative;
-    }
-
-    .input-with-icon i {
-        position: absolute;
-        left: 15px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #7f8c8d;
-        font-size: 18px;
-    }
-
-    .input-with-icon.textarea i {
-        top: 20px;
-        transform: none;
-    }
-
-    .input-with-icon input,
-    .input-with-icon textarea,
-    .input-with-icon select {
-        padding-left: 45px;
-    }
-
-    .form-group input,
-    .form-group textarea,
-    .form-group select {
-        width: 100%;
-        padding: 14px 15px;
-        border: 1px solid #e0e0e0;
-        border-radius: 8px;
-        font-size: 16px;
-        transition: all 0.3s ease;
-        background-color: #f8f9fa;
-        color: #2c3e50;
-    }
-
-    .form-group input:focus,
-    .form-group textarea:focus,
-    .form-group select:focus {
-        border-color: #3498db;
-        box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
-        outline: none;
-        background-color: #fff;
-    }
-
-    .form-button {
-        display: inline-block;
-        padding: 14px 28px;
-        background: linear-gradient(135deg, #3498db, #2980b9);
-        color: white;
-        border: none;
-        border-radius: 50px;
-        cursor: pointer;
-        font-size: 16px;
-        font-weight: 600;
-        text-align: center;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        margin-top: 10px;
-        box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-    }
-
-    .form-button:hover {
-        background: linear-gradient(135deg, #2980b9, #1a5276);
-        transform: translateY(-3px);
-        box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
-    }
-
-    .form-button i {
-        margin-right: 8px;
-    }
-
-    /* Issues Container */
-    .issues-container {
-        display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-        gap: 25px;
-    }
-
-    .issue-card {
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        overflow: hidden;
-        transition: all 0.3s ease;
-        border: 1px solid #f0f0f0;
-    }
-
-    .issue-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .issue-header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 18px 20px;
-        background-color: #f8f9fa;
-        border-bottom: 1px solid #eee;
-    }
-
-    .issue-id {
-        font-weight: 700;
-        color: #2c3e50;
-        font-size: 16px;
-        background: #e0e0e0;
-        padding: 5px 10px;
-        border-radius: 5px;
-    }
-
-    /* Status Badge Styles */
-    .status-badge {
-        display: inline-flex;
-        align-items: center;
-        padding: 8px 15px;
-        border-radius: 50px;
-        font-size: 14px;
-        font-weight: 600;
-        text-align: center;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    }
-
-    .status-badge i {
-        margin-right: 5px;
-    }
-
-    .status-pending {
-        background-color: #fff3e0;
-        color: #f39c12;
-    }
-
-    .status-progress {
-        background-color: #e3f2fd;
-        color: #3498db;
-    }
-
-    .status-resolved {
-        background-color: #e8f5e9;
-        color: #2ecc71;
-    }
-
-    .status-default {
-        background-color: #f5f5f5;
-        color: #7f8c8d;
-    }
-
-    .issue-body {
-        padding: 20px;
-    }
-
-    .issue-category {
-        display: inline-flex;
-        align-items: center;
-        background-color: #f0f4f8;
-        padding: 6px 12px;
-        border-radius: 50px;
-        font-size: 14px;
-        color: #2c3e50;
-        margin-bottom: 15px;
-        font-weight: 500;
-    }
-
-    .issue-category i {
-        margin-right: 8px;
-        color: #3498db;
-    }
-
-    .issue-description {
-        margin-bottom: 20px;
-        color: #2c3e50;
-        line-height: 1.6;
-        font-size: 15px;
-    }
-
-    .issue-attachment {
-        margin-top: 15px;
-    }
-
-    .image-preview {
-        display: block;
-        position: relative;
-        width: 100%;
-        max-width: 200px;
-        border-radius: 10px;
-        overflow: hidden;
-        margin-bottom: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .image-preview img {
-        width: 100%;
-        height: auto;
-        display: block;
-        transition: all 0.3s ease;
-    }
-
-    .preview-overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.5);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        opacity: 0;
-        transition: opacity 0.3s ease;
-    }
-
-    .preview-overlay i {
-        color: white;
-        font-size: 24px;
-    }
-
-    .image-preview:hover .preview-overlay {
-        opacity: 1;
-    }
-
-    .image-preview:hover img {
-        transform: scale(1.05);
-    }
-
-    .file-link {
-        display: inline-flex;
-        align-items: center;
-        padding: 10px 18px;
-        background-color: #f0f4f8;
-        border-radius: 50px;
-        color: #2c3e50;
-        text-decoration: none;
-        transition: all 0.3s ease;
-        font-weight: 500;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-    }
-
-    .file-link i {
-        margin-right: 8px;
-        color: #3498db;
-    }
-
-    .file-link:hover {
-        background-color: #e0e6ed;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        transform: translateY(-2px);
-    }
-
-    .issue-footer {
-        display: flex;
-        justify-content: space-between;
-        padding: 15px 20px;
-        background-color: #f8f9fa;
-        border-top: 1px solid #eee;
-        font-size: 14px;
-        color: #7f8c8d;
-    }
-
-    .issue-date, .issue-agent {
-        display: flex;
-        align-items: center;
-    }
-
-    .issue-date i, .issue-agent i {
-        margin-right: 8px;
-        color: #3498db;
-    }
-
-    .agent-name {
-        font-weight: 600;
-        margin-right: 5px;
-        color: #2c3e50;
-    }
-
-    .agent-phone {
-        color: #7f8c8d;
-    }
-
-    .no-agent {
-        color: #95a5a6;
-        font-style: italic;
-    }
-
-    /* Feedback Section */
-    .feedback-section {
-        padding: 20px;
-        border-top: 1px solid #eee;
-        background-color: #f8f9fa;
-    }
-
-    .feedback-header {
-        font-weight: 600;
-        margin-bottom: 15px;
-        color: #2c3e50;
-        display: flex;
-        align-items: center;
-    }
-
-    .feedback-header i {
-        margin-right: 8px;
-        color: #f1c40f;
-    }
-
-    .feedback-submitted {
-        background-color: #fff;
-        padding: 15px;
-        border-radius: 10px;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-    }
-
-    .rating-display {
-        margin: 10px 0;
-    }
-
-    .rating-display i.fas.fa-star {
-        color: #f1c40f;
-        font-size: 18px;
-    }
-
-    .rating-display i.far.fa-star {
-        color: #ddd;
-        font-size: 18px;
-    }
-
-    .feedback-comments {
-        margin-top: 10px;
-        font-style: italic;
-        color: #7f8c8d;
-        line-height: 1.5;
-    }
-
-    .stars-container {
-        margin-top: 10px;
-        font-size: 22px;
-    }
-
-    /* Empty State Styles */
-    .empty-state {
-        text-align: center;
-        padding: 50px 20px;
-        color: #7f8c8d;
-    }
-
-    .empty-state i {
-        color: #bdc3c7;
-        margin-bottom: 20px;
-        font-size: 60px;
-    }
-
-    .empty-state p {
-        margin-bottom: 25px;
-        font-size: 18px;
-    }
-
-    /* Password Strength Meter */
-    .password-strength {
-        margin-top: 12px;
-    }
-
-    .strength-meter {
-        height: 6px;
-        background-color: #eee;
-        border-radius: 3px;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .strength-meter::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 0;
-        transition: width 0.3s ease;
-    }
-
-    .strength-meter.weak::before {
-        width: 25%;
-        background-color: #e74c3c;
-    }
-
-    .strength-meter.medium::before {
-        width: 50%;
-        background-color: #f39c12;
-    }
-
-    .strength-meter.strong::before {
-        width: 75%;
-        background-color: #2ecc71;
-    }
-
-    .strength-meter.very-strong::before {
-        width: 100%;
-        background-color: #27ae60;
-    }
-
-    .strength-text {
-        font-size: 13px;
-        margin-top: 8px;
-        color: #7f8c8d;
-    }
-
-    .strength-text.weak {
-        color: #e74c3c;
-    }
-
-    .strength-text.medium {
-        color: #f39c12;
-    }
-
-    .strength-text.strong {
-        color: #2ecc71;
-    }
-
-    .strength-text.very-strong {
-        color: #27ae60;
-    }
-
-    /* Lightbox */
-    .lightbox {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-color: rgba(0, 0, 0, 0.9);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 1000;
-        opacity: 0;
-        animation: fadeIn 0.3s forwards;
-    }
-
-    .lightbox img {
-        max-width: 90%;
-        max-height: 90%;
-        object-fit: contain;
-        border-radius: 5px;
-        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.2);
-        transform: scale(0.95);
-        animation: scaleIn 0.3s forwards;
-    }
-
-    @keyframes scaleIn {
-        to { transform: scale(1); }
-    }
-
-    .lightbox-close {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        background: rgba(255, 255, 255, 0.1);
-        border: none;
-        color: white;
-        font-size: 24px;
-        cursor: pointer;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-    }
-
-    .lightbox-close:hover {
-        background: rgba(255, 255, 255, 0.2);
-        transform: rotate(90deg);
-    }
-
-    /* Responsive Styles */
-    @media (max-width: 768px) {
-        .dashboard-header {
-            flex-direction: column;
-            align-items: flex-start;
+            --gray-50: #f9fafb;
+            --gray-100: #f3f4f6;
+            --gray-200: #e5e7eb;
+            --gray-300: #d1d5db;
+            --gray-400: #9ca3af;
+            --gray-500: #6b7280;
+            --gray-600: #4b5563;
+            --gray-700: #374151;
+            --gray-800: #1f2937;
+            --gray-900: #111827;
+            
+            --white: #ffffff;
+            --black: #000000;
+            
+            --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+            --shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+            --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            
+            --radius-sm: 0.375rem;
+            --radius: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1rem;
+            --radius-xl: 1.5rem;
+            --radius-2xl: 2rem;
+            --radius-full: 9999px;
+            
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .dashboard-stats {
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, var(--gray-50) 0%, #fafbff 100%);
+            min-height: 100vh;
+            color: var(--gray-800);
+            line-height: 1.6;
+            font-feature-settings: 'kern' 1, 'liga' 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
-        .issues-container {
-            grid-template-columns: 1fr;
+        /* Animated Background Particles */
+        .crad-bg-particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            pointer-events: none;
+            opacity: 0.6;
         }
 
-        .user-details {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .tabs-nav {
-            flex-wrap: nowrap;
-            overflow-x: auto;
+        .crad-particle {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+            animation: cradFloatParticle 15s infinite linear;
         }
 
-        .tab-btn {
-            padding: 12px 15px;
-            font-size: 14px;
+        .crad-particle:nth-child(1) {
+            width: 20px;
+            height: 20px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
         }
 
-        .stat-card {
-            padding: 15px;
+        .crad-particle:nth-child(2) {
+            width: 30px;
+            height: 30px;
+            top: 50%;
+            right: 20%;
+            animation-delay: 5s;
         }
 
-        .stat-icon {
-            width: 45px;
-            height: 45px;
+        .crad-particle:nth-child(3) {
+            width: 15px;
+            height: 15px;
+            bottom: 30%;
+            left: 30%;
+            animation-delay: 10s;
         }
 
-        .stat-info h3 {
-            font-size: 22px;
+        .crad-particle:nth-child(4) {
+            width: 25px;
+            height: 25px;
+            top: 80%;
+            right: 10%;
+            animation-delay: 2s;
         }
-    }
-</style>
 
-<style>
-    /* Feedback Section Styles */
-.feedback-section {
-    padding: 0;
-    border-top: 1px solid #e0e0e0;
-    background: linear-gradient(to right, #f8f9fa, #e8f4fd);
-    border-radius: 0 0 12px 12px;
-    overflow: hidden;
-}
+        .crad-particle:nth-child(5) {
+            width: 18px;
+            height: 18px;
+            top: 10%;
+            right: 50%;
+            animation-delay: 7s;
+        }
 
-.feedback-header {
-    background: #3498db;
-    color: white;
-    padding: 15px 20px;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
-
-.feedback-header i {
-    margin-right: 8px;
-    color: #f1c40f;
-    font-size: 18px;
-}
-
-.feedback-form {
-    padding: 20px;
-    background-color: rgba(255, 255, 255, 0.8);
-    border-radius: 10px;
-    margin: 15px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
-}
-
-.feedback-form:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-}
-
-.rating-stars {
-    display: flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    margin: 20px 0;
-}
-
-.rating-stars input {
-    display: none;
-}
-
-.rating-stars label {
-    cursor: pointer;
-    font-size: 30px;
-    color: #ddd;
-    transition: all 0.2s ease;
-    margin: 0 5px;
-}
-
-.rating-stars label:hover,
-.rating-stars label:hover ~ label,
-.rating-stars input:checked ~ label {
-    color: #f1c40f;
-    transform: scale(1.2);
-}
-
-.rating-stars label:hover:before,
-.rating-stars label:hover ~ label:before,
-.rating-stars input:checked ~ label:before {
-    content: '\f005';
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-}
-
-.rating-stars label:before {
-    content: '\f005';
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 400;
-}
-
-.feedback-textarea {
-    position: relative;
-    margin-bottom: 20px;
-}
-
-.feedback-textarea textarea {
-    width: 100%;
-    padding: 15px;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: all 0.3s ease;
-    background-color: #fff;
-    min-height: 100px;
-    resize: vertical;
-}
-
-.feedback-textarea textarea:focus {
-    border-color: #3498db;
-    box-shadow: 0 0 10px rgba(52, 152, 219, 0.2);
-    outline: none;
-}
-
-.feedback-textarea .emoji-picker {
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    display: flex;
-    gap: 5px;
-}
-
-.feedback-textarea .emoji {
-    font-size: 20px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-    opacity: 0.5;
-}
-
-.feedback-textarea .emoji:hover {
-    transform: scale(1.2);
-    opacity: 1;
-}
-
-.feedback-submit {
-    text-align: center;
-}
-
-.feedback-btn {
-    background: linear-gradient(135deg, #3498db, #2980b9);
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    border-radius: 50px;
-    font-size: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgba(52, 152, 219, 0.3);
-    display: inline-flex;
-    align-items: center;
-}
-
-.feedback-btn i {
-    margin-right: 8px;
-}
-
-.feedback-btn:hover {
-    background: linear-gradient(135deg, #2980b9, #1a5276);
-    transform: translateY(-3px);
-    box-shadow: 0 6px 15px rgba(52, 152, 219, 0.4);
-}
-
-.feedback-submitted {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-    margin: 15px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-}
-
-.feedback-submitted:before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 5px;
-    background: linear-gradient(to right, #3498db, #2ecc71);
-}
-
-.feedback-rating {
-    margin: 15px 0;
-}
-
-.feedback-rating i {
-    font-size: 24px;
-    margin: 0 2px;
-}
-
-.feedback-rating i.fas.fa-star {
-    color: #f1c40f;
-}
-
-.feedback-rating i.far.fa-star {
-    color: #ddd;
-}
-
-.feedback-comments {
-    background-color: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    margin-top: 15px;
-    font-style: italic;
-    color: #555;
-    position: relative;
-}
-
-.feedback-comments:before {
-    content: '\f10d';
-    font-family: 'Font Awesome 5 Free';
-    font-weight: 900;
-    position: absolute;
-    top: -10px;
-    left: 10px;
-    font-size: 20px;
-    color: #3498db;
-    background: white;
-    padding: 0 10px;
-}
-
-.feedback-thanks {
-    margin-top: 15px;
-    color: #2ecc71;
-    font-weight: 600;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.feedback-thanks i {
-    margin-right: 8px;
-    font-size: 20px;
-}
-
-/* Animation for submitted feedback */
-@keyframes thanksPulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-}
-
-.feedback-thanks {
-    animation: thanksPulse 2s infinite;
-}
-</style>
-
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Tab Navigation
-        const tabButtons = document.querySelectorAll('.tab-btn');
-        const tabContents = document.querySelectorAll('.tab-content');
-        
-        tabButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                // Remove active class from all buttons and contents
-                tabButtons.forEach(btn => btn.classList.remove('active'));
-                tabContents.forEach(content => content.classList.remove('active'));
-                
-                // Add active class to clicked button
-                this.classList.add('active');
-                
-                // Show corresponding content
-                const tabId = this.getAttribute('data-tab');
-                document.getElementById(tabId).classList.add('active');
-                
-                // Save active tab to localStorage
-                localStorage.setItem('activeTab', tabId);
-            });
-        });
-        
-        // Restore active tab from localStorage
-        const activeTab = localStorage.getItem('activeTab');
-        if (activeTab) {
-            const activeButton = document.querySelector(`.tab-btn[data-tab="${activeTab}"]`);
-            if (activeButton) {
-                activeButton.click();
+        @keyframes cradFloatParticle {
+            0% {
+                transform: translateY(0px) rotate(0deg) scale(1);
+                opacity: 0.7;
+            }
+            33% {
+                transform: translateY(-30px) rotate(120deg) scale(1.1);
+                opacity: 1;
+            }
+            66% {
+                transform: translateY(15px) rotate(240deg) scale(0.9);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translateY(0px) rotate(360deg) scale(1);
+                opacity: 0.7;
             }
         }
-        
-        // Close notification
-        const closeButtons = document.querySelectorAll('.close-notification');
-        closeButtons.forEach(button => {
-            button.addEventListener('click', function() {
-                const notification = this.closest('.notification');
-                notification.style.opacity = '0';
-                setTimeout(() => {
-                    notification.style.display = 'none';
-                }, 300);
+
+        /* Main Section */
+        .crad-dashboard-section {
+            padding: 2rem 0;
+            min-height: 100vh;
+        }
+
+        .crad-dashboard-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Enhanced Dashboard Header */
+        .crad-dashboard-header {
+            background: linear-gradient(135deg, var(--white) 0%, #fefefe 100%);
+            border-radius: var(--radius-2xl);
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-xl);
+            border: 1px solid var(--gray-200);
+            position: relative;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+
+        .crad-dashboard-header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.02), rgba(139, 92, 246, 0.02));
+            z-index: 1;
+        }
+
+        .crad-dashboard-header:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .crad-user-welcome {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .crad-user-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            border: 4px solid var(--white);
+            position: relative;
+            transition: var(--transition);
+            animation: cradAvatarGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes cradAvatarGlow {
+            0%, 100% {
+                box-shadow: var(--shadow-lg), 0 0 0 0 rgba(59, 130, 246, 0.4);
+            }
+            50% {
+                box-shadow: var(--shadow-xl), 0 0 0 20px rgba(59, 130, 246, 0.1);
+            }
+        }
+
+        .crad-user-avatar:hover {
+            transform: scale(1.05) rotate(5deg);
+        }
+
+        .crad-user-avatar i {
+            font-size: 2.5rem;
+            color: var(--white);
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        .crad-welcome-text h2 {
+            font-size: 2.75rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .crad-user-role {
+            display: flex;
+            align-items: center;
+            color: var(--gray-600);
+            font-size: 1.125rem;
+            font-weight: 500;
+        }
+
+        .crad-user-role i {
+            margin-right: 0.75rem;
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .crad-dashboard-actions {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 2;
+        }
+
+        .crad-action-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+            color: var(--white);
+            border-radius: var(--radius-full);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            box-shadow: var(--shadow-lg);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crad-action-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .crad-action-button:hover::before {
+            left: 100%;
+        }
+
+        .crad-action-button:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .crad-action-button i {
+            margin-right: 0.75rem;
+            font-size: 1.125rem;
+        }
+
+        /* Enhanced Notifications */
+        .crad-notification-container {
+            margin-bottom: 2rem;
+        }
+
+        .crad-notification {
+            display: flex;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-radius: var(--radius-xl);
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+            animation: cradSlideIn 0.5s ease-out;
+        }
+
+        @keyframes cradSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .crad-notification::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+        }
+
+        .crad-notification.success {
+            background: linear-gradient(135deg, #ecfdf5, #d1fae5);
+            border: 1px solid #a7f3d0;
+            color: #065f46;
+        }
+
+        .crad-notification.success::before {
+            background: var(--success);
+        }
+
+        .crad-notification.error {
+            background: linear-gradient(135deg, #fef2f2, #fecaca);
+            border: 1px solid #fca5a5;
+            color: #991b1b;
+        }
+
+        .crad-notification.error::before {
+            background: var(--danger);
+        }
+
+        .crad-notification:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .crad-notification i {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .crad-notification p {
+            flex: 1;
+            margin: 0;
+            font-weight: 500;
+        }
+
+        .crad-close-notification {
+            background: rgba(0, 0, 0, 0.1);
+            border: none;
+            color: currentColor;
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            transition: var(--transition-fast);
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .crad-close-notification:hover {
+            background: rgba(0, 0, 0, 0.2);
+            transform: scale(1.1);
+        }
+
+        /* Enhanced Stats Cards */
+        .crad-dashboard-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .crad-stat-card {
+            background: linear-gradient(135deg, var(--white) 0%, #fefefe 100%);
+            border-radius: var(--radius-xl);
+            padding: 2rem;
+            box-shadow: var(--shadow-lg);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crad-stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .crad-stat-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-2xl);
+        }
+
+        .crad-stat-icon {
+            width: 64px;
+            height: 64px;
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .crad-stat-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: var(--radius-lg);
+            opacity: 0.1;
+            transition: var(--transition);
+        }
+
+        .crad-stat-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .crad-stat-icon.total {
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            color: var(--primary);
+        }
+
+        .crad-stat-icon.pending {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: var(--warning);
+        }
+
+        .crad-stat-icon.progress {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: var(--success);
+        }
+
+        .crad-stat-icon.resolved {
+            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+            color: var(--accent);
+        }
+
+        .crad-stat-icon i {
+            font-size: 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .crad-stat-info h3 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(135deg, var(--gray-800), var(--gray-600));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .crad-stat-info p {
+            color: var(--gray-600);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        /* Enhanced Dashboard Content */
+        .crad-dashboard-content {
+            background: linear-gradient(135deg, var(--white) 0%, #fefefe 100%);
+            border-radius: var(--radius-2xl);
+            box-shadow: var(--shadow-xl);
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+        }
+
+        .crad-dashboard-content:hover {
+            box-shadow: var(--shadow-2xl);
+        }
+
+        /* Enhanced Tabs */
+        .crad-tabs-container {
+            width: 100%;
+        }
+
+        .crad-tabs-nav {
+            display: flex;
+            background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+            border-bottom: 1px solid var(--gray-200);
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .crad-tabs-nav::-webkit-scrollbar {
+            display: none;
+        }
+
+        .crad-tab-btn {
+            padding: 1.5rem 2rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--gray-600);
+            transition: var(--transition);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            position: relative;
+            border-radius: 0;
+        }
+
+        .crad-tab-btn i {
+            margin-right: 0.75rem;
+            font-size: 1.125rem;
+        }
+
+        .crad-tab-btn::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 3px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+
+        .crad-tab-btn:hover {
+            color: var(--primary);
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .crad-tab-btn:hover::before {
+            width: 50%;
+        }
+
+        .crad-tab-btn.active {
+            color: var(--primary);
+            background: var(--white);
+            font-weight: 600;
+        }
+
+        .crad-tab-btn.active::before {
+            width: 100%;
+        }
+
+        /* Tab Content */
+        .crad-tab-content {
+            display: none;
+            padding: 2.5rem;
+            animation: cradFadeIn 0.6s ease;
+        }
+
+        .crad-tab-content.active {
+            display: block;
+        }
+
+        @keyframes cradFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Content Cards */
+        .crad-content-card {
+            background: linear-gradient(135deg, var(--white) 0%, #fefefe 100%);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            margin-bottom: 2rem;
+            overflow: hidden;
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+        }
+
+        .crad-content-card:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .crad-card-header {
+            padding: 1.5rem 2rem;
+            background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .crad-card-header h3 {
+            margin: 0;
+            font-size: 1.375rem;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+        }
+
+        .crad-card-header h3 i {
+            margin-right: 0.75rem;
+            color: var(--primary);
+            font-size: 1.25rem;
+        }
+
+        .crad-card-body {
+            padding: 2rem;
+        }
+
+        /* User Details Grid */
+        .crad-user-details {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .crad-detail-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--gray-50), #fafbff);
+            border-radius: var(--radius-lg);
+            border: 1px solid var(--gray-200);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crad-detail-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .crad-detail-item:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .crad-detail-icon {
+            width: 56px;
+            height: 56px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: var(--radius-lg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 1.5rem;
+            flex-shrink: 0;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .crad-detail-icon:hover {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .crad-detail-icon i {
+            color: var(--white);
+            font-size: 1.375rem;
+        }
+
+        .crad-detail-info h4 {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.875rem;
+            color: var(--gray-500);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .crad-detail-info p {
+            margin: 0;
+            font-size: 1.125rem;
+            color: var(--gray-800);
+            font-weight: 600;
+            word-break: break-word;
+        }
+
+        /* Form Styles */
+        .crad-form-modern {
+            max-width: 100%;
+        }
+
+        .crad-form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .crad-form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: var(--gray-800);
+            font-size: 0.95rem;
+        }
+
+        .crad-input-with-icon {
+            position: relative;
+        }
+
+        .crad-input-with-icon i {
+            position: absolute;
+            left: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray-400);
+            font-size: 1.125rem;
+            transition: var(--transition-fast);
+        }
+
+        .crad-input-with-icon.textarea i {
+            top: 1rem;
+            transform: none;
+        }
+
+        .crad-form-group input,
+        .crad-form-group textarea,
+        .crad-form-group select {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 3rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
+            color: var(--gray-800);
+            font-family: inherit;
+        }
+
+        .crad-form-group input:focus,
+        .crad-form-group textarea:focus,
+        .crad-form-group select:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+
+        .crad-form-group input:focus + .crad-input-with-icon i,
+        .crad-form-group textarea:focus + .crad-input-with-icon i,
+        .crad-form-group select:focus + .crad-input-with-icon i {
+            color: var(--primary);
+        }
+
+        .crad-form-button {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.875rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-lg);
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+        }
+
+        .crad-form-button:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .crad-form-button i {
+            margin-right: 0.5rem;
+        }
+
+        /* Issues Container */
+        .crad-issues-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .crad-issue-card {
+            background: linear-gradient(135deg, var(--white) 0%, #fefefe 100%);
+            border-radius: var(--radius-xl);
+            box-shadow: var(--shadow-md);
+            overflow: hidden;
+            transition: var(--transition);
+            border: 1px solid var(--gray-200);
+            position: relative;
+        }
+
+        .crad-issue-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+        }
+
+        .crad-issue-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .crad-issue-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .crad-issue-id {
+            font-weight: 700;
+            color: var(--gray-800);
+            font-size: 1.125rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .crad-status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            font-weight: 600;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-fast);
+        }
+
+        .crad-status-badge:hover {
+            transform: scale(1.05);
+        }
+
+        .crad-status-badge i {
+            margin-right: 0.5rem;
+        }
+
+        .crad-status-pending {
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            color: #92400e;
+            border: 1px solid #f59e0b;
+        }
+
+        .crad-status-progress {
+            background: linear-gradient(135deg, #d1fae5, #a7f3d0);
+            color: #065f46;
+            border: 1px solid #10b981;
+        }
+
+        .crad-status-resolved {
+            background: linear-gradient(135deg, #e0e7ff, #c7d2fe);
+            color: #3730a3;
+            border: 1px solid #8b5cf6;
+        }
+
+        .crad-issue-body {
+            padding: 1.5rem;
+        }
+
+        .crad-issue-category {
+            display: inline-flex;
+            align-items: center;
+            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+            padding: 0.5rem 1rem;
+            border-radius: var(--radius-full);
+            font-size: 0.875rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+            border: 1px solid #93c5fd;
+        }
+
+        .crad-issue-category i {
+            margin-right: 0.5rem;
+        }
+
+        .crad-issue-description {
+            margin-bottom: 1rem;
+            color: var(--gray-600);
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .crad-issue-attachment {
+            margin-top: 1rem;
+        }
+
+        .crad-image-preview {
+            display: block;
+            position: relative;
+            width: 100%;
+            max-width: 200px;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            margin-bottom: 1rem;
+            box-shadow: var(--shadow-md);
+            transition: var(--transition);
+        }
+
+        .crad-image-preview img {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: var(--transition);
+        }
+
+        .crad-image-preview:hover {
+            transform: scale(1.05);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .crad-image-preview:hover img {
+            transform: scale(1.1);
+        }
+
+        .crad-file-link {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.75rem 1.25rem;
+            background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+            border-radius: var(--radius-lg);
+            color: var(--gray-800);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+            border: 1px solid var(--gray-200);
+        }
+
+        .crad-file-link i {
+            margin-right: 0.75rem;
+            color: var(--primary);
+        }
+
+        .crad-file-link:hover {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .crad-file-link:hover i {
+            color: var(--white);
+        }
+
+        .crad-issue-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            background: linear-gradient(135deg, var(--gray-50), var(--gray-100));
+            border-top: 1px solid var(--gray-200);
+            font-size: 0.875rem;
+            color: var(--gray-600);
+        }
+
+        .crad-issue-date,
+        .crad-issue-agent {
+            display: flex;
+            align-items: center;
+            font-weight: 500;
+        }
+
+        .crad-issue-date i,
+        .crad-issue-agent i {
+            margin-right: 0.5rem;
+            color: var(--primary);
+        }
+
+        .crad-agent-name {
+            font-weight: 600;
+            margin-right: 0.5rem;
+            color: var(--gray-800);
+        }
+
+        .crad-agent-phone {
+            color: var(--gray-600);
+        }
+
+        .crad-no-agent {
+            color: var(--gray-400);
+            font-style: italic;
+        }
+
+        /* Feedback Section */
+        .crad-feedback-section {
+            padding: 1.5rem;
+            background: linear-gradient(135deg, var(--gray-50), #fafbff);
+            border-top: 1px solid var(--gray-200);
+        }
+
+        .crad-feedback-header {
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--gray-800);
+            display: flex;
+            align-items: center;
+            font-size: 1.125rem;
+        }
+
+        .crad-feedback-header i {
+            margin-right: 0.75rem;
+            color: #fbbf24;
+        }
+
+        .crad-feedback-submitted {
+            background: var(--white);
+            padding: 1.25rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+        }
+
+        .crad-feedback-rating {
+            margin: 1rem 0;
+            text-align: center;
+        }
+
+        .crad-feedback-rating i {
+            font-size: 1.5rem;
+            margin: 0 0.25rem;
+        }
+
+        .crad-feedback-rating i.fas.fa-star {
+            color: #fbbf24;
+        }
+
+        .crad-feedback-rating i.far.fa-star {
+            color: var(--gray-300);
+        }
+
+        .crad-feedback-comments {
+            background: var(--gray-50);
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-top: 1rem;
+            font-style: italic;
+            color: var(--gray-600);
+            line-height: 1.6;
+            border-left: 3px solid var(--primary);
+        }
+
+        .crad-feedback-thanks {
+            margin-top: 1rem;
+            color: var(--success);
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
+        }
+
+        .crad-feedback-thanks i {
+            margin-right: 0.5rem;
+        }
+
+        .crad-feedback-form {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--gray-200);
+        }
+
+        .crad-rating-stars {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+            margin: 1.5rem 0;
+        }
+
+        .crad-rating-stars input {
+            display: none;
+        }
+
+        .crad-rating-stars label {
+            cursor: pointer;
+            font-size: 2rem;
+            color: var(--gray-300);
+            transition: var(--transition-fast);
+            margin: 0 0.25rem;
+        }
+
+        .crad-rating-stars label:hover,
+        .crad-rating-stars label:hover ~ label,
+        .crad-rating-stars input:checked ~ label {
+            color: #fbbf24;
+            transform: scale(1.1);
+        }
+
+        .crad-feedback-textarea {
+            position: relative;
+            margin-bottom: 1.25rem;
+        }
+
+        .crad-feedback-textarea textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            transition: var(--transition);
+            background: var(--white);
+            min-height: 100px;
+            resize: vertical;
+            font-family: inherit;
+        }
+
+        .crad-feedback-textarea textarea:focus {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+            outline: none;
+        }
+
+        .crad-feedback-submit {
+            text-align: center;
+        }
+
+        .crad-feedback-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--white);
+            border: none;
+            padding: 0.875rem 2rem;
+            border-radius: var(--radius-lg);
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            box-shadow: var(--shadow-md);
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .crad-feedback-btn i {
+            margin-right: 0.5rem;
+        }
+
+        .crad-feedback-btn:hover {
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Empty State */
+        .crad-empty-state {
+            text-align: center;
+            padding: 4rem 1.5rem;
+            color: var(--gray-500);
+        }
+
+        .crad-empty-state i {
+            color: var(--gray-300);
+            margin-bottom: 1.5rem;
+            font-size: 4rem;
+        }
+
+        .crad-empty-state p {
+            margin-bottom: 2rem;
+            font-size: 1.25rem;
+            font-weight: 500;
+        }
+
+        /* Danger Zone */
+        .crad-danger-zone {
+            border: 2px solid #fecaca;
+            background: linear-gradient(135deg, #fef2f2, #fecaca);
+        }
+
+        .crad-danger-zone .crad-card-header {
+            background: linear-gradient(135deg, #fee2e2, #fecaca);
+            border-bottom-color: #fca5a5;
+        }
+
+        .crad-danger-zone .crad-card-header h3 {
+            color: #991b1b;
+        }
+
+        .crad-danger-zone .crad-card-header h3 i {
+            color: var(--danger);
+        }
+
+        .crad-warning-message {
+            display: flex;
+            align-items: flex-start;
+            padding: 1.25rem;
+            background: rgba(254, 202, 202, 0.5);
+            border-radius: var(--radius-lg);
+            margin-bottom: 1.25rem;
+            border-left: 4px solid var(--danger);
+        }
+
+        .crad-warning-message i {
+            color: var(--danger);
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            margin-top: 0.125rem;
+        }
+
+        .crad-warning-message p {
+            color: #991b1b;
+            font-weight: 500;
+            line-height: 1.6;
+        }
+
+        .crad-form-button.danger {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+            box-shadow: var(--shadow-md);
+        }
+
+        .crad-form-button.danger:hover {
+            background: linear-gradient(135deg, #dc2626, #991b1b);
+            box-shadow: var(--shadow-lg);
+        }
+
+        /* Toggle Password */
+        .crad-toggle-password {
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: var(--gray-400);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: var(--radius);
+            transition: var(--transition-fast);
+        }
+
+        .crad-toggle-password:hover {
+            background: rgba(59, 130, 246, 0.1);
+            color: var(--primary);
+        }
+
+        /* Lightbox */
+        .crad-lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            animation: cradFadeIn 0.3s forwards;
+        }
+
+        .crad-lightbox img {
+            max-width: 90%;
+            max-height: 90%;
+            object-fit: contain;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-2xl);
+            transform: scale(0.9);
+            animation: cradScaleIn 0.3s forwards;
+        }
+
+        @keyframes cradScaleIn {
+            to {
+                transform: scale(1);
+            }
+        }
+
+        .crad-lightbox-close {
+            position: absolute;
+            top: 2rem;
+            right: 2rem;
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            border: none;
+            color: var(--gray-800);
+            font-size: 1.5rem;
+            cursor: pointer;
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+            box-shadow: var(--shadow-lg);
+        }
+
+        .crad-lightbox-close:hover {
+            background: var(--white);
+            transform: scale(1.1) rotate(90deg);
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .crad-dashboard-stats {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            }
+
+            .crad-issues-container {
+                grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            }
+        }
+
+        @media (max-width: 768px) {
+            .crad-dashboard-container {
+                padding: 0 1rem;
+            }
+
+            .crad-dashboard-header {
+                padding: 2rem 1.5rem;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .crad-user-welcome {
+                margin-bottom: 1.5rem;
+            }
+
+            .crad-dashboard-actions {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .crad-dashboard-stats {
+                grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                gap: 1rem;
+            }
+
+            .crad-user-details {
+                grid-template-columns: 1fr;
+            }
+
+            .crad-issues-container {
+                grid-template-columns: 1fr;
+            }
+
+            .crad-tab-content {
+                padding: 2rem 1.5rem;
+            }
+
+            .crad-issue-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 0.75rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .crad-dashboard-header {
+                padding: 1.5rem 1rem;
+            }
+
+            .crad-user-welcome {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .crad-user-avatar {
+                margin-bottom: 1rem;
+                width: 80px;
+                height: 80px;
+            }
+
+            .crad-user-avatar i {
+                font-size: 2rem;
+            }
+
+            .crad-welcome-text h2 {
+                font-size: 2rem;
+            }
+
+            .crad-stat-card {
+                padding: 1.5rem;
+            }
+
+            .crad-stat-icon {
+                width: 56px;
+                height: 56px;
+            }
+
+            .crad-stat-info h3 {
+                font-size: 2rem;
+            }
+
+            .crad-tab-btn {
+                padding: 1.25rem 1.5rem;
+                font-size: 0.9rem;
+            }
+
+            .crad-tabs-nav {
+                overflow-x: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background Particles -->
+    <div class="crad-bg-particles">
+        <div class="crad-particle"></div>
+        <div class="crad-particle"></div>
+        <div class="crad-particle"></div>
+        <div class="crad-particle"></div>
+        <div class="crad-particle"></div>
+    </div>
+
+    <?php include 'header.php'; ?>
+       <?php include 'loader.php'; ?>
+    
+    <main>
+        <section class="crad-dashboard-section">
+            <div class="crad-dashboard-container">
+                <!-- Enhanced Dashboard Header -->
+                <div class="crad-dashboard-header">
+                    <div class="crad-user-welcome">
+                        <div class="crad-user-avatar">
+                            <i class="fas fa-user-circle"></i>
+                        </div>
+                        <div class="crad-welcome-text">
+                            <h2>Welcome, <?php echo htmlspecialchars($userData['name']); ?>!</h2>
+                            <p class="crad-user-role"><i class="fas fa-shield-alt"></i> User Account</p>
+                        </div>
+                    </div>
+                    
+                    <div class="crad-dashboard-actions">
+                        <a href="/views/report_issue.php" class="crad-action-button">
+                            <i class="fas fa-plus-circle"></i> Report New Issue
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Enhanced Notifications -->
+                <?php if (isset($_GET['success']) || isset($_GET['error'])): ?>
+                    <div class="crad-notification-container">
+                        <?php if (isset($_GET['success'])): ?>
+                            <div class="crad-notification success">
+                                <i class="fas fa-check-circle"></i>
+                                <p><?php echo htmlspecialchars($_GET['success']); ?></p>
+                                <button class="crad-close-notification"><i class="fas fa-times"></i></button>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <?php if (isset($_GET['error'])): ?>
+                            <div class="crad-notification error">
+                                <i class="fas fa-exclamation-circle"></i>
+                                <p><?php echo htmlspecialchars($_GET['error']); ?></p>
+                                <button class="crad-close-notification"><i class="fas fa-times"></i></button>
+                            </div>
+                        <?php endif; ?>
+                    </div>
+                <?php endif; ?>
+                
+                <!-- Enhanced Stats Cards -->
+                <div class="crad-dashboard-stats">
+                    <div class="crad-stat-card">
+                        <div class="crad-stat-icon total">
+                            <i class="fas fa-ticket-alt"></i>
+                        </div>
+                        <div class="crad-stat-info">
+                            <h3><?php echo $total_issues; ?></h3>
+                            <p>Total Issues</p>
+                        </div>
+                    </div>
+                    
+                    <?php
+                    // Count issues by status
+                    $pending = 0;
+                    $inProgress = 0;
+                    $resolved = 0;
+                    
+                    foreach ($reported_issues as $issue) {
+                        if ($issue['status'] == 'Pending') $pending++;
+                        if ($issue['status'] == 'In Progress') $inProgress++;
+                        if ($issue['status'] == 'Resolved') $resolved++;
+                    }
+                    ?>
+                    
+                    <div class="crad-stat-card">
+                        <div class="crad-stat-icon pending">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="crad-stat-info">
+                            <h3><?php echo $pending; ?></h3>
+                            <p>Pending</p>
+                        </div>
+                    </div>
+                    
+                    <div class="crad-stat-card">
+                        <div class="crad-stat-icon progress">
+                            <i class="fas fa-spinner"></i>
+                        </div>
+                        <div class="crad-stat-info">
+                            <h3><?php echo $inProgress; ?></h3>
+                            <p>In Progress</p>
+                        </div>
+                    </div>
+                    
+                    <div class="crad-stat-card">
+                        <div class="crad-stat-icon resolved">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="crad-stat-info">
+                            <h3><?php echo $resolved; ?></h3>
+                            <p>Resolved</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Enhanced Dashboard Content -->
+                <div class="crad-dashboard-content">
+                    <!-- Enhanced Tabs Navigation -->
+                    <div class="crad-tabs-container">
+                        <div class="crad-tabs-nav">
+                            <button class="crad-tab-btn active" data-tab="details">
+                                <i class="fas fa-user"></i> Your Details
+                            </button>
+                            <button class="crad-tab-btn" data-tab="update">
+                                <i class="fas fa-edit"></i> Update Profile
+                            </button>
+                            <button class="crad-tab-btn" data-tab="issues">
+                                <i class="fas fa-ticket-alt"></i> Reported Issues
+                            </button>
+                            <button class="crad-tab-btn" data-tab="settings">
+                                <i class="fas fa-cog"></i> Settings
+                            </button>
+                        </div>
+
+                        <!-- Tab Content: Your Details -->
+                        <div id="details" class="crad-tab-content active">
+                            <div class="crad-content-card">
+                                <div class="crad-card-header">
+                                    <h3><i class="fas fa-id-card"></i> Your Details</h3>
+                                </div>
+                                <div class="crad-card-body">
+                                    <div class="crad-user-details">
+                                        <div class="crad-detail-item">
+                                            <div class="crad-detail-icon">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                            <div class="crad-detail-info">
+                                                <h4>Name</h4>
+                                                <p><?php echo htmlspecialchars($userData['name']); ?></p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="crad-detail-item">
+                                            <div class="crad-detail-icon">
+                                                <i class="fas fa-envelope"></i>
+                                            </div>
+                                            <div class="crad-detail-info">
+                                                <h4>Email</h4>
+                                                <p><?php echo htmlspecialchars($userData['email'] ?? 'Not provided'); ?></p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="crad-detail-item">
+                                            <div class="crad-detail-icon">
+                                                <i class="fas fa-phone"></i>
+                                            </div>
+                                            <div class="crad-detail-info">
+                                                <h4>Phone Number</h4>
+                                                <p><?php echo htmlspecialchars($userData['phone_number'] ?? 'Not provided'); ?></p>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="crad-detail-item">
+                                            <div class="crad-detail-icon">
+                                                <i class="fas fa-map-marker-alt"></i>
+                                            </div>
+                                            <div class="crad-detail-info">
+                                                <h4>Address</h4>
+                                                <p><?php echo htmlspecialchars($userData['address'] ?? 'Not provided'); ?></p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content: Update Profile -->
+                        <div id="update" class="crad-tab-content">
+                            <div class="crad-content-card">
+                                <div class="crad-card-header">
+                                    <h3><i class="fas fa-envelope"></i> Update Email</h3>
+                                </div>
+                                <div class="crad-card-body">
+                                    <form action="/controllers/UserController.php?action=update_email_request" method="POST" class="crad-form-modern">
+                                        <div class="crad-form-group">
+                                            <label for="email">New Email</label>
+                                            <div class="crad-input-with-icon">
+                                                <i class="fas fa-envelope"></i>
+                                                <input type="email" id="email" name="email" required placeholder="Enter new email" value="<?php echo htmlspecialchars($userData['email'] ?? ''); ?>">
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="crad-form-button">
+                                            <i class="fas fa-paper-plane"></i> Send OTP
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <div class="crad-content-card">
+                                <div class="crad-card-header">
+                                    <h3><i class="fas fa-phone"></i> Update Phone Number</h3>
+                                </div>
+                                <div class="crad-card-body">
+                                    <form action="/controllers/UserController.php?action=update_phone" method="POST" class="crad-form-modern">
+                                        <div class="crad-form-group">
+                                            <label for="phone_number">New Phone Number</label>
+                                            <div class="crad-input-with-icon">
+                                                <i class="fas fa-phone"></i>
+                                                <input type="text" id="phone_number" name="phone_number" required pattern="[0-9]{10}" placeholder="Enter 10-digit phone number" value="<?php echo htmlspecialchars($userData['phone_number'] ?? ''); ?>">
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="crad-form-button">
+                                            <i class="fas fa-save"></i> Update
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <div class="crad-content-card">
+                                <div class="crad-card-header">
+                                    <h3><i class="fas fa-map-marker-alt"></i> Update Address</h3>
+                                </div>
+                                <div class="crad-card-body">
+                                    <form action="/controllers/UserController.php?action=update_address" method="POST" class="crad-form-modern">
+                                        <div class="crad-form-group">
+                                            <label for="address">New Address</label>
+                                            <div class="crad-input-with-icon textarea">
+                                                <i class="fas fa-home"></i>
+                                                <textarea id="address" name="address" required placeholder="Enter new address"><?php echo htmlspecialchars($userData['address'] ?? ''); ?></textarea>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="crad-form-button">
+                                            <i class="fas fa-save"></i> Update
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content: Reported Issues -->
+                        <div id="issues" class="crad-tab-content">
+                            <div class="crad-content-card">
+                                <div class="crad-card-header">
+                                    <h3><i class="fas fa-ticket-alt"></i> Your Reported Issues</h3>
+                                </div>
+                                <div class="crad-card-body">
+                                    <?php if (empty($reported_issues)): ?>
+                                        <div class="crad-empty-state">
+                                            <i class="fas fa-ticket-alt"></i>
+                                            <p>You haven't reported any issues yet.</p>
+                                            <a href="/views/report_issue.php" class="crad-form-button">
+                                                <i class="fas fa-plus-circle"></i> Report Your First Issue
+                                            </a>
+                                        </div>
+                                    <?php else: ?>
+                                        <div class="crad-issues-container">
+                                            <?php foreach ($reported_issues as $issue): ?>
+                                                <div class="crad-issue-card">
+                                                    <div class="crad-issue-header">
+                                                        <div class="crad-issue-id">#<?php echo $issue['id']; ?></div>
+                                                        <?php 
+                                                            $status_class = '';
+                                                            $status_icon = '';
+                                                            switch($issue['status']) {
+                                                                case 'Pending':
+                                                                    $status_class = 'crad-status-pending';
+                                                                    $status_icon = 'clock';
+                                                                    break;
+                                                                case 'In Progress':
+                                                                    $status_class = 'crad-status-progress';
+                                                                    $status_icon = 'spinner';
+                                                                    break;
+                                                                case 'Resolved':
+                                                                    $status_class = 'crad-status-resolved';
+                                                                    $status_icon = 'check-circle';
+                                                                    break;
+                                                                default:
+                                                                    $status_class = 'crad-status-default';
+                                                                    $status_icon = 'info-circle';
+                                                            }
+                                                        ?>
+                                                        <div class="crad-status-badge <?php echo $status_class; ?>">
+                                                            <i class="fas fa-<?php echo $status_icon; ?>"></i> <?php echo htmlspecialchars($issue['status']); ?>
+                                                        </div>
+                                                    </div>
+                                                    <div class="crad-issue-body">
+                                                        <div class="crad-issue-category">
+                                                            <i class="fas fa-tag"></i> <?php echo htmlspecialchars($issue['category']); ?>
+                                                        </div>
+                                                        <div class="crad-issue-description">
+                                                            <?php echo htmlspecialchars($issue['description']); ?>
+                                                        </div>
+                                                        
+                                                        <?php if (!empty($issue['image_path'])): ?>
+                                                            <div class="crad-issue-attachment">
+                                                                <a href="<?php echo $issue['image_path']; ?>" target="_blank" class="crad-image-preview">
+                                                                    <img src="<?php echo $issue['image_path']; ?>" alt="Issue Image">
+                                                                </a>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                        
+                                                        <?php if (!empty($issue['attached_file'])): ?>
+                                                            <div class="crad-issue-attachment">
+                                                                <a href="<?php echo $issue['attached_file']; ?>" target="_blank" class="crad-file-link">
+                                                                    <i class="fas fa-file-pdf"></i> View Attached File
+                                                                </a>
+                                                            </div>
+                                                        <?php endif; ?>
+                                                    </div>
+                                                    <div class="crad-issue-footer">
+                                                        <div class="crad-issue-date">
+                                                            <i class="fas fa-calendar-alt"></i> <?php echo date('Y-m-d H:i', strtotime($issue['created_at'])); ?>
+                                                        </div>
+                                                        <div class="crad-issue-agent">
+                                                            <i class="fas fa-user-tie"></i> 
+                                                            <?php if ($issue['agent_id']): ?>
+                                                                <span class="crad-agent-name"><?php echo htmlspecialchars($issue['agent_name']); ?></span>
+                                                                <span class="crad-agent-phone"><?php echo htmlspecialchars($issue['agent_phone']); ?></span>
+                                                            <?php else: ?>
+                                                                <span class="crad-no-agent">Not assigned yet</span>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <?php if ($issue['status'] == 'Resolved'): ?>
+                                                        <div class="crad-feedback-section">
+                                                            <?php
+                                                            // Check if feedback already submitted
+                                                            $stmt = $pdo->prepare("SELECT * FROM feedback WHERE issue_id = ? AND user_id = ?");
+                                                            $stmt->execute([$issue['id'], $_SESSION['user_id']]);
+                                                            $feedback = $stmt->fetch(PDO::FETCH_ASSOC);
+                                                            ?>
+                                                            
+                                                            <?php if ($feedback): ?>
+                                                                <div class="crad-feedback-header">
+                                                                    <span><i class="fas fa-star"></i> Your Feedback</span>
+                                                                </div>
+                                                                <div class="crad-feedback-submitted">
+                                                                    <div class="crad-feedback-rating">
+                                                                        <?php for($i = 1; $i <= 5; $i++): ?>
+                                                                            <?php if($i <= $feedback['rating']): ?>
+                                                                                <i class="fas fa-star"></i>
+                                                                            <?php else: ?>
+                                                                                <i class="far fa-star"></i>
+                                                                            <?php endif; ?>
+                                                                        <?php endfor; ?>
+                                                                    </div>
+                                                                    
+                                                                    <div class="crad-feedback-comments">
+                                                                        <?php echo htmlspecialchars($feedback['comments']); ?>
+                                                                    </div>
+                                                                    
+                                                                    <div class="crad-feedback-thanks">
+                                                                        <i class="fas fa-check-circle"></i> Thank you! Your feedback is important to us
+                                                                    </div>
+                                                                </div>
+                                                            <?php else: ?>
+                                                                <div class="crad-feedback-header">
+                                                                    <span><i class="fas fa-star"></i> Please Share Your Feedback</span>
+                                                                </div>
+                                                                <form action="/controllers/UserController.php?action=submit_feedback" method="POST" class="crad-feedback-form">
+                                                                    <input type="hidden" name="issue_id" value="<?php echo $issue['id']; ?>">
+                                                                    
+                                                                    <div class="crad-rating-stars">
+                                                                        <input type="radio" id="star5_<?php echo $issue['id']; ?>" name="rating" value="5" required />
+                                                                        <label for="star5_<?php echo $issue['id']; ?>">★</label>
+                                                                        <input type="radio" id="star4_<?php echo $issue['id']; ?>" name="rating" value="4" />
+                                                                        <label for="star4_<?php echo $issue['id']; ?>">★</label>
+                                                                        <input type="radio" id="star3_<?php echo $issue['id']; ?>" name="rating" value="3" />
+                                                                        <label for="star3_<?php echo $issue['id']; ?>">★</label>
+                                                                        <input type="radio" id="star2_<?php echo $issue['id']; ?>" name="rating" value="2" />
+                                                                        <label for="star2_<?php echo $issue['id']; ?>">★</label>
+                                                                        <input type="radio" id="star1_<?php echo $issue['id']; ?>" name="rating" value="1" />
+                                                                        <label for="star1_<?php echo $issue['id']; ?>">★</label>
+                                                                    </div>
+                                                                    
+                                                                    <div class="crad-feedback-textarea">
+                                                                        <textarea name="comments" placeholder="Tell us about your experience..." required></textarea>
+                                                                    </div>
+                                                                    
+                                                                    <div class="crad-feedback-submit">
+                                                                        <button type="submit" class="crad-feedback-btn">
+                                                                            <i class="fas fa-paper-plane"></i> Submit Feedback
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            <?php endif; ?>
+                                                        </div>
+                                                    <?php endif; ?>
+                                                </div>
+                                            <?php endforeach; ?>
+                                        </div>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tab Content: Settings -->
+                        <div id="settings" class="crad-tab-content">
+                            <div class="crad-content-card">
+                                <div class="crad-card-header">
+                                    <h3><i class="fas fa-lock"></i> Change Password</h3>
+                                </div>
+                                <div class="crad-card-body">
+                                    <form action="/controllers/UserController.php?action=change_password" method="POST" class="crad-form-modern">
+                                        <div class="crad-form-group">
+                                            <label for="current_password">Current Password</label>
+                                            <div class="crad-input-with-icon">
+                                                <i class="fas fa-lock"></i>
+                                                <input type="password" id="current_password" name="current_password" required placeholder="Enter current password">
+                                                <button type="button" class="crad-toggle-password">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="crad-form-group">
+                                            <label for="new_password">New Password</label>
+                                            <div class="crad-input-with-icon">
+                                                <i class="fas fa-key"></i>
+                                                <input type="password" id="new_password" name="new_password" required placeholder="Enter new password">
+                                                <button type="button" class="crad-toggle-password">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <button type="submit" class="crad-form-button">
+                                            <i class="fas fa-save"></i> Change Password
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                            
+                            <div class="crad-content-card crad-danger-zone">
+                                <div class="crad-card-header">
+                                    <h3><i class="fas fa-exclamation-triangle"></i> Danger Zone</h3>
+                                </div>
+                                <div class="crad-card-body">
+                                    <div class="crad-warning-message">
+                                        <i class="fas fa-exclamation-circle"></i>
+                                        <p>Warning: This action cannot be undone. All your data, including reported issues, will be permanently deleted.</p>
+                                    </div>
+                                    <form action="/controllers/UserController.php?action=delete_account" method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.');">
+                                        <button type="submit" class="crad-form-button danger">
+                                            <i class="fas fa-trash-alt"></i> Delete Account
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Tab Navigation
+            const tabButtons = document.querySelectorAll('.crad-tab-btn');
+            const tabContents = document.querySelectorAll('.crad-tab-content');
+            
+            tabButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    tabButtons.forEach(btn => btn.classList.remove('active'));
+                    tabContents.forEach(content => content.classList.remove('active'));
+                    
+                    this.classList.add('active');
+                    const tabId = this.getAttribute('data-tab');
+                    document.getElementById(tabId).classList.add('active');
+                    
+                    localStorage.setItem('activeTab', tabId);
+                });
             });
-        });
-        
-        // Auto-hide notifications after 5 seconds
-        const notifications = document.querySelectorAll('.notification');
-        if (notifications.length > 0) {
-            setTimeout(() => {
-                notifications.forEach(notification => {
+            
+            // Restore active tab from localStorage
+            const activeTab = localStorage.getItem('activeTab');
+            if (activeTab) {
+                const activeButton = document.querySelector(`.crad-tab-btn[data-tab="${activeTab}"]`);
+                if (activeButton) {
+                    activeButton.click();
+                }
+            }
+            
+            // Close notification
+            const closeButtons = document.querySelectorAll('.crad-close-notification');
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const notification = this.closest('.crad-notification');
                     notification.style.opacity = '0';
+                    notification.style.transform = 'translateX(-100px)';
                     setTimeout(() => {
                         notification.style.display = 'none';
                     }, 300);
                 });
-            }, 5000);
-        }
-        
-        // Image preview lightbox
-        const imageLinks = document.querySelectorAll('.image-preview');
-        imageLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                
-                const imgSrc = this.getAttribute('href');
-                const lightbox = document.createElement('div');
-                lightbox.className = 'lightbox';
-                
-                const img = document.createElement('img');
-                img.src = imgSrc;
-                
-                const closeBtn = document.createElement('button');
-                closeBtn.className = 'lightbox-close';
-                closeBtn.innerHTML = '<i class="fas fa-times"></i>';
-                
-                lightbox.appendChild(img);
-                lightbox.appendChild(closeBtn);
-                document.body.appendChild(lightbox);
-                
-                // Prevent scrolling when lightbox is open
-                document.body.style.overflow = 'hidden';
-                
-                // Close lightbox on click
-                lightbox.addEventListener('click', function() {
-                    document.body.style.overflow = '';
-                    lightbox.remove();
-                });
-                
-                // Prevent propagation when clicking on image
-                img.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                });
-                
-                // Close on escape key
-                document.addEventListener('keydown', function(e) {
-                    if (e.key === 'Escape') {
+            });
+            
+            // Auto-hide notifications after 5 seconds
+            const notifications = document.querySelectorAll('.crad-notification');
+            if (notifications.length > 0) {
+                setTimeout(() => {
+                    notifications.forEach(notification => {
+                        notification.style.opacity = '0';
+                        notification.style.transform = 'translateX(-100px)';
+                        setTimeout(() => {
+                            notification.style.display = 'none';
+                        }, 300);
+                    });
+                }, 5000);
+            }
+            
+            // Image preview lightbox
+            const imageLinks = document.querySelectorAll('.crad-image-preview');
+            imageLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    const imgSrc = this.getAttribute('href');
+                    const lightbox = document.createElement('div');
+                    lightbox.className = 'crad-lightbox';
+                    
+                    const img = document.createElement('img');
+                    img.src = imgSrc;
+                    
+                    const closeBtn = document.createElement('button');
+                    closeBtn.className = 'crad-lightbox-close';
+                    closeBtn.innerHTML = '<i class="fas fa-times"></i>';
+                    
+                    lightbox.appendChild(img);
+                    lightbox.appendChild(closeBtn);
+                    document.body.appendChild(lightbox);
+                    
+                    document.body.style.overflow = 'hidden';
+                    
+                    lightbox.addEventListener('click', function() {
                         document.body.style.overflow = '';
                         lightbox.remove();
+                    });
+                    
+                    img.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                    });
+                    
+                    document.addEventListener('keydown', function(e) {
+                        if (e.key === 'Escape') {
+                            document.body.style.overflow = '';
+                            lightbox.remove();
+                        }
+                    });
+                    
+                    closeBtn.addEventListener('click', function() {
+                        document.body.style.overflow = '';
+                        lightbox.remove();
+                    });
+                });
+            });
+
+            // Toggle password visibility
+            const toggleButtons = document.querySelectorAll('.crad-toggle-password');
+            toggleButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const input = this.parentNode.querySelector('input');
+                    const icon = this.querySelector('i');
+                    
+                    if (input.type === 'password') {
+                        input.type = 'text';
+                        icon.classList.remove('fa-eye');
+                        icon.classList.add('fa-eye-slash');
+                    } else {
+                        input.type = 'password';
+                        icon.classList.remove('fa-eye-slash');
+                        icon.classList.add('fa-eye');
                     }
                 });
+            });
+
+            // Confirm delete account
+            const deleteAccountForm = document.querySelector('form[action*="delete_account"]');
+            if (deleteAccountForm) {
+                deleteAccountForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    const confirmed = confirm('Are you sure you want to delete your account? This action cannot be undone.');
+                    
+                    if (confirmed) {
+                        const doubleConfirmed = confirm('This is your final warning. Your account and all data will be permanently deleted. Are you absolutely sure?');
+                        if (doubleConfirmed) {
+                            this.submit();
+                        }
+                    }
+                });
+            }
+
+            // Enhanced hover effects
+            const cards = document.querySelectorAll('.crad-stat-card, .crad-issue-card, .crad-content-card, .crad-detail-item');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = this.style.transform || 'translateY(-5px) scale(1.02)';
+                });
                 
-                // Close button
-                closeBtn.addEventListener('click', function() {
-                    document.body.style.overflow = '';
-                    lightbox.remove();
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = '';
                 });
             });
         });
-        
-        // Star rating system
-        const ratingSelects = document.querySelectorAll('select[name="rating"]');
-        ratingSelects.forEach(select => {
-            select.addEventListener('change', function() {
-                const stars = this.value;
-                const starsContainer = document.createElement('div');
-                starsContainer.className = 'stars-container';
-                
-                for (let i = 1; i <= 5; i++) {
-                    const star = document.createElement('i');
-                    star.className = i <= stars ? 'fas fa-star' : 'far fa-star';
-                    starsContainer.appendChild(star);
-                }
-                
-                // Replace select with stars display
-                const parentDiv = this.parentNode;
-                parentDiv.appendChild(starsContainer);
-            });
-        });
-        
-        // Password strength meter
-        const newPasswordInput = document.getElementById('new_password');
-        if (newPasswordInput) {
-            const strengthMeter = document.createElement('div');
-            strengthMeter.className = 'password-strength';
-            strengthMeter.innerHTML = '<div class="strength-meter"></div><p class="strength-text">Password strength</p>';
-            
-            newPasswordInput.parentNode.insertBefore(strengthMeter, newPasswordInput.nextSibling);
-            
-            const meter = strengthMeter.querySelector('.strength-meter');
-            const text = strengthMeter.querySelector('.strength-text');
-            
-            newPasswordInput.addEventListener('input', function() {
-                const val = this.value;
-                let strength = 0;
-                
-                // Check password length
-                if (val.length >= 8) strength += 1;
-                
-                // Check for mixed case
-                if (val.match(/[a-z]/) && val.match(/[A-Z]/)) strength += 1;
-                
-                // Check for numbers
-                if (val.match(/\d/)) strength += 1;
-                
-                // Check for special characters
-                if (val.match(/[^a-zA-Z\d]/)) strength += 1;
-                
-                // Update meter
-                meter.className = 'strength-meter';
-                text.className = 'strength-text';
-                
-                if (val.length === 0) {
-                    meter.className = 'strength-meter';
-                    text.className = 'strength-text';
-                    text.textContent = 'Password strength';
-                } else if (strength < 2) {
-                    meter.className = 'strength-meter weak';
-                    text.className = 'strength-text weak';
-                    text.textContent = 'Weak password';
-                } else if (strength === 2) {
-                    meter.className = 'strength-meter medium';
-                    text.className = 'strength-text medium';
-                    text.textContent = 'Medium password';
-                } else if (strength === 3) {
-                    meter.className = 'strength-meter strong';
-                    text.className = 'strength-text strong';
-                    text.textContent = 'Strong password';
-                } else {
-                    meter.className = 'strength-meter very-strong';
-                    text.className = 'strength-text very-strong';
-                    text.textContent = 'Very strong password';
-                }
-            });
-        }
-        
-        // Confirm delete account
-        const deleteAccountForm = document.querySelector('form[action*="delete_account"]');
-        if (deleteAccountForm) {
-            deleteAccountForm.addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const confirmed = confirm('Are you sure you want to delete your account? This action cannot be undone.');
-                
-                if (confirmed) {
-                    this.submit();
-                }
-            });
-        }
-    });
-</script>
+    </script>
 
-<?php include 'footer.php'; ?>
+    <?php include 'footer.php'; ?>
+</body>
+</html>

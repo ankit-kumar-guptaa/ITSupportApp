@@ -131,6 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <?php include 'header.php'; ?>
+   <?php include 'loader.php'; ?>
 
 <!-- Consultation Hero Section -->
 <section class="consultation-hero py-5 position-relative overflow-hidden">

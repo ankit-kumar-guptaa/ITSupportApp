@@ -368,6 +368,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <body>
 
 <?php include 'header.php'; ?>
+   <?php include 'loader.php'; ?>
 
 <div class="signup-wrapper">
     <!-- Creative Visual Section -->

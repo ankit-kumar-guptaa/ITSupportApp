@@ -657,8 +657,13 @@ session_start();
 </head>
 
 <body>
-    <?php include 'header.php'; ?>
 
+    <?php include 'header.php'; ?>
+    <?php include 'loader.php'; ?>
+
+
+
+    
 <!-- Hero Section - IT Sahayata Light Theme -->
 <section class="it-hero-light" id="hero">
     <div class="container">

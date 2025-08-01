@@ -78,6 +78,8 @@ $messages = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 
 <?php include 'header.php'; ?>
+
+   <?php include 'loader.php'; ?>
 <main>
     <section class="dashboard-section">
         <div class="dashboard-box" data-aos="fade-up">

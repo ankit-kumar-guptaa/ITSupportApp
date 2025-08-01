@@ -265,6 +265,7 @@
 </head>
 <body>
 
+    <?php include 'loader.php'; ?>
 
     <!-- Hero Section -->
     <section class="hero-about text-center">
@@ -613,7 +614,7 @@
     </section>
 
     <!-- Impact Section -->
-    <section class="impact-section py-5">
+    <!-- <section class="impact-section py-5">
         <div class="container py-5">
             <div class="text-center mb-5">
                 <span class="badge bg-primary mb-3">Our Impact</span>
@@ -669,7 +670,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
 
     <!-- CTA Section -->
     <section class="py-5 bg-primary text-white">

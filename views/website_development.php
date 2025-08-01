@@ -17,6 +17,8 @@
 
 <?php include 'header.php'; ?>
 
+   <?php include 'loader.php'; ?>
+
 <!-- Website Development Hero Section -->
 <section class="website-hero py-5 position-relative overflow-hidden">
     <div class="container position-relative z-1">

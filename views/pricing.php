@@ -456,7 +456,7 @@ $meta_keywords = "IT support pricing, managed IT services cost, computer support
 </head>
 <body>
     <!-- Navigation -->
-    
+       <?php include 'loader.php'; ?>
 
     <!-- Hero Section -->
     <section class="hero-pricing text-center">

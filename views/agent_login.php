@@ -216,6 +216,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
     <?php include 'header.php'; ?>
+       <?php include 'loader.php'; ?>
     
     <section class="login-section">
         <div class="container">

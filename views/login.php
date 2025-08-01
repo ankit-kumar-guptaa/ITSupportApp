@@ -316,6 +316,7 @@ if (session_status() === PHP_SESSION_NONE) {
 <body>
 
 <?php include 'header.php'; ?>
+   <?php include 'loader.php'; ?>
 
 <div class="login-wrapper">
     <!-- Creative Visual Section -->

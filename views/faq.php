@@ -13,6 +13,7 @@
 
 
     <?php include 'header.php'; ?>
+       <?php include 'loader.php'; ?>
 
     <!-- Hero Section -->
     <section class="hero-faq text-center">

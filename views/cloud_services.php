@@ -460,7 +460,7 @@
 <body>
 
 <?php include 'header.php'; ?>
-
+   <?php include 'loader.php'; ?>
 <!-- Cloud Services Hero Section -->
 <section class="cloud-hero py-5 position-relative overflow-hidden">
     <!-- Animated floating clouds -->
