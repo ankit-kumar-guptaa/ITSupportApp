@@ -659,355 +659,1099 @@ session_start();
 <body>
     <?php include 'header.php'; ?>
 
-  <!-- Hero Section -->
-<section class="hero-section" id="hero">
+<!-- Hero Section - IT Sahayata Light Theme -->
+<section class="it-hero-light" id="hero">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6">
-                <div class="hero-content">
+                <div class="it-hero-content-light">
                     <!-- Trust badge -->
-                    <div class="trust-badge">
-                        <i class="fas fa-shield-alt"></i>
-                        <span>Trusted by 500+ Businesses</span>
+                    <div class="it-trust-badge-light">
+                        <i class="fas fa-robot"></i>
+                        <span>AI + Expert Support Available</span>
                     </div>
                     
                     <!-- Main heading -->
-                    <h1 class="hero-title">
-                        Your Trusted <span class="highlight">IT Solutions</span> Partner
+                    <h1 class="it-hero-title-light">
+                        आपकी हर <span class="it-highlight-light">IT समस्या</span> का 
+                        <span class="it-ai-text-light">Smart समाधान</span>
                     </h1>
                     
-                    <p class="hero-subtitle">
-                        We provide comprehensive IT services including cloud solutions, cybersecurity, 
-                        network management, and software development to drive your business forward.
+                    <p class="it-hero-subtitle-light">
+                        पहले AI से instant solution पाएं, फिर जरूरत हो तो हमारे experts 
+                        आपके यहाँ आकर personally problem solve करते हैं। Complete IT support!
                     </p>
                     
-                    <!-- CTA Buttons -->
-                    <div class="hero-cta">
-                        <a href="#contact" class="btn btn-primary">
-                            <i class="fas fa-headset"></i> Get Support Now
+                    <!-- Action Buttons -->
+                    <div class="it-hero-actions-light">
+                        <a href="/views/ai_chat.php" target="_blank" class="it-btn-light it-btn-ai-light">
+                            <div class="it-btn-content-light">
+                                <i class="fas fa-robot it-btn-icon-light"></i>
+                                <div class="it-btn-text-light">
+                                    <span class="it-btn-main-light">AI से Chat करें</span>
+                                    <small class="it-btn-sub-light">Instant Solution</small>
+                                </div>
+                            </div>
+                            <div class="it-sparkle-effect-light"></div>
                         </a>
-                        <a href="#services" class="btn btn-outline">
-                            <i class="fas fa-th"></i> Our Services
+                        
+                        <a href="tel:+91-7703823008" class="it-btn-light it-btn-expert-light">
+                            <div class="it-btn-content-light">
+                                <i class="fas fa-user-tie it-btn-icon-light"></i>
+                                <div class="it-btn-text-light">
+                                    <span class="it-btn-main-light">Expert Call करें</span>
+                                    <small class="it-btn-sub-light">7703823008</small>
+                                </div>
+                            </div>
                         </a>
                     </div>
                     
+                    <!-- Service Highlights -->
+                    <div class="it-service-highlights-light">
+                        <div class="it-service-item-light">
+                            <i class="fas fa-laptop"></i>
+                            <span>Computer Repair</span>
+                        </div>
+                        <div class="it-service-item-light">
+                            <i class="fas fa-server"></i>
+                            <span>Server Setup</span>
+                        </div>
+                        <div class="it-service-item-light">
+                            <i class="fas fa-wifi"></i>
+                            <span>Network Solutions</span>
+                        </div>
+                        <div class="it-service-item-light">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Cybersecurity</span>
+                        </div>
+                    </div>
+                    
                     <!-- Key Metrics -->
-                    <div class="metrics">
-                        <div class="metric-item">
-                            <div class="metric-value">24/7</div>
-                            <div class="metric-label">Support</div>
+                    <div class="it-metrics-light">
+                        <div class="it-metric-card-light">
+                            <div class="it-metric-value-light">5sec</div>
+                            <div class="it-metric-label-light">AI Response</div>
                         </div>
-                        <div class="metric-item">
-                            <div class="metric-value">99%</div>
-                            <div class="metric-label">Satisfaction</div>
+                        <div class="it-metric-card-light">
+                            <div class="it-metric-value-light">30min</div>
+                            <div class="it-metric-label-light">Expert Reach</div>
                         </div>
-                        <div class="metric-item">
-                            <div class="metric-value">30min</div>
-                            <div class="metric-label">Response Time</div>
+                        <div class="it-metric-card-light">
+                            <div class="it-metric-value-light">24/7</div>
+                            <div class="it-metric-label-light">Available</div>
+                        </div>
+                        <div class="it-metric-card-light">
+                            <div class="it-metric-value-light">99%</div>
+                            <div class="it-metric-label-light">Success Rate</div>
                         </div>
                     </div>
                 </div>
             </div>
             
             <div class="col-lg-6">
-                <div class="hero-image">
-                    <!-- Main IT image -->
-                    <img src="../assets/hero.png" alt="IT professionals working" class="main-img">
-                    
-                    <!-- Floating tech elements -->
-                    <div class="tech-element cloud">
-                        <i class="fas fa-cloud"></i>
-                    </div>
-                    <div class="tech-element shield">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <div class="tech-element server">
-                        <i class="fas fa-server"></i>
+                <div class="it-hero-visual-light">
+                    <!-- Main Image -->
+                    <div class="it-main-image-light">
+                        <img src="../assets/hero.png" alt="IT Sahayata - Professional IT Support" class="it-hero-img-light">
+                        <div class="it-image-overlay-light"></div>
                     </div>
                     
-                    <!-- Client logos -->
-                    <div class="client-logos">
-                        <div class="logo-item">
-                            <img src="https://purepng.com/public/uploads/large/purepng.com-microsoft-logo-iconlogobrand-logoiconslogos-251519939091wmudn.png" alt="Microsoft Partner">
+                    <!-- Floating Tech Icons -->
+                    <div class="it-tech-float-light it-float-1-light">
+                        <i class="fas fa-microchip"></i>
+                    </div>
+                    <div class="it-tech-float-light it-float-2-light">
+                        <i class="fas fa-robot"></i>
+                    </div>
+                    <div class="it-tech-float-light it-float-3-light">
+                        <i class="fas fa-tools"></i>
+                    </div>
+                    <div class="it-tech-float-light it-float-4-light">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    
+                    <!-- Success Badge -->
+                    <div class="it-success-badge-light">
+                        <i class="fas fa-check-circle"></i>
+                        <div class="it-badge-text-light">
+                            <strong>500+</strong>
+                            <span>Problems Solved</span>
                         </div>
-                        <div class="logo-item">
-                            <img src="https://tse4.mm.bing.net/th/id/OIP.cAALDaDujKm4Og8WiOOm2wHaHa?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Cisco Partner">
+                    </div>
+                    
+                    <!-- Live Stats -->
+                    <div class="it-live-stats-light">
+                        <div class="it-stat-item-light">
+                            <div class="it-stat-dot-light"></div>
+                            <span>AI solving issue now...</span>
                         </div>
-                        <div class="logo-item">
-                            <img src="https://tse1.mm.bing.net/th/id/OIP.GfRMa4L8EDf-NWt5dZyJuwHaEb?rs=1&pid=ImgDetMain&o=7&rm=3" alt="AWS Partner">
+                        <div class="it-stat-item-light">
+                            <div class="it-stat-dot-light"></div>
+                            <span>Expert on the way...</span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- Smart Support Flow -->
+        <div class="it-support-flow-light">
+            <h3 class="it-flow-title-light">हमारा Smart Support Process</h3>
+            <div class="it-flow-steps-light">
+                <div class="it-step-light">
+                    <div class="it-step-icon-light">
+                        <i class="fas fa-comments"></i>
+                        <span class="it-step-number-light">1</span>
+                    </div>
+                    <div class="it-step-content-light">
+                        <h4>AI से Chat करें</h4>
+                        <p>अपनी problem बताएं, instant solution पाएं</p>
+                    </div>
+                </div>
+                
+                <div class="it-step-arrow-light">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div class="it-step-light">
+                    <div class="it-step-icon-light">
+                        <i class="fas fa-brain"></i>
+                        <span class="it-step-number-light">2</span>
+                    </div>
+                    <div class="it-step-content-light">
+                        <h4>Smart Analysis</h4>
+                        <p>AI आपकी problem analyze करके solution देगा</p>
+                    </div>
+                </div>
+                
+                <div class="it-step-arrow-light">
+                    <i class="fas fa-arrow-right"></i>
+                </div>
+                
+                <div class="it-step-light">
+                    <div class="it-step-icon-light">
+                        <i class="fas fa-user-tie"></i>
+                        <span class="it-step-number-light">3</span>
+                    </div>
+                    <div class="it-step-content-light">
+                        <h4>Expert Support</h4>
+                        <p>जरूरत हो तो expert आपके पास आएंगे</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Background Elements -->
+    <div class="it-bg-pattern-light"></div>
+    <div class="it-bg-shapes-light">
+        <div class="it-shape-1"></div>
+        <div class="it-shape-2"></div>
+        <div class="it-shape-3"></div>
     </div>
 </section>
 
 <style>
-/* Hero Section - Light Theme */
-.hero-section {
-    padding: 100px 0;
-    background-color: #f8fafc;
+/* IT Sahayata Hero Section - Light Theme */
+.it-hero-light {
+    padding: 80px 0;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 50%, #f1f5f9 100%);
     position: relative;
     overflow: hidden;
+    color: #1a202c;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
 }
 
-/* Content styles */
-.hero-content {
+/* Enhanced Background Effects */
+.it-bg-pattern-light {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        radial-gradient(circle at 20% 20%, rgba(79, 70, 229, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(34, 197, 94, 0.06) 0%, transparent 50%);
+    z-index: 1;
+}
+
+.it-bg-shapes-light {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1;
+}
+
+.it-shape-1 {
+    position: absolute;
+    top: 10%;
+    right: 10%;
+    width: 200px;
+    height: 200px;
+    background: linear-gradient(45deg, rgba(79, 70, 229, 0.1), rgba(236, 72, 153, 0.05));
+    border-radius: 50%;
+    animation: itFloatShape 8s ease-in-out infinite;
+}
+
+.it-shape-2 {
+    position: absolute;
+    bottom: 20%;
+    left: 5%;
+    width: 150px;
+    height: 150px;
+    background: linear-gradient(45deg, rgba(34, 197, 94, 0.1), rgba(59, 130, 246, 0.05));
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    animation: itFloatShape 10s ease-in-out infinite reverse;
+}
+
+.it-shape-3 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 100px;
+    height: 100px;
+    background: linear-gradient(45deg, rgba(245, 101, 101, 0.08), rgba(251, 191, 36, 0.05));
+    border-radius: 20px;
+    transform: rotate(45deg);
+    animation: itRotateShape 12s linear infinite;
+}
+
+@keyframes itFloatShape {
+    0%, 100% { transform: translateY(0px) scale(1); }
+    50% { transform: translateY(-30px) scale(1.1); }
+}
+
+@keyframes itRotateShape {
+    0% { transform: rotate(45deg); }
+    100% { transform: rotate(405deg); }
+}
+
+/* Content Styles */
+.it-hero-content-light {
     position: relative;
-    z-index: 2;
+    z-index: 5;
 }
 
-.trust-badge {
+.it-trust-badge-light {
     display: inline-flex;
     align-items: center;
-    gap: 8px;
-    background: #e0e7ff;
-    color: #4338ca;
-    padding: 8px 16px;
+    gap: 10px;
+    background: linear-gradient(45deg, #4f46e5, #7c3aed);
+    color: white;
+    padding: 12px 24px;
     border-radius: 50px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    font-size: 0.9rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    font-size: 0.95rem;
+    box-shadow: 0 8px 32px rgba(79, 70, 229, 0.25);
+    animation: itPulseGlowLight 3s ease-in-out infinite;
 }
 
-.hero-title {
-    font-size: 3rem;
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 1.5rem;
+@keyframes itPulseGlowLight {
+    0%, 100% { 
+        box-shadow: 0 8px 32px rgba(79, 70, 229, 0.25);
+        transform: scale(1);
+    }
+    50% { 
+        box-shadow: 0 12px 40px rgba(79, 70, 229, 0.35);
+        transform: scale(1.02);
+    }
+}
+
+.it-hero-title-light {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    margin-bottom: 25px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
     color: #1e293b;
 }
 
-.highlight {
-    color: #4338ca;
+.it-highlight-light {
+    color: #dc2626;
     position: relative;
 }
 
-.highlight::after {
+.it-highlight-light::after {
     content: '';
     position: absolute;
-    bottom: 5px;
+    bottom: 8px;
     left: 0;
     width: 100%;
-    height: 8px;
-    background-color: #c7d2fe;
+    height: 12px;
+    background: linear-gradient(90deg, transparent, rgba(220, 38, 38, 0.2), transparent);
     z-index: -1;
-    border-radius: 4px;
+    border-radius: 6px;
+    animation: itHighlightShimmerLight 2s ease-in-out infinite;
 }
 
-.hero-subtitle {
-    font-size: 1.1rem;
+@keyframes itHighlightShimmerLight {
+    0%, 100% { opacity: 0.3; transform: scaleX(1); }
+    50% { opacity: 0.6; transform: scaleX(1.1); }
+}
+
+.it-ai-text-light {
+    background: linear-gradient(45deg, #4f46e5, #7c3aed, #ec4899);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: itGradientShiftLight 4s ease-in-out infinite;
+    font-weight: 900;
+}
+
+@keyframes itGradientShiftLight {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.it-hero-subtitle-light {
+    font-size: 1.2rem;
     color: #64748b;
-    margin-bottom: 2rem;
-    max-width: 500px;
-    line-height: 1.6;
+    margin-bottom: 35px;
+    line-height: 1.7;
+    max-width: 550px;
+    text-shadow: 0 1px 2px rgba(255, 255, 255, 0.8);
 }
 
-/* Button styles */
-.hero-cta {
+/* Action Buttons */
+.it-hero-actions-light {
     display: flex;
-    gap: 1rem;
-    margin-bottom: 2rem;
+    gap: 20px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
 }
 
-.btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border-radius: 8px;
-    font-weight: 600;
+.it-btn-light {
+    position: relative;
     text-decoration: none;
-    transition: all 0.3s ease;
+    border-radius: 60px;
+    overflow: hidden;
+    transition: all 0.4s ease;
+    min-width: 240px;
+    display: block;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-.btn-primary {
-    background-color: #4338ca;
+.it-btn-content-light {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px 30px;
+    position: relative;
+    z-index: 2;
+}
+
+.it-btn-icon-light {
+    font-size: 1.6rem;
+    flex-shrink: 0;
+}
+
+.it-btn-text-light {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.it-btn-main-light {
+    font-weight: 800;
+    font-size: 1.1rem;
+    line-height: 1.2;
+}
+
+.it-btn-sub-light {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    margin-top: 2px;
+}
+
+/* AI Button */
+.it-btn-ai-light {
+    background: linear-gradient(135deg, #4f46e5 0%, #7c3aed 50%, #ec4899 100%);
+    background-size: 200% 200%;
     color: white;
-    border: 2px solid #4338ca;
+    animation: itGradientMoveLight 6s ease-in-out infinite;
 }
 
-.btn-primary:hover {
-    background-color: #3730a3;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(67, 56, 202, 0.2);
+@keyframes itGradientMoveLight {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
 }
 
-.btn-outline {
-    background-color: transparent;
-    color: #4338ca;
-    border: 2px solid #4338ca;
+.it-sparkle-effect-light {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.4), 
+        transparent);
+    transition: left 0.8s ease;
 }
 
-.btn-outline:hover {
-    background-color: #e0e7ff;
-    transform: translateY(-2px);
+.it-btn-ai-light:hover .it-sparkle-effect-light {
+    left: 100%;
+}
+
+.it-btn-ai-light:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 45px rgba(79, 70, 229, 0.3);
+}
+
+/* Expert Button */
+.it-btn-expert-light {
+    background: linear-gradient(45deg, #059669, #10b981);
+    color: white;
+}
+
+.it-btn-expert-light:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 45px rgba(5, 150, 105, 0.3);
+}
+
+/* Service Highlights */
+.it-service-highlights-light {
+    display: flex;
+    gap: 25px;
+    margin-bottom: 35px;
+    flex-wrap: wrap;
+}
+
+.it-service-item-light {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 1px solid rgba(79, 70, 229, 0.1);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.it-service-item-light:hover {
+    background: rgba(79, 70, 229, 0.1);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(79, 70, 229, 0.15);
+}
+
+.it-service-item-light i {
+    color: #4f46e5;
+    font-size: 1.2rem;
+}
+
+.it-service-item-light span {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: #374151;
 }
 
 /* Metrics */
-.metrics {
+.it-metrics-light {
     display: flex;
-    gap: 2rem;
-    margin-top: 2rem;
+    gap: 20px;
+    flex-wrap: wrap;
 }
 
-.metric-item {
-    text-align: center;
-}
-
-.metric-value {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #4338ca;
-    margin-bottom: 4px;
-}
-
-.metric-label {
-    font-size: 0.9rem;
-    color: #64748b;
-}
-
-/* Hero image */
-.hero-image {
-    position: relative;
+.it-metric-card-light {
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(15px);
     padding: 20px;
+    border-radius: 20px;
+    text-align: center;
+    border: 1px solid rgba(79, 70, 229, 0.1);
+    transition: all 0.3s ease;
+    flex: 1;
+    min-width: 100px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
 }
 
-.main-img {
-    width: 100%;
-    border-radius: 12px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+.it-metric-card-light:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(79, 70, 229, 0.15);
+}
+
+.it-metric-value-light {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: #4f46e5;
+    margin-bottom: 8px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.it-metric-label-light {
+    font-size: 0.85rem;
+    color: #64748b;
+    font-weight: 600;
+}
+
+/* Hero Visual */
+.it-hero-visual-light {
     position: relative;
-    z-index: 2;
+    z-index: 3;
 }
 
-/* Tech elements */
-.tech-element {
-    position: absolute;
-    width: 60px;
-    height: 60px;
+.it-main-image-light {
+    position: relative;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
     background: white;
-    border-radius: 12px;
+    padding: 10px;
+    transform: perspective(1000px) rotateY(-5deg) rotateX(5deg);
+    transition: all 0.4s ease;
+}
+
+.it-main-image-light:hover {
+    transform: perspective(1000px) rotateY(0deg) rotateX(0deg) scale(1.02);
+    box-shadow: 0 35px 80px rgba(0, 0, 0, 0.2);
+}
+
+.it-hero-img-light {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 20px;
+}
+
+.it-image-overlay-light {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: 10px;
+    background: linear-gradient(45deg, 
+        rgba(79, 70, 229, 0.05) 0%, 
+        transparent 50%, 
+        rgba(236, 72, 153, 0.05) 100%);
+    border-radius: 20px;
+}
+
+/* Floating Tech Icons */
+.it-tech-float-light {
+    position: absolute;
+    width: 70px;
+    height: 70px;
+    background: white;
+    border-radius: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.5rem;
-    color: #4338ca;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    z-index: 3;
-    animation: float 6s ease-in-out infinite;
+    font-size: 1.8rem;
+    z-index: 4;
+    border: 2px solid rgba(79, 70, 229, 0.1);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
-.cloud {
+.it-float-1-light {
     top: 20px;
     left: 20px;
-    animation-delay: 0s;
+    color: #dc2626;
+    animation: itFloat1Light 6s ease-in-out infinite;
 }
 
-.shield {
-    bottom: 40px;
-    right: 40px;
-    animation-delay: 1s;
-}
-
-.server {
+.it-float-2-light {
     top: 40px;
+    right: 30px;
+    color: #4f46e5;
+    animation: itFloat2Light 8s ease-in-out infinite;
+}
+
+.it-float-3-light {
+    bottom: 80px;
+    left: 30px;
+    color: #059669;
+    animation: itFloat3Light 7s ease-in-out infinite;
+}
+
+.it-float-4-light {
+    bottom: 30px;
     right: 20px;
-    animation-delay: 2s;
+    color: #d97706;
+    animation: itFloat4Light 9s ease-in-out infinite;
 }
 
-@keyframes float {
-    0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-15px); }
+@keyframes itFloat1Light {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-20px) rotate(10deg); }
 }
 
-/* Client logos */
-.client-logos {
+@keyframes itFloat2Light {
+    0%, 100% { transform: translateY(0) rotate(0deg) scale(1); }
+    50% { transform: translateY(-25px) rotate(-10deg) scale(1.1); }
+}
+
+@keyframes itFloat3Light {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    33% { transform: translateY(-15px) rotate(5deg); }
+    66% { transform: translateY(-5px) rotate(-5deg); }
+}
+
+@keyframes itFloat4Light {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    25% { transform: translateY(-10px) rotate(15deg); }
+    75% { transform: translateY(-15px) rotate(-15deg); }
+}
+
+/* Success Badge */
+.it-success-badge-light {
+    position: absolute;
+    top: 20px;
+    right: -20px;
+    background: linear-gradient(45deg, #059669, #10b981);
+    color: white;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(5, 150, 105, 0.3);
+    z-index: 5;
     display: flex;
-    gap: 1rem;
-    margin-top: 2rem;
-    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    animation: itBadgeSlidLight 1s ease-out;
+}
+
+@keyframes itBadgeSlidLight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.it-success-badge-light i {
+    font-size: 1.5rem;
+}
+
+.it-badge-text-light strong {
+    display: block;
+    font-size: 1.2rem;
+    line-height: 1;
+}
+
+.it-badge-text-light span {
+    font-size: 0.8rem;
+    opacity: 0.9;
+}
+
+/* Live Stats */
+.it-live-stats-light {
+    position: absolute;
+    bottom: -10px;
+    left: -30px;
     background: white;
-    padding: 1rem;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    color: #374151;
+    padding: 15px 20px;
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    z-index: 5;
+    animation: itStatsSlideLight 1s ease-out 0.5s both;
+    border: 1px solid rgba(79, 70, 229, 0.1);
+}
+
+@keyframes itStatsSlideLight {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.it-stat-item-light {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    font-size: 0.85rem;
+    font-weight: 600;
+}
+
+.it-stat-item-light:last-child {
+    margin-bottom: 0;
+}
+
+.it-stat-dot-light {
+    width: 8px;
+    height: 8px;
+    background: linear-gradient(45deg, #4f46e5, #10b981);
+    border-radius: 50%;
+    animation: itDotPulseLight 2s infinite;
+}
+
+@keyframes itDotPulseLight {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.6; transform: scale(1.3); }
+}
+
+/* Support Flow */
+.it-support-flow-light {
+    margin-top: 60px;
+    padding: 40px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(20px);
+    border-radius: 25px;
+    border: 1px solid rgba(79, 70, 229, 0.1);
     position: relative;
-    z-index: 2;
+    z-index: 5;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
 }
 
-.logo-item img {
+.it-flow-title-light {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    margin-bottom: 40px;
+    color: #1e293b;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.it-flow-steps-light {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 30px;
+}
+
+.it-step-light {
+    flex: 1;
+    text-align: center;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+    border: 1px solid rgba(79, 70, 229, 0.1);
+    transition: all 0.3s ease;
+    position: relative;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+}
+
+.it-step-light:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(79, 70, 229, 0.15);
+}
+
+.it-step-icon-light {
+    width: 80px;
+    height: 80px;
+    background: linear-gradient(45deg, #4f46e5, #7c3aed);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 20px;
+    font-size: 2rem;
+    color: white;
+    position: relative;
+    box-shadow: 0 10px 30px rgba(79, 70, 229, 0.3);
+}
+
+.it-step-number-light {
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    width: 30px;
     height: 30px;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
+    background: linear-gradient(45deg, #dc2626, #ef4444);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    font-weight: 900;
+    color: white;
+    box-shadow: 0 4px 15px rgba(220, 38, 38, 0.4);
 }
 
-.logo-item:hover img {
-    opacity: 1;
+.it-step-content-light h4 {
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #1e293b;
 }
 
-/* Responsive styles */
+.it-step-content-light p {
+    color: #64748b;
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.it-step-arrow-light {
+    color: #4f46e5;
+    font-size: 1.5rem;
+    animation: itArrowPulseLight 2s ease-in-out infinite;
+}
+
+@keyframes itArrowPulseLight {
+    0%, 100% { transform: translateX(0); opacity: 0.7; }
+    50% { transform: translateX(10px); opacity: 1; }
+}
+
+/* Responsive Design */
 @media (max-width: 1199px) {
-    .hero-title {
-        font-size: 2.5rem;
+    .it-hero-title-light {
+        font-size: 3rem;
+    }
+    
+    .it-flow-steps-light {
+        gap: 20px;
+    }
+    
+    .it-shape-1, .it-shape-2 {
+        opacity: 0.6;
     }
 }
 
 @media (max-width: 991px) {
-    .hero-section {
-        padding: 80px 0;
+    .it-hero-light {
+        padding: 60px 0;
+        min-height: auto;
     }
     
-    .hero-image {
-        margin-top: 50px;
+    .it-flow-steps-light {
+        flex-direction: column;
+        gap: 30px;
     }
     
-    .metrics {
+    .it-step-arrow-light {
+        transform: rotate(90deg);
+    }
+    
+    .it-hero-actions-light {
         justify-content: center;
+    }
+    
+    .it-service-highlights-light {
+        justify-content: center;
+    }
+    
+    .it-bg-shapes-light .it-shape-1,
+    .it-bg-shapes-light .it-shape-2,
+    .it-bg-shapes-light .it-shape-3 {
+        opacity: 0.4;
     }
 }
 
 @media (max-width: 767px) {
-    .hero-title {
-        font-size: 2rem;
+    .it-hero-title-light {
+        font-size: 2.5rem;
     }
     
-    .hero-cta {
+    .it-hero-actions-light {
         flex-direction: column;
+        align-items: stretch;
     }
     
-    .tech-element {
-        width: 50px;
-        height: 50px;
-        font-size: 1.2rem;
+    .it-btn-light {
+        min-width: auto;
+    }
+    
+    .it-service-highlights-light {
+        gap: 15px;
+    }
+    
+    .it-service-item-light {
+        padding: 10px 15px;
+    }
+    
+    .it-metrics-light {
+        gap: 15px;
+    }
+    
+    .it-metric-card-light {
+        min-width: 80px;
+        padding: 15px;
+    }
+    
+    .it-support-flow-light {
+        padding: 25px 20px;
+        margin-top: 40px;
+    }
+    
+    .it-flow-title-light {
+        font-size: 1.6rem;
+    }
+    
+    .it-tech-float-light {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
     }
 }
 
 @media (max-width: 575px) {
-    .hero-title {
-        font-size: 1.8rem;
+    .it-hero-title-light {
+        font-size: 2rem;
     }
     
-    .metrics {
-        gap: 1rem;
+    .it-hero-subtitle-light {
+        font-size: 1.1rem;
     }
     
-    .metric-value {
-        font-size: 1.2rem;
+    .it-btn-content-light {
+        padding: 15px 20px;
     }
+    
+    .it-step-icon-light {
+        width: 70px;
+        height: 70px;
+        font-size: 1.7rem;
+    }
+    
+    .it-step-content-light h4 {
+        font-size: 1.1rem;
+    }
+    
+    .it-step-content-light p {
+        font-size: 0.85rem;
+    }
+    
+    .it-bg-shapes-light {
+        display: none;
+    }
+}
+
+/* Active Service Animation */
+.it-service-item-light.it-active-light {
+    background: rgba(79, 70, 229, 0.15) !important;
+    transform: translateY(-5px) scale(1.05) !important;
+    box-shadow: 0 12px 35px rgba(79, 70, 229, 0.25) !important;
 }
 </style>
 
 <script>
-// Simple animation trigger
+// IT Sahayata Hero Section JavaScript - Light Theme
 document.addEventListener('DOMContentLoaded', function() {
-    const techElements = document.querySelectorAll('.tech-element');
+    // Service highlights rotation effect
+    const serviceItems = document.querySelectorAll('.it-service-item-light');
+    let currentService = 0;
     
-    techElements.forEach((element, index) => {
-        element.style.animationDelay = `${index * 0.5}s`;
+    function highlightService() {
+        serviceItems.forEach(item => item.classList.remove('it-active-light'));
+        serviceItems[currentService].classList.add('it-active-light');
+        currentService = (currentService + 1) % serviceItems.length;
+    }
+    
+    setInterval(highlightService, 2500);
+    
+    // Metric cards animation on scroll
+    const observerOptions = {
+        threshold: 0.5,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const cards = entry.target.querySelectorAll('.it-metric-card-light');
+                cards.forEach((card, index) => {
+                    setTimeout(() => {
+                        card.style.animation = 'itSlideUpLight 0.6s ease-out forwards';
+                    }, index * 200);
+                });
+            }
+        });
+    }, observerOptions);
+    
+    const metricsSection = document.querySelector('.it-metrics-light');
+    if (metricsSection) {
+        observer.observe(metricsSection);
+    }
+    
+    // Add slide up animation
+    const slideStyle = document.createElement('style');
+    slideStyle.textContent = `
+        @keyframes itSlideUpLight {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    `;
+    document.head.appendChild(slideStyle);
+    
+    // Enhanced hover effects for buttons
+    const buttons = document.querySelectorAll('.it-btn-light');
+    buttons.forEach(button => {
+        button.addEventListener('mouseenter', function() {
+            this.style.transform = 'translateY(-8px) scale(1.03)';
+        });
+        
+        button.addEventListener('mouseleave', function() {
+            this.style.transform = 'translateY(0) scale(1)';
+        });
+        
+        button.addEventListener('mousedown', function() {
+            this.style.transform = 'translateY(-5px) scale(0.98)';
+        });
+        
+        button.addEventListener('mouseup', function() {
+            this.style.transform = 'translateY(-8px) scale(1.03)';
+        });
+    });
+    
+    // Phone button click tracking
+    const phoneButton = document.querySelector('a[href^="tel:"]');
+    if (phoneButton) {
+        phoneButton.addEventListener('click', function() {
+            console.log('Expert call initiated - Light Theme');
+        });
+    }
+    
+    // AI Chat button click tracking
+    const aiButton = document.querySelector('.it-btn-ai-light');
+    if (aiButton) {
+        aiButton.addEventListener('click', function() {
+            console.log('AI Chat opened - Light Theme');
+        });
+    }
+    
+    // Dynamic stats update with different colors
+    const statDots = document.querySelectorAll('.it-stat-dot-light');
+    statDots.forEach((dot, index) => {
+        setInterval(() => {
+            dot.style.background = index === 0 ? 
+                'linear-gradient(45deg, #10b981, #059669)' : 
+                'linear-gradient(45deg, #dc2626, #ef4444)';
+            
+            setTimeout(() => {
+                dot.style.background = 'linear-gradient(45deg, #4f46e5, #10b981)';
+            }, 1000);
+        }, 3000 + (index * 500));
+    });
+    
+    // Smooth parallax effect for background shapes
+    window.addEventListener('scroll', function() {
+        const scrolled = window.pageYOffset;
+        const shapes = document.querySelectorAll('.it-bg-shapes-light > div');
+        
+        shapes.forEach((shape, index) => {
+            const speed = 0.5 + (index * 0.2);
+            shape.style.transform = `translateY(${scrolled * speed}px)`;
+        });
     });
 });
 </script>
+
 
    <!-- NEXT-GEN IT SERVICES SECTION -->
 <section id="services" class="next-gen-services">

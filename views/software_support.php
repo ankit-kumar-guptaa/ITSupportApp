@@ -378,62 +378,6 @@
 </section>
 
 <!-- Testimonials Section -->
-<section class="py-5">
-    <div class="container py-5">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="section-title">What Our <span class="text-gradient">Clients Say</span></h2>
-            <p class="section-subtitle">Hear from businesses and individuals who've benefited from our software support</p>
-        </div>
-        
-        <div class="row">
-            <div class="col-lg-10 mx-auto">
-                <div class="testimonial-slider" data-aos="fade-up">
-                    <!-- Testimonial 1 -->
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <p>"The IT Sahayata team resolved our complex software integration issues that had been plaguing our business for months. Their expertise saved us countless hours of productivity and frustration."</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="John Doe" class="testimonial-avatar">
-                            <div class="testimonial-info">
-                                <h4>Rajesh Kumar</h4>
-                                <p>Operations Manager, TechSolutions Ltd</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Testimonial 2 -->
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <p>"After a ransomware attack threatened our business data, IT Sahayata not only recovered our files but implemented robust security measures to prevent future attacks. Their response was quick and professional."</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Jane Smith" class="testimonial-avatar">
-                            <div class="testimonial-info">
-                                <h4>Priya Sharma</h4>
-                                <p>CEO, Innovative Designs</p>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- Testimonial 3 -->
-                    <div class="testimonial-card">
-                        <div class="testimonial-content">
-                            <p>"The custom software solution developed by IT Sahayata has transformed our inventory management process. It's intuitive, efficient, and has significantly reduced errors in our operations."</p>
-                        </div>
-                        <div class="testimonial-author">
-                            <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Michael Johnson" class="testimonial-avatar">
-                            <div class="testimonial-info">
-                                <h4>Amit Patel</h4>
-                                <p>Logistics Manager, Global Distributors</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
 
 <!-- FAQ Section -->
 <section class="py-5 bg-light">
@@ -980,7 +924,7 @@
     
     /* CTA Section */
     .cta-section {
-        background: linear-gradient(135deg, rgba(67, 97, 238, 0.05), rgba(63, 55, 201, 0.05));
+           background: linear-gradient(135deg, rgb(67 97 238), rgb(63 55 201 / 68%));
     }
     
     .cta-card {

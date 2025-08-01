@@ -347,6 +347,8 @@
     box-shadow: 2px 0 15px rgba(0,0,0,0.15);
     position: relative;
     z-index: 2;
+    top: 150px; /* Adjusted to align with the center of the screen */
+    transition: all 0.3s ease;
 }
 
 .ai-icon {
@@ -361,7 +363,7 @@
     right: -5px;
     width: 12px;
     height: 12px;
-    background: #ff4d4d;
+    background: #5eff4d;
     border-radius: 50%;
     animation: pulse 1.5s infinite;
 }

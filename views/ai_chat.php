@@ -13,48 +13,41 @@ session_start();
     
     <style>
         :root {
-            --primary: #6c5ce7;
-            --primary-dark: #5649c0;
-            --primary-light: #8579ef;
-            --secondary: #00cec9;
-            --dark: #2d3436;
-            --light: #f5f6fa;
-            --gray: #636e72;
-            --success: #00b894;
-            --warning: #fdcb6e;
-            --danger: #d63031;
-            --card-bg: #ffffff;
-            --body-bg: #f9f9f9;
-            --chat-bg: #ffffff;
-            --user-bubble: #6c5ce7;
-            --ai-bubble: #f1f2f6;
+            --primary: #4f46e5;
+            --primary-dark: #3730a3;
+            --primary-light: #6366f1;
+            --secondary: #06b6d4;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --dark: #1f2937;
+            --light: #f8fafc;
+            --gray: #6b7280;
+            --gray-light: #e5e7eb;
+            --white: #ffffff;
+            --chat-bg: #f8fafc;
+            --user-bubble: #4f46e5;
+            --ai-bubble: #ffffff;
+            --border: #e2e8f0;
+            --shadow: rgba(0, 0, 0, 0.08);
         }
 
-        .dark-mode {
-            --primary: #a29bfe;
-            --primary-dark: #6c5ce7;
-            --primary-light: #b8b3ff;
-            --secondary: #55efc4;
-            --dark: #f5f6fa;
-            --light: #2d3436;
-            --gray: #b2bec3;
-            --card-bg: #1e272e;
-            --body-bg: #0c0f14;
-            --chat-bg: #1e272e;
-            --user-bubble: #6c5ce7;
-            --ai-bubble: #2d3436;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--body-bg);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
             color: var(--dark);
-            transition: all 0.4s ease;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
-        /* Floating Particles Background */
-        .particles {
+        /* Floating Background Particles */
+        .bg-particles {
             position: fixed;
             top: 0;
             left: 0;
@@ -66,79 +59,148 @@ session_start();
 
         .particle {
             position: absolute;
+            background: linear-gradient(45deg, rgba(79, 70, 229, 0.1), rgba(6, 182, 212, 0.1));
             border-radius: 50%;
-            background: rgba(108, 92, 231, 0.3);
-            animation: float 15s infinite linear;
+            animation: floatUp 15s infinite linear;
         }
 
-        @keyframes float {
+        @keyframes floatUp {
             0% {
-                transform: translateY(0) rotate(0deg);
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
                 opacity: 1;
             }
             100% {
-                transform: translateY(-1000px) rotate(720deg);
+                transform: translateY(-100px) rotate(360deg);
                 opacity: 0;
             }
         }
 
-        /* Hero Section - 3D Glass Effect */
-        .ai-chat-hero {
-            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, rgba(0, 206, 201, 0.1) 100%);
-            padding: 140px 0 80px;
+        /* Enhanced Hero Section */
+        .ai-hero-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+            padding: 100px 0 80px;
             position: relative;
             overflow: hidden;
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: white;
         }
 
-        .hero-container {
+        .ai-hero-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 25% 25%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+            z-index: 1;
+        }
+
+        .hero-content {
             position: relative;
             z-index: 2;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            padding: 12px 25px;
+            border-radius: 50px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: heroFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes heroFloat {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
         }
 
         .hero-title {
-            font-size: 4rem;
-            font-weight: 800;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            font-size: clamp(2.5rem, 5vw, 4.5rem);
+            font-weight: 900;
+            margin-bottom: 20px;
+            line-height: 1.1;
+            text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.3);
+            background: linear-gradient(45deg, #ffffff, #f0f9ff, #fafafa);
             -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
             background-clip: text;
-            color: transparent;
-            margin-bottom: 1.5rem;
-            line-height: 1.2;
-            text-shadow: 0 4px 20px rgba(108, 92, 231, 0.2);
         }
 
         .hero-subtitle {
-            font-size: 1.35rem;
-            color: var(--gray);
-            margin-bottom: 2.5rem;
-            max-width: 600px;
-            font-weight: 400;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            margin-bottom: 40px;
+            opacity: 0.95;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .hero-features {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            margin-bottom: 40px;
+        }
+
+        .hero-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 12px 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .hero-feature:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .hero-feature i {
+            color: #FFD700;
+            font-size: 1.2rem;
         }
 
         .hero-cta {
             display: inline-flex;
             align-items: center;
+            gap: 12px;
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
-            padding: 16px 32px;
+            padding: 18px 35px;
             border-radius: 50px;
-            font-weight: 600;
+            font-weight: 700;
+            font-size: 1.1rem;
             text-decoration: none;
-            box-shadow: 0 8px 30px rgba(108, 92, 231, 0.4);
+            box-shadow: 0 12px 35px rgba(79, 70, 229, 0.4);
             transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            border: none;
-            cursor: pointer;
-            font-size: 1.1rem;
         }
 
         .hero-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 35px rgba(108, 92, 231, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 18px 45px rgba(79, 70, 229, 0.5);
         }
 
         .hero-cta::before {
@@ -148,71 +210,125 @@ session_start();
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(
-                90deg,
-                transparent,
-                rgba(255, 255, 255, 0.2),
-                transparent
-            );
-            transition: 0.5s;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: 0.6s;
         }
 
         .hero-cta:hover::before {
             left: 100%;
         }
 
-        .hero-image {
+        /* Enhanced Hero Images */
+        .hero-images {
             position: relative;
-            perspective: 1000px;
+            margin-top: 50px;
         }
 
-        .hero-image-inner {
-            position: relative;
-            transform-style: preserve-3d;
-            animation: float3d 8s ease-in-out infinite;
-        }
-
-        @keyframes float3d {
-            0%, 100% {
-                transform: translateY(0) rotateY(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotateY(5deg);
-            }
-        }
-
-        .hero-image img {
+        .hero-main-image {
+            max-width: 500px;
+            width: 100%;
             border-radius: 20px;
-            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transform: rotateX(10deg) rotateY(-15deg);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+            animation: heroImageFloat 6s ease-in-out infinite;
         }
 
-        /* AI Chat Container - Neumorphic Design */
+        @keyframes heroImageFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(1deg); }
+        }
+
+        .floating-tech-icons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
+
+        .tech-icon {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+            animation: techIconFloat 8s ease-in-out infinite;
+        }
+
+        .tech-icon:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .tech-icon:nth-child(2) {
+            top: 20%;
+            right: 15%;
+            animation-delay: 1s;
+            background: linear-gradient(135deg, var(--success), var(--secondary));
+        }
+
+        .tech-icon:nth-child(3) {
+            bottom: 30%;
+            left: 5%;
+            animation-delay: 2s;
+            background: linear-gradient(135deg, var(--warning), var(--danger));
+        }
+
+        .tech-icon:nth-child(4) {
+            bottom: 15%;
+            right: 20%;
+            animation-delay: 3s;
+            background: linear-gradient(135deg, var(--danger), var(--primary));
+        }
+
+        @keyframes techIconFloat {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            25% { transform: translateY(-15px) rotate(10deg); }
+            50% { transform: translateY(-5px) rotate(-5deg); }
+            75% { transform: translateY(-20px) rotate(15deg); }
+        }
+
+        /* AI Chat Container */
         .ai-chat-container {
             max-width: 1200px;
-            margin: -80px auto 0;
+            margin: -60px auto 0;
             position: relative;
             z-index: 10;
+            padding: 0 20px;
         }
 
         .ai-chat-card {
-            background: var(--card-bg);
-            border-radius: 25px;
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.15);
+            background: var(--white);
+            border-radius: 30px;
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.15);
             overflow: hidden;
             transition: all 0.4s ease;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--border);
+            animation: chatSlideUp 0.8s ease-out;
         }
 
-        .dark-mode .ai-chat-card {
-            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.25);
+        @keyframes chatSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
+        /* Enhanced Chat Header */
         .ai-chat-header {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
             color: white;
-            padding: 22px 30px;
+            padding: 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -225,202 +341,577 @@ session_start();
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 1px;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+            height: 3px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
         }
 
-        .ai-chat-title {
+        .chat-header-content {
             display: flex;
             align-items: center;
-            gap: 15px;
-            margin: 0;
-            font-weight: 600;
-            font-size: 1.25rem;
+            gap: 20px;
         }
 
-        .ai-chat-avatar {
-            width: 42px;
-            height: 42px;
+        .ai-avatar {
+            width: 60px;
+            height: 60px;
             background: rgba(255, 255, 255, 0.2);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.2rem;
+            font-size: 1.8rem;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            animation: avatarGlow 3s ease-in-out infinite;
         }
 
-        .ai-chat-status {
+        @keyframes avatarGlow {
+            0%, 100% { 
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+                transform: scale(1);
+            }
+            50% { 
+                box-shadow: 0 0 30px rgba(255, 255, 255, 0.5);
+                transform: scale(1.05);
+            }
+        }
+
+        .chat-info h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 5px;
+        }
+
+        .chat-status {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 0.95rem;
+            gap: 10px;
+            font-size: 1rem;
             font-weight: 500;
+            opacity: 0.95;
         }
 
-        .status-indicator {
-            width: 10px;
-            height: 10px;
-            background-color: var(--success);
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--success);
             border-radius: 50%;
-            box-shadow: 0 0 10px var(--success);
-            animation: pulse 2s infinite;
+            animation: statusPulse 2s infinite;
         }
 
-        @keyframes pulse {
-            0% {
-                transform: scale(1);
-                opacity: 1;
-            }
-            50% {
-                transform: scale(1.2);
-                opacity: 0.7;
-            }
-            100% {
-                transform: scale(1);
-                opacity: 1;
-            }
+        @keyframes statusPulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.2); }
         }
 
-        /* Chat Messages Area */
+        /* Enhanced Chat Messages */
         .ai-chat-messages {
-            padding: 25px;
-            height: 500px;
+            padding: 35px;
+            height: 550px;
             overflow-y: auto;
-            background-color: var(--chat-bg);
+            background: var(--chat-bg);
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 25px;
+            scroll-behavior: smooth;
         }
 
+        .ai-chat-messages::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .ai-chat-messages::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        .ai-chat-messages::-webkit-scrollbar-thumb {
+            background: var(--gray-light);
+            border-radius: 10px;
+        }
+
+        .ai-chat-messages::-webkit-scrollbar-thumb:hover {
+            background: var(--gray);
+        }
+
+        /* Enhanced Message Styles */
         .message {
             max-width: 85%;
-            padding: 18px;
-            border-radius: 20px;
+            padding: 20px 25px;
+            border-radius: 25px;
             position: relative;
-            animation: fadeIn 0.4s ease;
-            line-height: 1.6;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
+            animation: messageAppear 0.5s ease-out;
+            line-height: 1.7;
+            font-size: 1rem;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         .user-message {
             align-self: flex-end;
-            background: var(--user-bubble);
+            background: linear-gradient(135deg, var(--user-bubble) 0%, var(--primary-dark) 100%);
             color: white;
-            border-bottom-right-radius: 5px;
-            box-shadow: 0 5px 15px rgba(108, 92, 231, 0.3);
+            border-bottom-right-radius: 10px;
+            margin-left: auto;
         }
 
         .ai-message {
             align-self: flex-start;
             background: var(--ai-bubble);
             color: var(--dark);
-            border-bottom-left-radius: 5px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            border-bottom-left-radius: 10px;
+            border: 2px solid var(--border);
+            margin-right: auto;
+            position: relative;
         }
 
-        /* Service Card in AI Response */
-        .service-card {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 15px;
-            padding: 15px;
-            margin: 10px 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.3s ease;
+        .ai-message::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.1), rgba(6, 182, 212, 0.1));
+            border-radius: 25px;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
-        .dark-mode .service-card {
-            background: rgba(0, 0, 0, 0.2);
+        .ai-message:hover::before {
+            opacity: 1;
         }
 
-        .service-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-card h4 {
-            margin-top: 0;
-            margin-bottom: 10px;
+        /* Enhanced AI Message Content */
+        .ai-message h1, .ai-message h2, .ai-message h3, .ai-message h4 {
             color: var(--primary);
+            font-weight: 800;
+            margin: 20px 0 15px 0;
+        }
+
+        .ai-message h1 { font-size: 1.6rem; }
+        .ai-message h2 { font-size: 1.4rem; }
+        .ai-message h3 { font-size: 1.3rem; }
+        .ai-message h4 { font-size: 1.2rem; }
+
+        .ai-message p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+
+        .ai-message ul, .ai-message ol {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .ai-message li {
+            margin-bottom: 10px;
+        }
+
+        .ai-message strong {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .ai-message em {
+            color: var(--secondary);
+            font-style: italic;
+        }
+
+        .ai-message code {
+            background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+            padding: 4px 10px;
+            border-radius: 8px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.9rem;
+            color: var(--primary-dark);
+            border: 1px solid var(--border);
+        }
+
+        /* Enhanced Code Canvas */
+        .code-canvas {
+            background: linear-gradient(135deg, #1e293b, #334155);
+            border-radius: 18px;
+            margin: 25px 0;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(30, 41, 59, 0.4);
+            border: 1px solid #475569;
+            position: relative;
+        }
+
+        .code-header {
+            background: linear-gradient(135deg, #374151, #4b5563);
+            padding: 15px 25px;
+            border-bottom: 1px solid #6b7280;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .code-dots {
+            display: flex;
+            gap: 8px;
+        }
+
+        .code-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+        }
+
+        .code-dot.red { background: #ef4444; }
+        .code-dot.yellow { background: #f59e0b; }
+        .code-dot.green { background: #10b981; }
+
+        .code-copy-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
             font-weight: 600;
         }
 
-        .service-card p {
-            margin-bottom: 10px;
-            font-size: 0.9rem;
+        .code-copy-btn:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: scale(1.05);
         }
 
-        .service-card .service-cta {
-            display: inline-block;
-            background: var(--primary);
-            color: white;
-            padding: 6px 12px;
+        .code-copy-btn.copied {
+            background: var(--success);
+            transform: scale(1.1);
+        }
+
+        .code-content {
+            padding: 25px;
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+            overflow-x: auto;
+            line-height: 1.6;
+        }
+
+        .code-content pre {
+            margin: 0;
+            background: none;
+            color: inherit;
+            padding: 0;
+            border: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        /* Enhanced IT Sahayata Promotion */
+        .it-sahayata-promo {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(16, 185, 129, 0.08));
+            border: 2px solid rgba(79, 70, 229, 0.15);
             border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 500;
+            padding: 25px;
+            margin: 25px 0;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .it-sahayata-promo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(79, 70, 229, 0.1), transparent);
+            transition: left 0.8s ease;
+        }
+
+        .it-sahayata-promo:hover::before {
+            left: 100%;
+        }
+
+        .it-sahayata-promo:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(79, 70, 229, 0.2);
+        }
+
+        .promo-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .promo-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+        }
+
+        .promo-header h4 {
+            color: var(--primary);
+            font-weight: 800;
+            font-size: 1.3rem;
+            margin: 0;
+        }
+
+        .promo-content {
+            color: var(--gray);
+            margin-bottom: 20px;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .promo-contact {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .promo-phone {
+            font-size: 1.4rem;
+            font-weight: 900;
+            letter-spacing: 2px;
+            margin: 8px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+        }
+
+        .promo-availability {
+            font-size: 0.9rem;
+            opacity: 0.95;
+        }
+
+        .promo-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: linear-gradient(135deg, var(--success), #059669);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 30px;
             text-decoration: none;
+            font-weight: 700;
             transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(16, 185, 129, 0.3);
         }
 
-        .service-card .service-cta:hover {
-            background: var(--primary-dark);
+        .promo-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(16, 185, 129, 0.4);
         }
 
-        /* Contact Floating Button */
-        .contact-float {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            z-index: 100;
+        /* Enhanced Typing Indicator */
+        .typing-indicator {
+            align-self: flex-start;
+            background: var(--ai-bubble);
+            border: 2px solid var(--border);
+            padding: 18px 25px;
+            border-radius: 25px;
+            border-bottom-left-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-size: 1rem;
+            color: var(--gray);
+            max-width: 250px;
+            box-shadow: 0 5px 20px var(--shadow);
+        }
+
+        .typing-text {
+            font-weight: 600;
+        }
+
+        .typing-dots {
+            display: flex;
+            gap: 5px;
+        }
+
+        .typing-dot {
+            width: 10px;
+            height: 10px;
+            background: var(--primary);
+            border-radius: 50%;
+            animation: typingBounce 1.4s infinite ease-in-out;
+        }
+
+        .typing-dot:nth-child(1) { animation-delay: -0.32s; }
+        .typing-dot:nth-child(2) { animation-delay: -0.16s; }
+        .typing-dot:nth-child(3) { animation-delay: 0s; }
+
+        @keyframes typingBounce {
+            0%, 80%, 100% {
+                transform: scale(0.8) translateY(0);
+                opacity: 0.5;
+            }
+            40% {
+                transform: scale(1.3) translateY(-12px);
+                opacity: 1;
+            }
+        }
+
+        /* Enhanced Input Area */
+        .ai-chat-input-container {
+            padding: 30px;
+            border-top: 3px solid var(--border);
+            background: var(--white);
+            display: flex;
+            gap: 20px;
+            align-items: flex-end;
+            position: relative;
+        }
+
+        .ai-chat-input-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary), var(--success));
+        }
+
+        .input-wrapper {
+            flex: 1;
+            position: relative;
+        }
+
+        .ai-chat-input {
+            width: 100%;
+            padding: 18px 25px;
+            border: 2px solid var(--border);
+            border-radius: 30px;
+            font-family: inherit;
+            font-size: 1rem;
+            outline: none;
+            transition: all 0.3s ease;
+            background: var(--light);
+            color: var(--dark);
+            resize: none;
+            min-height: 60px;
+            max-height: 150px;
+        }
+
+        .ai-chat-input:focus {
+            border-color: var(--primary);
+            background: var(--white);
+            box-shadow: 0 0 0 5px rgba(79, 70, 229, 0.1);
+        }
+
+        .ai-chat-input::placeholder {
+            color: var(--gray);
+            font-style: italic;
+        }
+
+        .ai-chat-send-btn, .ai-chat-stop-btn {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 50%;
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            box-shadow: 0 8px 25px rgba(79, 70, 229, 0.3);
+            flex-shrink: 0;
+        }
+
+        .ai-chat-send-btn:hover, .ai-chat-stop-btn:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 12px 35px rgba(79, 70, 229, 0.4);
+        }
+
+        .ai-chat-stop-btn {
+            background: linear-gradient(135deg, var(--danger), #dc2626);
+            box-shadow: 0 8px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .ai-chat-stop-btn:hover {
+            box-shadow: 0 12px 35px rgba(239, 68, 68, 0.4);
+        }
+
+        /* Enhanced Contact Float */
+        .contact-float {
+            position: fixed;
+            bottom: 35px;
+            right: 35px;
+            z-index: 100;
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, var(--success), #059669);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+            box-shadow: 0 12px 35px rgba(16, 185, 129, 0.4);
             cursor: pointer;
             transition: all 0.4s ease;
-            font-size: 1.5rem;
-            animation: pulse-float 2s infinite;
+            font-size: 1.8rem;
+            animation: contactFloat 4s ease-in-out infinite;
         }
 
-        @keyframes pulse-float {
-            0% {
-                transform: translateY(0) scale(1);
-                box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+        @keyframes contactFloat {
+            0%, 100% {
+                transform: scale(1) translateY(0);
+            }
+            25% {
+                transform: scale(1.05) translateY(-5px);
             }
             50% {
-                transform: translateY(-5px) scale(1.05);
-                box-shadow: 0 15px 40px rgba(108, 92, 231, 0.5);
+                transform: scale(1.1) translateY(-8px);
             }
-            100% {
-                transform: translateY(0) scale(1);
-                box-shadow: 0 10px 30px rgba(108, 92, 231, 0.4);
+            75% {
+                transform: scale(1.05) translateY(-5px);
             }
         }
 
         .contact-float:hover {
-            transform: scale(1.1);
+            transform: scale(1.15);
             animation: none;
+            box-shadow: 0 18px 45px rgba(16, 185, 129, 0.5);
         }
 
         .contact-card {
             position: absolute;
-            bottom: 80px;
+            bottom: 90px;
             right: 0;
-            width: 300px;
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 20px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            background: var(--white);
+            border-radius: 25px;
+            padding: 30px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.15);
             transform: scale(0);
             transform-origin: bottom right;
-            transition: all 0.3s ease;
+            transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             opacity: 0;
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--border);
         }
 
         .contact-card.show {
@@ -429,446 +920,221 @@ session_start();
         }
 
         .contact-card h3 {
-            margin-top: 0;
-            margin-bottom: 15px;
             color: var(--primary);
-            font-size: 1.2rem;
+            font-size: 1.4rem;
+            font-weight: 800;
+            margin-bottom: 18px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
         }
 
         .contact-card p {
-            margin-bottom: 15px;
-            font-size: 0.9rem;
             color: var(--gray);
+            margin-bottom: 18px;
+            font-size: 1rem;
+            line-height: 1.7;
         }
 
         .contact-number {
             display: flex;
             align-items: center;
-            gap: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
+            gap: 15px;
+            font-size: 1.3rem;
+            font-weight: 800;
             color: var(--dark);
-            margin-bottom: 15px;
+            margin-bottom: 25px;
+            padding: 18px;
+            background: var(--light);
+            border-radius: 18px;
+            border: 2px solid var(--border);
         }
 
         .contact-number i {
             color: var(--primary);
-            font-size: 1.3rem;
-        }
-
-        .contact-social {
-            display: flex;
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .contact-social a {
-            color: var(--gray);
-            font-size: 1.2rem;
-            transition: all 0.3s ease;
-        }
-
-        .contact-social a:hover {
-            color: var(--primary);
-            transform: translateY(-3px);
-        }
-
-        /* Chat Input Area */
-        .ai-chat-input-container {
-            padding: 20px 30px;
-            border-top: 1px solid rgba(0, 0, 0, 0.05);
-            background-color: var(--card-bg);
-            display: flex;
-            gap: 15px;
-            align-items: center;
-            position: relative;
-        }
-
-        .dark-mode .ai-chat-input-container {
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .ai-chat-input {
-            flex: 1;
-            padding: 16px 20px;
-            border: 1px solid rgba(0, 0, 0, 0.1);
-            border-radius: 15px;
-            font-family: 'Poppins', sans-serif;
-            font-size: 0.95rem;
-            outline: none;
-            transition: all 0.3s ease;
-            background-color: var(--chat-bg);
-            color: var(--dark);
-        }
-
-        .dark-mode .ai-chat-input {
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .ai-chat-input:focus {
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.2);
-        }
-
-        .ai-chat-send-btn {
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            border: none;
-            border-radius: 15px;
-            padding: 0 25px;
-            height: 52px;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 20px rgba(108, 92, 231, 0.3);
-        }
-
-        .ai-chat-send-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(108, 92, 231, 0.4);
-        }
-
-        .ai-chat-send-btn:active {
-            transform: translateY(0);
-        }
-
-        .ai-chat-send-btn i {
-            margin-left: 8px;
-        }
-
-        /* Thinking Animation */
-        .thinking {
-            align-self: flex-start;
-            background: var(--ai-bubble);
-            color: var(--gray);
-            padding: 14px 18px;
-            border-radius: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.9rem;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-        }
-
-        .thinking .dot {
-            width: 10px;
-            height: 10px;
-            background-color: var(--gray);
-            border-radius: 50%;
-            animation: bounce 1.5s infinite;
-        }
-
-        .thinking .dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .thinking .dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes bounce {
-            0%, 100% {
-                transform: translateY(0);
-            }
-            50% {
-                transform: translateY(-5px);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Services Section - Modern Grid */
-        .services-section {
-            padding: 100px 0;
-            background-color: var(--body-bg);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .services-container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .section-title {
-            font-size: 2.8rem;
-            font-weight: 800;
-            margin-bottom: 1rem;
-            color: var(--dark);
-            text-align: center;
-        }
-
-        .section-subtitle {
-            font-size: 1.25rem;
-            color: var(--gray);
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto 3rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 50px;
-        }
-
-        .service-item {
-            background: var(--card-bg);
-            border-radius: 20px;
-            padding: 35px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: all 0.4s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dark-mode .service-item {
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
-        }
-
-        .service-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-        }
-
-        .service-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-        }
-
-        .service-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, rgba(0, 206, 201, 0.1) 100%);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 25px;
-            color: var(--primary);
-            font-size: 28px;
-        }
-
-        .service-item h3 {
             font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 15px;
-            color: var(--dark);
         }
 
-        .service-item p {
-            color: var(--gray);
-            margin-bottom: 20px;
-            font-size: 0.95rem;
-            line-height: 1.6;
-        }
-
-        .service-cta {
-            display: inline-flex;
-            align-items: center;
-            color: var(--primary);
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .service-cta i {
-            margin-left: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .service-cta:hover {
-            color: var(--primary-dark);
-        }
-
-        .service-cta:hover i {
-            transform: translateX(5px);
-        }
-
-        /* Dark Mode Toggle */
-        .dark-mode-toggle {
-            position: fixed;
-            bottom: 30px;
-            left: 30px;
-            z-index: 100;
-            width: 50px;
-            height: 50px;
-            background: var(--card-bg);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        .dark-mode-toggle:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-        }
-
-        .dark-mode .dark-mode-toggle {
-            border: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        /* Responsive Adjustments */
-        @media (max-width: 1200px) {
-            .hero-title {
-                font-size: 3.5rem;
-            }
-        }
-
+        /* Responsive Design */
         @media (max-width: 992px) {
-            .hero-title {
-                font-size: 3rem;
+            .hero-features {
+                gap: 20px;
             }
-            
-            .ai-chat-messages {
-                height: 400px;
+
+            .floating-tech-icons {
+                display: none;
             }
-            
-            .section-title {
-                font-size: 2.5rem;
+
+            .ai-chat-container {
+                margin-top: -40px;
             }
         }
 
         @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
+            .ai-hero-section {
+                padding: 80px 0 60px;
             }
-            
-            .hero-subtitle {
-                font-size: 1.15rem;
+
+            .hero-features {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
             }
-            
+
+            .ai-chat-container {
+                margin-top: -30px;
+                padding: 0 15px;
+            }
+
             .ai-chat-card {
-                border-radius: 20px;
+                border-radius: 25px 25px 0 0;
             }
-            
+
+            .ai-chat-header {
+                padding: 25px;
+            }
+
+            .ai-avatar {
+                width: 55px;
+                height: 55px;
+                font-size: 1.6rem;
+            }
+
             .ai-chat-messages {
-                height: 350px;
-                padding: 20px;
+                height: 450px;
+                padding: 30px 25px;
             }
-            
+
             .message {
                 max-width: 90%;
+                padding: 18px 22px;
             }
-            
-            .section-title {
-                font-size: 2.2rem;
-            }
-            
-            .service-item {
-                padding: 30px;
-            }
-        }
 
-        @media (max-width: 576px) {
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .ai-chat-header {
-                padding: 18px;
-            }
-            
             .ai-chat-input-container {
-                padding: 15px 20px;
+                padding: 25px;
             }
-            
-            .ai-chat-send-btn {
-                padding: 0 20px;
-                height: 50px;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-            
+
             .contact-float {
-                width: 50px;
-                height: 50px;
-                font-size: 1.3rem;
-                bottom: 20px;
-                right: 20px;
+                width: 60px;
+                height: 60px;
+                bottom: 25px;
+                right: 25px;
+                font-size: 1.5rem;
             }
-            
+
             .contact-card {
-                width: 280px;
-                bottom: 70px;
+                width: 320px;
+                bottom: 75px;
+                right: -15px;
+            }
+
+            .code-canvas {
+                margin: 20px -10px;
             }
         }
 
-        /* Add this to your <style> section */
-        .code-canvas {
-            background: #181c24;
-            color: #fff;
-            border-radius: 10px;
-            padding: 16px;
-            margin: 12px 0;
-            font-family: 'Fira Mono', 'Consolas', monospace;
-            font-size: 0.97rem;
-            overflow-x: auto;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.07);
-        }
-        .code-canvas pre {
-            margin: 0;
-            background: none;
-            color: inherit;
-        }
-        .code-canvas code {
-            background: none;
-            color: inherit;
-            font-size: inherit;
+        @media (max-width: 480px) {
+            .ai-chat-messages {
+                height: 400px;
+                padding: 25px 20px;
+            }
+
+            .message {
+                max-width: 95%;
+                padding: 16px 20px;
+            }
+
+            .contact-card {
+                width: 300px;
+                right: -25px;
+                padding: 25px;
+            }
+
+            .code-canvas {
+                margin: 15px -15px;
+            }
+
+            .code-header {
+                padding: 12px 20px;
+            }
+
+            .code-content {
+                padding: 20px;
+                font-size: 0.9rem;
+            }
         }
     </style>
 </head>
 <body>
 
-<!-- Floating Particles Background -->
-<div class="particles" id="particles"></div>
+<!-- Background Particles -->
+<div class="bg-particles" id="bgParticles"></div>
 
 <?php include 'header.php'; ?>
 
-<!-- AI Chat Hero Section -->
-<section class="ai-chat-hero">
-    <div class="container hero-container">
+<!-- Enhanced AI Hero Section -->
+<section class="ai-hero-section">
+    <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-right">
-                <h1 class="hero-title">IT Solutions at Your Fingertips</h1>
-                <p class="hero-subtitle">Our AI assistant provides instant tech support 24/7. From hardware issues to software bugs, get expert solutions in seconds.</p>
-                
-                <a href="#ai-chat" class="hero-cta">
-                    Chat with IT Expert <i class="fas fa-comment-dots ml-2" style="padding-left: 5px;"></i>
-                </a>
+            <div class="col-lg-8 mx-auto">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <i class="fas fa-robot"></i>
+                        <span>AI-Powered IT Support</span>
+                    </div>
+                    
+                    <h1 class="hero-title">Smart IT Solutions के साथ</h1>
+                    <p class="hero-subtitle">
+                        Advanced AI technology के साथ instant IT support पाएं। हमारे AI assistant से chat करें 
+                        और तुरंत solutions पाएं, जरूरत पड़ने पर expert technicians भी available हैं।
+                    </p>
+                    
+                    <div class="hero-features">
+                        <div class="hero-feature">
+                            <i class="fas fa-bolt"></i>
+                            <span>Instant Solutions</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-shield-alt"></i>
+                            <span>Secure Support</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-clock"></i>
+                            <span>24/7 Available</span>
+                        </div>
+                        <div class="hero-feature">
+                            <i class="fas fa-user-tie"></i>
+                            <span>Expert Backup</span>
+                        </div>
+                    </div>
+                    
+                    <a href="#ai-chat" class="hero-cta">
+                        <i class="fas fa-comments"></i>
+                        Start AI Chat Now
+                    </a>
+                </div>
             </div>
-            
-            <div class="col-lg-6" data-aos="fade-left">
-                <div class="hero-image">
-                    <div class="hero-image-inner">
-                        <img src="../assets/it-ai.png" alt="AI Chat Assistant" class="img-fluid">
+        </div>
+        
+        <!-- Enhanced Hero Images -->
+        <div class="hero-images">
+            <div class="row justify-content-center">
+                <div class="col-md-8 text-center">
+                    <img src="../assets/it-ai.png" alt="AI Chat Interface" class="hero-main-image">
+                    
+                    <div class="floating-tech-icons">
+                        <div class="tech-icon">
+                            <i class="fas fa-robot"></i>
+                        </div>
+                        <div class="tech-icon">
+                            <i class="fas fa-laptop"></i>
+                        </div>
+                        <div class="tech-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <div class="tech-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -881,464 +1147,566 @@ session_start();
     <div class="container ai-chat-container">
         <div class="ai-chat-card">
             <div class="ai-chat-header">
-                <h3 class="ai-chat-title">
-                    <div class="ai-chat-avatar">
+                <div class="chat-header-content">
+                    <div class="ai-avatar">
                         <i class="fas fa-robot"></i>
                     </div>
-                    IT Sahayata AI Assistant
-                </h3>
-                <div class="ai-chat-status">
-                    <div class="status-indicator"></div>
-                    <span>Online Now</span>
+                    <div class="chat-info">
+                        <h2>IT Sahayata AI Assistant</h2>
+                        <div class="chat-status">
+                            <div class="status-dot"></div>
+                            <span>Online & Ready to Help</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             
             <div id="ai-chat-messages" class="ai-chat-messages">
                 <!-- AI welcome message -->
                 <div class="message ai-message">
-                    <p>👋 Hello! I'm your IT Sahayata AI assistant. How can I help you today?</p>
-                    <p>You can ask me about:</p>
+                    <h2>🚀 Welcome to IT Sahayata AI!</h2>
+                    <p>मैं आपका intelligent IT support assistant हूं! मैं आपकी सभी technology problems को instantly solve कर सकता हूं।</p>
+                    
+                    <h3>💡 मैं इन सभी में आपकी help कर सकता हूं:</h3>
                     <ul>
-                        <li>Computer and laptop repairs</li>
-                        <li>Software installation & troubleshooting</li>
-                        <li>Network setup and Wi-Fi issues</li>
-                        <li>Virus removal and security</li>
-                        <li>Data recovery and backup</li>
+                        <li>🖥️ Computer & laptop troubleshooting और repairs</li>
+                        <li>📱 Mobile device issues और setup problems</li>
+                        <li>🌐 Internet & network connectivity solutions</li>
+                        <li>🛡️ Security issues & virus removal</li>
+                        <li>💾 Data recovery & backup solutions</li>
+                        <li>⚙️ Software installation & configuration</li>
+                        <li>🔧 Hardware diagnostics & repair guidance</li>
+                        <li>📋 System optimization & performance tuning</li>
                     </ul>
-                    <div class="service-card">
-                        <h4>Need Professional Help?</h4>
-                        <p>For complex issues, our certified technicians are available for on-site and remote support.</p>
-                        <a href="#" class="service-cta">Contact IT Sahayata</a>
+                    
+                    <p><strong>बस अपनी problem detail में बताएं और मैं step-by-step solution provide करूंगा!</strong></p>
+                    
+                    <div class="it-sahayata-promo">
+                        <div class="promo-header">
+                            <div class="promo-icon">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                            <h4>IT Sahayata Professional Services</h4>
+                        </div>
+                        <div class="promo-content">
+                            Complex hardware issues या on-site support के लिए हमारे certified technicians available हैं! Professional IT services including computer repairs, network setup, data recovery, और emergency support.
+                        </div>
+                        <div class="promo-contact">
+                            <div>📞 Expert Technicians Available</div>
+                            <div class="promo-phone">7703823008</div>
+                            <div class="promo-availability">24/7 On-site & Remote Support</div>
+                        </div>
+                        <a href="tel:7703823008" class="promo-cta">
+                            <i class="fas fa-phone"></i>
+                            Call IT Sahayata Now
+                        </a>
                     </div>
                 </div>
             </div>
             
             <div class="ai-chat-input-container">
-                <input type="text" id="ai-chat-input" class="ai-chat-input" placeholder="Describe your IT problem..." autocomplete="off">
-                <button id="ai-chat-send" class="ai-chat-send-btn">Send <i class="fas fa-paper-plane"></i></button>
-                <button id="ai-chat-stop" class="ai-chat-send-btn" style="display: none; background: var(--danger);">
-                    Stop <i class="fas fa-stop"></i>
+                <div class="input-wrapper">
+                    <textarea 
+                        id="ai-chat-input" 
+                        class="ai-chat-input" 
+                        placeholder="अपनी IT problem यहाँ detail में बताएं... जैसे कि computer hang हो रहा है, internet slow है, virus आ गया है आदि"
+                        rows="1"
+                    ></textarea>
+                </div>
+                <button id="ai-chat-send" class="ai-chat-send-btn">
+                    <i class="fas fa-paper-plane"></i>
+                </button>
+                <button id="ai-chat-stop" class="ai-chat-stop-btn" style="display: none;">
+                    <i class="fas fa-stop"></i>
                 </button>
             </div>
         </div>
     </div>
 </section>
 
-<!-- Services Section -->
-<section class="services-section">
-    <div class="container services-container">
-        <div class="text-center mb-5" data-aos="fade-up">
-            <h2 class="section-title">Our Comprehensive <span class="text-gradient">IT Services</span></h2>
-            <p class="section-subtitle">End-to-end technology solutions for all your business and personal needs</p>
-        </div>
-        
-        <div class="services-grid">
-            <!-- Service 1 -->
-            <div class="service-item" data-aos="fade-up" data-aos-delay="100">
-                <div class="service-icon">
-                    <i class="fas fa-desktop"></i>
-                </div>
-                <h3>Hardware Support</h3>
-                <p>Expert diagnosis and repair services for all your computer hardware issues, from desktops to servers.</p>
-                <a href="#" class="service-cta">Learn More <i class="fas fa-arrow-right"></i></a>
-            </div>
-            
-            <!-- Service 2 -->
-            <div class="service-item" data-aos="fade-up" data-aos-delay="200">
-                <div class="service-icon">
-                    <i class="fas fa-code"></i>
-                </div>
-                <h3>Software Support</h3>
-                <p>Comprehensive software troubleshooting, installation, and maintenance services for optimal performance.</p>
-                <a href="#" class="service-cta">Learn More <i class="fas fa-arrow-right"></i></a>
-            </div>
-            
-            <!-- Service 3 -->
-            <div class="service-item" data-aos="fade-up" data-aos-delay="300">
-                <div class="service-icon">
-                    <i class="fas fa-network-wired"></i>
-                </div>
-                <h3>Network Solutions</h3>
-                <p>Design, implementation, and management of secure and efficient network infrastructure for businesses.</p>
-                <a href="#" class="service-cta">Learn More <i class="fas fa-arrow-right"></i></a>
-            </div>
-            
-            <!-- Service 4 -->
-            <div class="service-item" data-aos="fade-up" data-aos-delay="400">
-                <div class="service-icon">
-                    <i class="fas fa-cloud"></i>
-                </div>
-                <h3>Cloud Services</h3>
-                <p>Seamless migration, management, and optimization of cloud infrastructure for enhanced flexibility.</p>
-                <a href="#" class="service-cta">Learn More <i class="fas fa-arrow-right"></i></a>
-            </div>
-            
-            <!-- Service 5 -->
-            <div class="service-item" data-aos="fade-up" data-aos-delay="500">
-                <div class="service-icon">
-                    <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3>Cybersecurity</h3>
-                <p>Comprehensive security solutions to protect your business from evolving cyber threats and data breaches.</p>
-                <a href="#" class="service-cta">Learn More <i class="fas fa-arrow-right"></i></a>
-            </div>
-            
-            <!-- Service 6 -->
-            <div class="service-item" data-aos="fade-up" data-aos-delay="600">
-                <div class="service-icon">
-                    <i class="fas fa-database"></i>
-                </div>
-                <h3>Data Management</h3>
-                <p>Effective data storage, backup, recovery, and management solutions to safeguard your information.</p>
-                <a href="#" class="service-cta">Learn More <i class="fas fa-arrow-right"></i></a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- Contact Floating Button -->
+<!-- Enhanced Contact Float -->
 <div class="contact-float" id="contactFloat">
-    <i class="fas fa-phone-alt"></i>
+    <i class="fas fa-headset"></i>
     <div class="contact-card" id="contactCard">
-        <h3>Contact IT Sahayata</h3>
-        <p>For immediate assistance or professional IT services:</p>
+        <h3><i class="fas fa-phone"></i> Expert IT Support</h3>
+        <p>Need immediate professional assistance? हमारे certified technicians तुरंत help के लिए ready हैं!</p>
         <div class="contact-number">
             <i class="fas fa-phone"></i>
             <span>7703823008</span>
         </div>
-        <p>Available 24/7 for emergency support</p>
-        <div class="contact-social">
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-            <a href="#"><i class="fab fa-telegram"></i></a>
-            <a href="#"><i class="fas fa-envelope"></i></a>
-        </div>
+        <p><strong>Available 24/7</strong><br>On-site & Remote Support Available</p>
     </div>
 </div>
 
-<!-- Dark Mode Toggle -->
-<div class="dark-mode-toggle" id="darkModeToggle">
-    <i class="fas fa-moon"></i>
-</div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const chatMessages = document.getElementById('ai-chat-messages');
+    const chatInput = document.getElementById('ai-chat-input');
+    const chatSendBtn = document.getElementById('ai-chat-send');
+    const chatStopBtn = document.getElementById('ai-chat-stop');
+    const contactFloat = document.getElementById('contactFloat');
+    const contactCard = document.getElementById('contactCard');
+    
+    let isGenerating = false;
+    let stopGeneration = false;
+    let conversationHistory = [];
 
-<?php include 'footer.php'; ?>
-
-<!-- AI Chat JavaScript --><script>
-    document.addEventListener('DOMContentLoaded', function() {
-        const chatMessages = document.getElementById('ai-chat-messages');
-        const chatInput = document.getElementById('ai-chat-input');
-        const chatSendBtn = document.getElementById('ai-chat-send');
-        const chatStopBtn = document.getElementById('ai-chat-stop');
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const contactFloat = document.getElementById('contactFloat');
-        const contactCard = document.getElementById('contactCard');
-        let isGenerating = false;
-        let stopGeneration = false;
+    // Create background particles
+    function createBackgroundParticles() {
+        const particlesContainer = document.getElementById('bgParticles');
+        const particleCount = 30;
         
-        // Create floating particles
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 30;
+        for (let i = 0; i < particleCount; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                
-                // Random size between 5px and 15px
-                const size = Math.random() * 10 + 5;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
-                
-                // Random position
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                
-                // Random animation duration between 10s and 20s
-                const duration = Math.random() * 10 + 10;
-                particle.style.animationDuration = `${duration}s`;
-                
-                // Random delay
-                particle.style.animationDelay = `${Math.random() * 5}s`;
-                
-                particlesContainer.appendChild(particle);
-            }
-        }
-        
-        createParticles();
-        
-        // Dark Mode Toggle
-        darkModeToggle.addEventListener('click', function() {
-            document.body.classList.toggle('dark-mode');
+            const size = Math.random() * 10 + 5;
+            particle.style.width = `${size}px`;
+            particle.style.height = `${size}px`;
+            particle.style.left = `${Math.random() * 100}%`;
             
-            if (document.body.classList.contains('dark-mode')) {
-                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-                localStorage.setItem('darkMode', 'enabled');
-            } else {
-                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-                localStorage.setItem('darkMode', 'disabled');
-            }
-        });
-        
-        // Check for saved dark mode preference
-        if (localStorage.getItem('darkMode') === 'enabled') {
-            document.body.classList.add('dark-mode');
-            darkModeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+            const duration = Math.random() * 10 + 20;
+            particle.style.animationDuration = `${duration}s`;
+            particle.style.animationDelay = `${Math.random() * 15}s`;
+            
+            particlesContainer.appendChild(particle);
         }
-        
-        // Contact Float Toggle
-        contactFloat.addEventListener('click', function() {
-            contactCard.classList.toggle('show');
-        });
-        
-        // Close contact card when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!contactFloat.contains(e.target) && !contactCard.contains(e.target)) {
-                contactCard.classList.remove('show');
-            }
-        });
-        
-        // Function to add a message to the chat
-        function addMessage(text, isUser = false) {
-            const messageDiv = document.createElement('div');
-            messageDiv.className = isUser ? 'message user-message' : 'message ai-message';
+    }
+    
+    createBackgroundParticles();
 
-            if (!isUser) {
-                // --- Markdown to HTML conversion ---
+    // Auto-resize textarea
+    chatInput.addEventListener('input', function() {
+        this.style.height = 'auto';
+        this.style.height = Math.min(this.scrollHeight, 150) + 'px';
+    });
 
-                // 1. Code blocks (```lang ... ```
-                text = text.replace(/```([\s\S]*?)```/g, function(match, code) {
-                    return `<div class="code-canvas"><pre><code>${escapeHtml(code.trim())}</code></pre></div>`;
-                });
+    // Contact Float Toggle
+    contactFloat.addEventListener('click', function(e) {
+        e.stopPropagation();
+        contactCard.classList.toggle('show');
+    });
 
-                // 2. Inline code (`code`)
-                text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
-
-                // 3. Numbered lists (fix: group consecutive lines)
-                text = text.replace(/((?:^\d+\..*(?:\n|$))+)/gm, function(match) {
-                    const items = match.trim().split(/\n/).filter(Boolean).map(line => {
-                        return line.replace(/^\d+\.\s*/, '');
-                    });
-                    return '<ol>' + items.map(item => `<li>${item}</li>`).join('') + '</ol>';
-                });
-
-                // 4. Bullet lists (group consecutive lines)
-                text = text.replace(/((?:^[-*].*(?:\n|$))+)/gm, function(match) {
-                    const items = match.trim().split(/\n/).filter(Boolean).map(line => {
-                        return line.replace(/^[-*]\s*/, '');
-                    });
-                    return '<ul>' + items.map(item => `<li>${item}</li>`).join('') + '</ul>';
-                });
-
-                // 5. Paragraphs
-                text = text.replace(/\n{2,}/g, '</p><p>');
-                text = '<p>' + text.replace(/\n/g, '<br>') + '</p>';
-
-                // 6. Links
-                text = text.replace(/\[([^\]]+)\]\(([^\)]+)\)/g, '<a href="$2" target="_blank">$1</a>');
-
-                // 7. Bold & Italic
-                text = text.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
-                text = text.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
-
-                // 8. Images
-                text = text.replace(/!\[([^\]]*)\]\(([^\)]+)\)/g, '<img src="$2" alt="$1" style="max-width:100%;border-radius:8px;margin:10px 0;">');
-
-                messageDiv.innerHTML = text;
-
-                // Service recommendation card (as before)
-                const serviceKeywords = ['repair', 'hardware', 'complex', 'professional', 'technician', 'contact', 'service', 'support'];
-                const shouldRecommendService = serviceKeywords.some(keyword =>
-                    text.toLowerCase().includes(keyword.toLowerCase())
-                );
-                if (shouldRecommendService) {
-                    const serviceCard = document.createElement('div');
-                    serviceCard.className = 'service-card';
-                    serviceCard.innerHTML = `
-                        <h4>Need Professional IT Support?</h4>
-                        <p>IT Sahayata offers comprehensive services for complex issues:</p>
-                        <ul>
-                            <li>On-site hardware repairs</li>
-                            <li>Professional network setup</li>
-                            <li>Data recovery services</li>
-                            <li>24/7 emergency support</li>
-                        </ul>
-                        <p>Contact us at: <strong>7703823008</strong></p>
-                        <a href="tel:7703823008" class="service-cta">Call Now</a>
-                    `;
-                    messageDiv.appendChild(serviceCard);
-                }
-            } else {
-                messageDiv.textContent = text;
-            }
-
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
+    document.addEventListener('click', function(e) {
+        if (!contactFloat.contains(e.target)) {
+            contactCard.classList.remove('show');
         }
+    });
 
-        // Helper to escape HTML for code blocks
-        function escapeHtml(text) {
-            return text.replace(/[&<>"']/g, function(m) {
-                return ({
-                    '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
-                })[m];
+    // Enhanced markdown processing
+    function processMarkdown(text) {
+        // Code blocks
+        text = text.replace(/``````/g, function(match, lang, code) {
+            const codeId = 'code-' + Math.random().toString(36).substr(2, 9);
+            const language = lang || 'code';
+            return `
+                <div class="code-canvas">
+                    <div class="code-header">
+                        <div class="code-dots">
+                            <div class="code-dot red"></div>
+                            <div class="code-dot yellow"></div>
+                            <div class="code-dot green"></div>
+                        </div>
+                        <button class="code-copy-btn" onclick="copyCode('${codeId}')">
+                            <i class="fas fa-copy"></i> Copy
+                        </button>
+                    </div>
+                    <div class="code-content">
+                        <pre id="${codeId}"><code>${escapeHtml(code.trim())}</code></pre>
+                    </div>
+                </div>
+            `;
+        });
+
+        // Inline code
+        text = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+
+        // Headers
+        text = text.replace(/^### (.*$)/gim, '<h3>$1</h3>');
+        text = text.replace(/^## (.*$)/gim, '<h2>$1</h2>');
+        text = text.replace(/^# (.*$)/gim, '<h1>$1</h1>');
+
+        // Bold and italic
+        text = text.replace(/\*\*([^\*]+)\*\*/g, '<strong>$1</strong>');
+        text = text.replace(/\*([^\*]+)\*/g, '<em>$1</em>');
+
+        // Numbered lists
+        text = text.replace(/((?:^\d+\..*(?:\n|$))+)/gm, function(match) {
+            const items = match.trim().split(/\n/).filter(Boolean).map(line => {
+                return line.replace(/^\d+\.\s*/, '');
             });
-        }
-
-        // Typing animation: paragraph-by-paragraph
-        async function simulateStreamResponse(responseText) {
-            removeThinking();
-            addMessage(responseText);
-        }
-        
-        // Function to show thinking animation
-        function showThinking() {
-            const thinkingDiv = document.createElement('div');
-            thinkingDiv.className = 'thinking';
-            thinkingDiv.id = 'thinking-indicator';
-            
-            thinkingDiv.innerHTML = 'IT Sahayata AI is thinking'
-                + '<div class="dot"></div>'
-                + '<div class="dot"></div>'
-                + '<div class="dot"></div>';
-                
-            chatMessages.appendChild(thinkingDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-        
-        // Function to remove thinking animation
-        function removeThinking() {
-            const thinkingDiv = document.getElementById('thinking-indicator');
-            if (thinkingDiv) {
-                thinkingDiv.remove();
-            }
-        }
-        
-        // Function to send message to AI and get response
-        async function sendToAI(userInput) {
-            try {
-                // Get base URL
-                const pathArray = window.location.pathname.split('/');
-                const appDirIndex = pathArray.indexOf('ITSupportApp');
-                let baseUrl = '';
-                
-                if (appDirIndex !== -1) {
-                    const basePath = pathArray.slice(0, appDirIndex + 1).join('/');
-                    baseUrl = window.location.origin + basePath;
-                } else {
-                    baseUrl = window.location.origin;
-                }
-                
-                // Enhanced prompt with service recommendations
-                const enforcedPrompt = `
-                You are "IT Sahayata", a helpful AI support expert for IT (hardware, software, internet, devices, tech problems). 
-                Give friendly, practical, and clear solutions to any queries that are related to IT, computers, networks, devices, internet, digital services, software, hardware etc.
-
-                Important guidelines:
-                1. If a user is having a general conversation or greeting, respond naturally but always be helpful regarding IT support.
-                2. Never reply: "I help with IT problems only." Instead, always try to answer helpfully.
-                3. Respond in a positive and helpful human tone; your goal is to genuinely solve problems.
-                4. When appropriate, mention that IT Sahayata offers affordable professional services for complex issues.
-                5. For hardware problems that can't be solved remotely, suggest that the user might benefit from our affordable on-site repair services (contact: 7703823008).
-                6. For data recovery or security issues, mention that we offer specialized services at competitive rates.
-                7. For network setup or troubleshooting, mention that our technicians can provide professional assistance.
-                8. Always prioritize solving the user's problem first, then subtly mention our services only if relevant.
-                9. Format your responses properly with paragraphs, bullet points, and numbered lists when appropriate.
-                10. For complex issues, include a service recommendation card with our contact number (7703823008).
-
-                User message:
-                ${userInput}
-                `.trim();
-                
-                const response = await fetch(baseUrl + '/ask_gemini.php', {
-                    method: 'POST',
-                    headers: {'Content-Type': 'application/json'},
-                    body: JSON.stringify({ prompt: enforcedPrompt })
-                });
-                
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                
-                const data = await response.json();
-                return (data.result || '').replace(/^AI:/i, '').trim();
-                
-            } catch (error) {
-                console.error('Error:', error);
-                return 'Sorry, I encountered an error while processing your request. Please try again or contact our support team at 7703823008 for immediate assistance.';
-            }
-        }
-        
-        // Handle stop button click
-        chatStopBtn.addEventListener('click', function() {
-            stopGeneration = true;
-            chatStopBtn.style.display = 'none';
-            chatSendBtn.style.display = 'flex';
-            isGenerating = false;
-            
-            // Remove thinking indicator
-            removeThinking();
-            
-            // Remove temporary streaming message if exists
-            const tempStream = document.getElementById('temp-stream');
-            if (tempStream) {
-                chatMessages.removeChild(tempStream);
-            }
+            return '<ol>' + items.map(item => `<li>${item}</li>`).join('') + '</ol>';
         });
+
+        // Bullet lists
+        text = text.replace(/((?:^[-*].*(?:\n|$))+)/gm, function(match) {
+            const items = match.trim().split(/\n/).filter(Boolean).map(line => {
+                return line.replace(/^[-*]\s*/, '');
+            });
+            return '<ul>' + items.map(item => `<li>${item}</li>`).join('') + '</ul>';
+        });
+
+        // Paragraphs
+        text = text.replace(/\n{2,}/g, '</p><p>');
+        text = '<p>' + text.replace(/\n/g, '<br>') + '</p>';
+
+        // Clean up
+        text = text.replace(/<p><\/p>/g, '');
+        text = text.replace(/<p><br><\/p>/g, '');
+
+        return text;
+    }
+
+    function escapeHtml(text) {
+        const map = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;',
+            '"': '&quot;',
+            "'": '&#39;'
+        };
+        return text.replace(/[&<>"']/g, function(m) { return map[m]; });
+    }
+
+    // Copy code functionality
+    window.copyCode = function(codeId) {
+        const codeElement = document.getElementById(codeId);
+        if (!codeElement) return;
         
-        // Handle send button click
-        chatSendBtn.addEventListener('click', async function() {
-            const userText = chatInput.value.trim();
-            if (!userText || isGenerating) return;
+        const text = codeElement.textContent;
+        
+        if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(function() {
+                showCopySuccess(codeId);
+            }).catch(function() {
+                fallbackCopy(text, codeId);
+            });
+        } else {
+            fallbackCopy(text, codeId);
+        }
+    };
+
+    function fallbackCopy(text, codeId) {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        textArea.style.position = 'fixed';
+        textArea.style.left = '-999999px';
+        textArea.style.top = '-999999px';
+        document.body.appendChild(textArea);
+        textArea.focus();
+        textArea.select();
+        
+        try {
+            document.execCommand('copy');
+            showCopySuccess(codeId);
+        } catch (err) {
+            console.error('Copy failed:', err);
+        }
+        
+        document.body.removeChild(textArea);
+    }
+
+    function showCopySuccess(codeId) {
+        const codeElement = document.getElementById(codeId);
+        const button = codeElement.parentElement.parentElement.querySelector('.code-copy-btn');
+        
+        if (button) {
+            const originalText = button.innerHTML;
+            button.innerHTML = '<i class="fas fa-check"></i> Copied!';
+            button.classList.add('copied');
             
-            // Add user message to chat
-            addMessage(userText, true);
-            chatInput.value = '';
-            chatInput.disabled = true;
-            chatSendBtn.style.display = 'none';
-            chatStopBtn.style.display = 'flex';
-            isGenerating = true;
-            stopGeneration = false;
+            setTimeout(function() {
+                button.innerHTML = originalText;
+                button.classList.remove('copied');
+            }, 2000);
+        }
+    }
+
+    // Add message
+    function addMessage(text, isUser = false) {
+        const messageDiv = document.createElement('div');
+        messageDiv.className = isUser ? 'message user-message' : 'message ai-message';
+
+        if (isUser) {
+            messageDiv.textContent = text;
+            conversationHistory.push({
+                role: 'user',
+                content: text
+            });
+        } else {
+            const processedText = processMarkdown(text);
+            messageDiv.innerHTML = processedText;
             
-            // Show thinking animation
-            showThinking();
+            conversationHistory.push({
+                role: 'assistant',
+                content: text
+            });
+
+            // Always add IT Sahayata promotion for every response
+            addITSahayataPromo(messageDiv, text);
+        }
+
+        chatMessages.appendChild(messageDiv);
+        scrollToBottom();
+    }
+
+    function addITSahayataPromo(messageDiv, problemText) {
+        // Determine promo type based on problem category
+        const promoCard = document.createElement('div');
+        promoCard.className = 'it-sahayata-promo';
+        
+        let promoContent = getCustomPromoContent(problemText);
+        
+        promoCard.innerHTML = `
+            <div class="promo-header">
+                <div class="promo-icon">
+                    <i class="${promoContent.icon}"></i>
+                </div>
+                <h4>${promoContent.title}</h4>
+            </div>
+            <div class="promo-content">
+                ${promoContent.description}
+            </div>
+            <div class="promo-contact">
+                <div>📞 IT Sahayata Expert Support</div>
+                <div class="promo-phone">7703823008</div>
+                <div class="promo-availability">24/7 Professional IT Services</div>
+            </div>
+            <a href="tel:7703823008" class="promo-cta">
+                <i class="fas fa-phone"></i>
+                ${promoContent.cta}
+            </a>
+        `;
+        messageDiv.appendChild(promoCard);
+    }
+
+    function getCustomPromoContent(problemText) {
+        const lowerText = problemText.toLowerCase();
+        
+        if (lowerText.includes('hardware') || lowerText.includes('repair') || lowerText.includes('broken') || lowerText.includes('damage')) {
+            return {
+                icon: 'fas fa-tools',
+                title: 'Hardware Repair Services',
+                description: 'Hardware problems के लिए IT Sahayata के certified technicians available हैं! Computer, laptop repairs, component replacement, और professional diagnosis services.',
+                cta: 'Get Hardware Support'
+            };
+        } else if (lowerText.includes('network') || lowerText.includes('internet') || lowerText.includes('wifi') || lowerText.includes('connection')) {
+            return {
+                icon: 'fas fa-wifi',
+                title: 'Network Solutions',
+                description: 'Network issues के लिए IT Sahayata expert team ready है! Internet setup, WiFi configuration, network troubleshooting, और security implementation.',
+                cta: 'Fix Network Issues'
+            };
+        } else if (lowerText.includes('virus') || lowerText.includes('malware') || lowerText.includes('security') || lowerText.includes('hacked')) {
+            return {
+                icon: 'fas fa-shield-alt',
+                title: 'Cybersecurity Services',
+                description: 'Security threats से protection के लिए IT Sahayata cybersecurity experts available हैं! Virus removal, malware cleaning, और complete system security.',
+                cta: 'Secure My System'
+            };
+        } else if (lowerText.includes('data') || lowerText.includes('recovery') || lowerText.includes('backup') || lowerText.includes('lost')) {
+            return {
+                icon: 'fas fa-database',
+                title: 'Data Recovery Services',
+                description: 'Data loss problems के लिए IT Sahayata professional data recovery services provide करता है! File recovery, backup solutions, और data protection.',
+                cta: 'Recover My Data'
+            };
+        } else if (lowerText.includes('software') || lowerText.includes('program') || lowerText.includes('application') || lowerText.includes('install')) {
+            return {
+                icon: 'fas fa-download',
+                title: 'Software Solutions',
+                description: 'Software issues के लिए IT Sahayata technical team ready है! Software installation, configuration, troubleshooting, और optimization services.',
+                cta: 'Get Software Help'
+            };
+        } else {
+            return {
+                icon: 'fas fa-user-tie',
+                title: 'Professional IT Support',
+                description: 'किसी भी IT problem के लिए IT Sahayata comprehensive solutions provide करता है! Professional diagnosis, repair services, और 24/7 technical support.',
+                cta: 'Get Expert Help'
+            };
+        }
+    }
+
+    function showTypingIndicator() {
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'typing-indicator';
+        typingDiv.id = 'typing-indicator';
+        typingDiv.innerHTML = `
+            <span class="typing-text">IT Sahayata AI is thinking</span>
+            <div class="typing-dots">
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+                <div class="typing-dot"></div>
+            </div>
+        `;
+        chatMessages.appendChild(typingDiv);
+        scrollToBottom();
+    }
+
+    function removeTypingIndicator() {
+        const typingDiv = document.getElementById('typing-indicator');
+        if (typingDiv) {
+            typingDiv.remove();
+        }
+    }
+
+    function scrollToBottom() {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+    }
+
+    // Enhanced AI interaction
+    async function sendToAI(userInput) {
+        try {
+            const pathArray = window.location.pathname.split('/');
+            const appDirIndex = pathArray.indexOf('ITSupportApp');
+            let baseUrl = '';
             
-            // Get AI response
-            const aiResponse = await sendToAI(userText); // <-- FIXED HERE
+            if (appDirIndex !== -1) {
+                const basePath = pathArray.slice(0, appDirIndex + 1).join('/');
+                baseUrl = window.location.origin + basePath;
+            } else {
+                baseUrl = window.location.origin;
+            }
+
+            const contextMessages = conversationHistory.slice(-10);
+            const contextString = contextMessages.map(msg => 
+                `${msg.role === 'user' ? 'User' : 'IT Sahayata AI'}: ${msg.content}`
+            ).join('\n');
+
+            const enforcedPrompt = `
+You are "IT Sahayata AI", an expert IT support assistant specializing in solving all technology problems. You must ALWAYS promote IT Sahayata professional services at the end of every response.
+
+CONVERSATION HISTORY:
+${contextString}
+
+CURRENT USER PROBLEM: ${userInput}
+
+IMPORTANT INSTRUCTIONS:
+1. **Context Awareness**: Remember previous conversation and reference it when relevant
+2. **Comprehensive Solutions**: Provide detailed, step-by-step solutions with clear explanations
+3. **Professional Tone**: Be helpful, patient, and expert while remaining friendly
+4. **Format Responses**: Use proper markdown formatting (headers, lists, code blocks, emphasis)
+5. **Code Solutions**: When providing code, always wrap in proper code blocks with language
+6. **IT Sahayata Promotion**: ALWAYS end responses by mentioning IT Sahayata professional services
+7. **Safety Warnings**: Include safety warnings for hardware work
+8. **Follow-up**: Ask clarifying questions when needed
+
+**Response Guidelines:**
+- Start with acknowledging the problem
+- Provide step-by-step solution
+- Use emojis appropriately for better engagement
+- Use markdown formatting: # headers, **bold**, *italic*, \`code\`, lists
+- Always end with IT Sahayata service promotion
+
+**IT Sahayata Services to Promote:**
+- Hardware repairs & diagnostics
+- Network setup & troubleshooting  
+- Data recovery & backup
+- Cybersecurity & virus removal
+- Software installation & configuration
+- On-site & remote support
+- Emergency 24/7 services
+- Contact: 7703823008
+
+**Sample Ending (customize based on problem type):**
+"अगर यह solution काम नहीं करे या आपको professional assistance चाहिए, तो IT Sahayata के certified technicians तुरंत help के लिए available हैं! Call करें: 7703823008"
+
+Provide your detailed response with proper formatting and always include IT Sahayata promotion.
+            `.trim();
             
-            // Remove thinking animation and simulate streaming
+            const response = await fetch(baseUrl + '/ask_gemini.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({ prompt: enforcedPrompt })
+            });
+            
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            
+            const data = await response.json();
+            return (data.result || '').replace(/^AI:/i, '').trim();
+            
+        } catch (error) {
+            console.error('Error:', error);
+            return '⚠️ **Connection Error**\n\nSorry, technical issue हो गया है। Please try again करें।\n\nImmediate assistance के लिए IT Sahayata experts को call करें: **7703823008** - 24/7 emergency support available!';
+        }
+    }
+
+    // Handle send message
+    async function handleSendMessage() {
+        const userText = chatInput.value.trim();
+        if (!userText || isGenerating) return;
+
+        addMessage(userText, true);
+        chatInput.value = '';
+        chatInput.style.height = 'auto';
+        
+        chatInput.disabled = true;
+        chatSendBtn.style.display = 'none';
+        chatStopBtn.style.display = 'flex';
+        isGenerating = true;
+        stopGeneration = false;
+
+        showTypingIndicator();
+
+        try {
+            const aiResponse = await sendToAI(userText);
+            
             if (!stopGeneration) {
-                await simulateStreamResponse(aiResponse);
+                removeTypingIndicator();
+                addMessage(aiResponse);
             }
-            
-            // Re-enable input
-            chatInput.disabled = false;
-            chatStopBtn.style.display = 'none';
-            chatSendBtn.style.display = 'flex';
-            isGenerating = false;
-            chatInput.focus();
-        });
+        } catch (error) {
+            removeTypingIndicator();
+            addMessage('⚠️ **Error**: कुछ technical issue हुआ है। Please try again करें या IT Sahayata को call करें: **7703823008**');
+        }
+
+        chatInput.disabled = false;
+        chatStopBtn.style.display = 'none';
+        chatSendBtn.style.display = 'flex';
+        isGenerating = false;
+        chatInput.focus();
+    }
+
+    // Event listeners
+    chatSendBtn.addEventListener('click', handleSendMessage);
+    
+    chatStopBtn.addEventListener('click', function() {
+        stopGeneration = true;
+        removeTypingIndicator();
         
-        // Handle Enter key press
-        chatInput.addEventListener('keypress', function(e) {
-            if (e.key === 'Enter' && !e.shiftKey && !isGenerating) {
-                e.preventDefault();
-                chatSendBtn.click();
-            }
-        });
-        
-        // Focus input on page load
+        chatInput.disabled = false;
+        chatStopBtn.style.display = 'none';
+        chatSendBtn.style.display = 'flex';
+        isGenerating = false;
         chatInput.focus();
     });
+
+    chatInput.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey && !isGenerating) {
+            e.preventDefault();
+            handleSendMessage();
+        }
+    });
+
+    // Smooth scroll to chat section
+    document.querySelectorAll('a[href="#ai-chat"]').forEach(link => {
+        link.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('ai-chat').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
+    });
+
+    chatInput.focus();
+});
 </script>
 
-<!-- AOS Initialization -->
-<script>
-    AOS.init({
-        duration: 800,
-        easing: 'ease-in-out',
-        once: true,
-        mirror: false
-    });
-</script>
+<?php include 'footer.php'; ?>
 
 </body>
 </html>

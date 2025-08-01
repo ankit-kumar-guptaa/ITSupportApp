@@ -714,7 +714,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         <!-- Mobile Menu -->
         <div class="navbar-collapse" id="navbarContent">
             <div class="mobile-menu-header d-lg-none">
-                <div class="mobile-menu-title">IT Sahayta</div>
+                <!-- <div class="mobile-menu-title">IT Sahayta</div> -->
                 <button class="mobile-close-btn" id="mobileCloseBtn">
                     <i class="fas fa-times"></i>
                 </button>
