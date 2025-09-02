@@ -16,7 +16,8 @@ if(!$prompt) {
   exit;
 }
 
-$api_key = 'AIzaSyBMZB3LCiZgrdptq-D5uZdBX_78Baqp7-k';
+// $api_key = 'AIzaSyBMZB3LCiZgrdptq-D5uZdBX_78Baqp7-k';
+$api_key = 'AIzaSyA8hyc-dDM11IYTY2nGQ1Du7gtFxhJnzlI';
 $url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=$api_key";
 $body = [
   "contents" => [ [ "parts" => [ [ "text" => $prompt ] ] ] ]

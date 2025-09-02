@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="hi">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RINPAS Admit Card</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 12px;
+        line-height: 1.35;
+        background: #f4f4f4;
+        padding: 20px;
+      }
+      .page {
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+        background: #fff;
+        border: 2px solid #000;
+      }
+
+      .header {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        align-items: center;
+        border-bottom: 2px solid #000;
+        padding: 15px 10px;
+        gap: 15px;
+      }
+      .logo {
+        width: 100px;
+        height: 100px;
+        border: 1px solid #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #fff;
+      }
+      .logo img {
+        max-width: 100%;
+        max-height: 100%;
+      }
+      .title {
+        text-align: center;
+      }
+      .title h1 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 3px;
+      }
+      .title h2 {
+        font-size: 14px;
+        font-weight: 600;
+        margin: 2px 0 6px;
+      }
+      .title h3 {
+        font-size: 13px;
+        font-weight: 700;
+        margin: 2px 0;
+      }
+      .title p {
+        font-size: 10px;
+        margin: 2px 0;
+        color: #444;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 11px;
+      }
+      th,
+      td {
+        border: 1px solid #000;
+        padding: 6px;
+        text-align: left;
+        vertical-align: top;
+      }
+      th {
+        font-weight: 700;
+      }
+      th .hi,
+      td .hi {
+        font-size: 10px;
+        color: #555;
+        display: block;
+        margin-top: 1px;
+      }
+
+      
+      .photo-square {
+        width: 140px;
+        height: 120px;
+        border: 1px solid #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 8px;
+        font-size: 10px;
+        color: #c00;
+        font-weight: 700;
+        background: #fff;
+      }
+
+      
+      .sec-head {
+        border: 1px solid #000;
+        border-top: none;
+        font-weight: 700;
+        text-align: center;
+        padding: 6px;
+        font-size: 12px;
+      }
+
+    
+      .declaration {
+        border: 1px solid #000;
+        padding: 12px;
+      }
+      .declaration-title {
+        font-weight: 700;
+        text-decoration: underline;
+        font-size: 12px;
+        margin-bottom: 6px;
+      }
+      .declaration p {
+        font-size: 10px;
+        margin-bottom: 8px;
+        text-align: justify;
+      }
+
+   
+      .sig-wrap {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
+      .sig {
+        border: 1px solid #000;
+        padding: 10px;
+        height: 85px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+      .sig-title {
+        font-weight: 700;
+        font-size: 11px;
+      }
+      .sig-note {
+        font-size: 9px;
+        color: #555;
+      }
+
+      .instructions {
+        margin-top: 15px;
+        border: 1px solid #000;
+        padding: 12px;
+      }
+      .instructions h4 {
+        font-size: 12px;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+      .instructions ol {
+        margin-left: 18px;
+        font-size: 10px;
+      }
+      .instructions li {
+        margin-bottom: 6px;
+        text-align: justify;
+      }
+      .important {
+        margin-top: 12px;
+        font-weight: 700;
+        color: #c00;
+        background: #ffe6e6;
+        padding: 8px;
+        border: 1px solid #c00;
+      }
+
+      @media (max-width: 768px) {
+        body {
+          padding: 10px;
+        }
+        .header {
+          grid-template-columns: 80px 1fr;
+          gap: 10px;
+          padding: 10px 8px;
+        }
+        .logo {
+          width: 70px;
+          height: 70px;
+        }
+        .title h1 {
+          font-size: 16px;
+        }
+        .title h2 {
+          font-size: 12px;
+        }
+        .title h3 {
+          font-size: 11px;
+        }
+        .photo-square {
+          width: 100px;
+          height: 100px;
+          font-size: 9px;
+        }
+      }
+
+      
+      @media print {
+        body {
+          background: #fff;
+          padding: 0;
+        }
+        .page {
+          border: 1px solid #000;
+          margin: 0;
+          max-width: 210mm;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- ===== HEADER ===== -->
+      <div class="header">
+        <div class="logo">
+          <img
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThP-W0IDHArVITtVmO_PnPdLmPzBn2SS1vDg&s"
+            alt="Institute Logo"
+          />
+        </div>
+
+        <div class="title">
+          <h1>Ranchi Institute of Neuropsychiatry &amp; Allied Sciences</h1>
+          <h2>Government of Jharkhand, India</h2>
+          <h3>
+            Admit Card for Written Test&nbsp;|&nbsp;लिखित परीक्षा के लिए प्रवेश
+            पत्र
+          </h3>
+          <p>
+            (To be submitted at the Test Centre after the Test)<br />(परीक्षा के
+            बाद परीक्षा केंद्र में जमा करें)
+          </p>
+        </div>
+      </div>
+
+      <!-- ===== CANDIDATE DETAILS ===== -->
+      <table>
+        <tr>
+          <th style="width: 25%">
+            Candidate's Name &amp; Address<span class="hi"
+              >उम्मीदवार का नाम और पता</span
+            >
+          </th>
+          <td style="width: 50%" colspan="3"></td>
+          <td
+            rowspan="3"
+            style="
+              width: 0%;
+              padding: 0;
+              text-align: center;
+              vertical-align: middle;
+            "
+          >
+            <div class="photo-square">
+              Affix a recent<br />passport-sized<br />photograph.<br /><br />हाल
+              ही का पासपोर्ट<br />आकार का फोटोग्राफ<br />चिपकाएँ।
+            </div>
+          </td>
+        </tr>
+        <tr>
+          <th>Roll No.<span class="hi">अनुक्रमांक</span></th>
+          <td style="width: 15%"></td>
+          <th style="width: 10%">
+            Date of Birth<span class="hi">जन्म तिथि</span>
+          </th>
+          <td style="width: 25%"></td>
+        </tr>
+        <tr>
+          <th>Post<span class="hi">पद</span></th>
+          <td></td>
+          <th style="width: 10%">Category<span class="hi">श्रेणी</span></th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>PwBD<span class="hi">पी.डब्ल्यू.बी.डी</span></th>
+          <td></td>
+          <th>E Mail ID<span class="hi">ईमेल आईडी</span></th>
+          <td colspan="2"></td>
+        </tr>
+      </table>
+
+      <!-- ===== WRITTEN TEST DETAILS ===== -->
+      <div class="sec-head">
+        WRITTEN TEST DETAILS&nbsp;|&nbsp;लिखित परीक्षा विवरण
+      </div>
+
+      <table>
+        <!-- Advertisement No. - Complete Row -->
+        <tr>
+          <th style="width: 28%">
+            Advertisement No.<span class="hi">विज्ञापन संख्या</span>
+          </th>
+          <td colspan="2"></td>
+        </tr>
+        <!-- Date of Exam to Exam Duration with Test Centre Address -->
+        <tr>
+          <th style="width: 28%">
+            Date of Exam<span class="hi">परीक्षा की तिथि</span>
+          </th>
+          <td style="width: 28%"></td>
+          <th
+            rowspan="5"
+            style="
+              text-align: center;
+              font-weight: 700;
+              text-decoration: underline;
+            "
+          >
+            TEST CENTRE ADDRESS<br /><span class="hi"
+              >परीक्षा केंद्र का पता</span
+            >
+          </th>
+        </tr>
+        <tr>
+          <th>Reporting Time<span class="hi">रिपोर्टिंग समय</span></th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Last Entry Time<span class="hi">अंतिम प्रवेश समय</span></th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Exam Time<span class="hi">परीक्षा का समय</span></th>
+          <td></td>
+        </tr>
+        <tr>
+          <th>Exam Duration<span class="hi">परीक्षा अवधि</span></th>
+          <td></td>
+        </tr>
+      </table>
+
+      <!-- ===== SELF DECLARATION ===== -->
+      <div class="declaration">
+        <div class="declaration-title">
+          Self Declaration&nbsp;|&nbsp;स्व-घोषणा
+        </div>
+
+        <p>
+          I मैं _________________________________________, hereby declare that
+          the information submitted by me in the application form is true and
+          complete to the best of my knowledge and belief. I understand that if
+          any part of the information furnished by me is false or incomplete, or
+          if I fail to comply with the prescribed guidelines, my candidature is
+          liable to be revoked/terminated without any reference to me.
+        </p>
+
+        <p>
+          यह घोषणा करता/करती हूँ कि मेरे द्वारा आवेदन पत्र में प्रस्तुत की गई
+          जानकारी मेरी जानकारी और विश्वास के अनुसार सत्य और पूर्ण है। मैं
+          समझता/समझती हूँ कि यदि मेरे द्वारा दी गई जानकारी का कोई भी भाग झूठा या
+          अधूरा है, या यदि मैं निर्धारित दिशानिर्देशों का पालन करने में विफल
+          रहता/रहती हूँ, तो मेरी उम्मीदवारी बिना किसी सूचना के रद्द/समाप्त की जा
+          सकती है।
+        </p>
+
+        <div class="sig-wrap">
+          <div class="sig">
+            <div class="sig-title">
+              Candidate's Signature&nbsp;|&nbsp;उम्मीदवार का हस्ताक्षर
+            </div>
+            <div class="sig-note">
+              (to be signed in the presence of the Invigilator at the Test
+              Centre | परीक्षा केंद्र में निरीक्षक की उपस्थिति में हस्ताक्षर
+              किया जाना है।)
+            </div>
+          </div>
+          <div class="sig">
+            <div class="sig-title">
+              Name &amp; Signature of the Test Centre Invigilator<br />परीक्षा
+              केंद्र के निरीक्षक का नाम एवं हस्ताक्षर
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== GENERAL INSTRUCTIONS ===== -->
+      <div class="instructions">
+        <h4>GENERAL INSTRUCTIONS&nbsp;|&nbsp;सामान्य निर्देश</h4>
+
+        <ol>
+          <li>
+            Candidates are required to produce a printout of their Admit Card
+            along with an original photo Identity Card i.e., Voter ID card,
+            Driving License, Aadhaar Card (including e-Aadhaar Card), Passport,
+            PAN Card, ID Card issued by the Central/State Government/PSU for
+            their employees, ID Cards issued by Government Agencies authorized
+            for the purpose to prove their identity at the Registration
+            Desk/Invigilator. Failing to do so will disqualify them from
+            appearing for the Written Test.<br />
+            उम्मीदवारों को अपने प्रवेश पत्र का प्रिंटआउट और एक मूल फोटो पहचान
+            पत्र जैसे कि मतदाता पहचान पत्र, ड्राइविंग लाइसेंस, आधार कार्ड
+            (ई-आधार कार्ड सहित), पासपोर्ट, पैन कार्ड, केंद्रीय/राज्य
+            सरकार/पीएसयू द्वारा उनके कर्मचारियों के लिए जारी पहचान पत्र, सरकार
+            द्वारा अधिकृत एजेंसियों द्वारा जारी पहचान पत्र को पंजीकरण
+            डेस्क/निरीक्षक के पास पहचान के प्रमाण के रूप में प्रस्तुत करना
+            आवश्यक है। ऐसा न करने पर उन्हें लिखित परीक्षा में बैठने से अयोग्य
+            घोषित कर दिया जाएगा।
+          </li>
+
+          <li>
+            Candidates are required to occupy their allotted seat in the test
+            hall (Classroom) 15 minutes before the Test time. They are not
+            permitted to leave their seat until the completion of the Test.
+            Candidates reporting after the stipulated time will not be permitted
+            to appear for the Written Test.<br />
+            उम्मीदवारों को परीक्षा समय से 15 मिनट पहले परीक्षा हॉल में अपने
+            आवंटित सीट पर बैठना अनिवार्य है। उन्हें परीक्षा समाप्त होने तक अपनी
+            सीट छोड़ने की अनुमति नहीं है। निर्धारित समय के बाद रिपोर्ट करने वाले
+            उम्मीदवारों को लिखित परीक्षा में शामिल होने की अनुमति नहीं दी जाएगी।
+          </li>
+
+          <li>
+            Mobile phones, calculators, smart wristwatches, and any other
+            electronic gadgets are not allowed inside the Test Hall. Candidates
+            found indulging in any malpractice will be disqualified from
+            appearing/completing the Written Test.<br />
+            मोबाइल फोन, कैलकुलेटर, स्मार्ट घड़ियां, और अन्य किसी भी प्रकार के
+            इलेक्ट्रॉनिक उपकरणों को परीक्षा हॉल के अंदर ले जाने की अनुमति नहीं
+            है। किसी भी प्रकार की अनुचित गतिविधि में लिप्त पाए जाने पर
+            उम्मीदवारों को लिखित परीक्षा में शामिल होने या इसे पूरा करने से
+            अयोग्य घोषित कर दिया जाएगा।
+          </li>
+
+          <li>
+            Examination officials will not be responsible for the safe custody
+            of personal belongings, and no such facility will be provided.<br />
+            परीक्षा अधिकारियों द्वारा व्यक्तिगत सामान की सुरक्षित सुरक्षा की
+            जिम्मेदारी नहीं ली जाएगी, और इस प्रकार की कोई सुविधा प्रदान नहीं की
+            जाएगी।
+          </li>
+
+          <li>
+            Candidates are required to appear for the Written Test at their own
+            expense, on the date, time, and venue mentioned above. No request
+            for a change of date, time, or center of the Test will be
+            entertained.<br />
+            उम्मीदवारों को लिखित परीक्षा में शामिल होने के लिए अपने खर्च पर, ऊपर
+            उल्लिखित तिथि, समय और स्थान पर उपस्थित होना आवश्यक है। परीक्षा की
+            तिथि, समय या केंद्र में परिवर्तन के लिए कोई अनुरोध स्वीकार नहीं किया
+            जाएगा।
+          </li>
+
+          <li>
+            There will be no negative marking.<br />
+            नकारात्मक अंकन नहीं होगा।
+          </li>
+
+          <li>
+            At the end of the test, the duly filled/signed Admit Card must be
+            handed over to the invigilator by the candidates.<br />
+            परीक्षा के अंत में, उम्मीदवारों को विधिवत भरा/हस्ताक्षरित प्रवेश
+            पत्र निरीक्षक को सौंपना आवश्यक है।
+          </li>
+
+          <li>
+            Candidates must submit their Admit Card, Question Paper, and OMR
+            Sheet to the classroom invigilator after the completion of the exam.
+            Failure to do so will result in automatic cancellation of their
+            candidature.<br />
+            उम्मीदवारों को परीक्षा समाप्ति के बाद अपना प्रवेश पत्र, प्रश्न पत्र
+            और OMR शीट कक्षा के निरीक्षक को जमा करनी होगी। ऐसा न करने पर उनकी
+            उम्मीदवारी स्वचालित रूप से रद्द हो जाएगी।
+          </li>
+
+          <li>
+            Any information or details regarding the examination or results will
+            be available only on our website (www.rinpas.nic.in).<br />
+            परीक्षा से संबंधित किसी भी जानकारी या परिणाम का विवरण केवल हमारी
+            वेबसाइट (www.rinpas.nic.in) पर ही उपलब्ध होगा।
+          </li>
+        </ol>
+
+        <div class="important">
+          <strong>Important Note:</strong> Candidates are only allowed to carry
+          their Admit Card, photo ID proof, and a black or blue ballpoint pen.
+          Any other material is strictly prohibited inside the Examination
+          Centre. No space or locker will be provided for storing personal
+          belongings.<br /><br />
+          <strong>महत्वपूर्ण सूचना:</strong> उम्मीदवारों को केवल प्रवेश पत्र,
+          फोटो पहचान पत्र, और काला या नीला बॉलपॉइंट पेन लाने की अनुमति है।
+          परीक्षा केंद्र के अंदर कोई अन्य सामग्री सख्ती से प्रतिबंधित है।
+          व्यक्तिगत सामान रखने के लिए कोई स्थान या लॉकर उपलब्ध नहीं कराया जाएगा।
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
