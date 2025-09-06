@@ -1,21 +1,27 @@
 RewriteEngine On
 
-# ब्लॉग पोस्ट के लिए SEO फ्रेंडली URL
-RewriteRule ^blog/([0-9]+)/([a-zA-Z0-9-]+)$ /blog/post.php?id=$1 [L]
-
-# ब्लॉग पेजिनेशन के लिए SEO फ्रेंडली URL
-RewriteRule ^blog/page/([0-9]+)$ /blog/index.php?page=$1 [L]
-
 # Custom 404 Error Page
 ErrorDocument 404 /404.php
 
 # Ensure index.php is the default file
 DirectoryIndex index.php
 
-# Enable Rewrite Engine for clean URLs (if needed)
-RewriteEngine On
+# Remove .php extension from URLs
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^([^.]+)$ $1.php [NC,L]
 
-# Redirect all requests to index.php (if using a framework or clean URLs)
+# Remove .php extension from address bar
+RewriteCond %{THE_REQUEST} /([^.]+)\.php [NC]
+RewriteRule ^ /%1 [NC,L,R=301]
+
+# ब्लॉग पोस्ट के लिए SEO फ्रेंडली URL
+RewriteRule ^blog/([0-9]+)/([a-zA-Z0-9-]+)/?$ /blog/post.php?id=$1 [L]
+
+# ब्लॉग पेजिनेशन के लिए SEO फ्रेंडली URL  
+RewriteRule ^blog/page/([0-9]+)/?$ /blog/index.php?page=$1 [L]
+
+# Framework routing (यह सबसे अंत में होना चाहिए)
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php [L]
